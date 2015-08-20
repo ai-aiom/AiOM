@@ -1,0 +1,29 @@
+<project name="aiom-deploy" default="build" basedir="..">
+	
+	<property name="USER" value="root"></property>
+	<property name="PASSWD" value="123456"></property>
+	<property name="HOST" value="172.16.102.122"></property>
+	<property name="TOMCAT_HOME" value="/usr/local/lib/tomcat"></property>
+	
+	<target name="deploy">
+		<sshexec host="${HOST}" username="${USER}"  password="${PASSWD}" failonerror="false" trust="true" command="
+			ps -ef | grep catalina | grep -v grep | awk '{print $2}' | xargs kill -9;
+			cd ${TOMCAT_HOME}/webapps;
+			rm -rf aiom;
+			rm -rf aiom.war;
+			"/>
+		<scp todir="${USER}:${PASSWD}@${HOST}:${TOMCAT_HOME}/webapps" trust="true">
+			<fileset dir="target">
+				<include name="aiom.war"/>
+			</fileset>
+		</scp>
+		<sshexec host="${HOST}" username="${USER}"  password="${PASSWD}" trust="true" command="
+			cd ${TOMCAT_HOME}/bin;
+			./catalina.sh start;
+			"/>
+	</target>
+	
+	<target name="build">
+		<antcall target="deploy"></antcall>
+	</target>
+</project>

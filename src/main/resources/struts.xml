@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="false" />
+
+	<package name="default" namespace="/" extends="struts-default">
+		
+		<result-types>
+			<result-type name="json" class="com.asiainfo.support.struts2.JsonResult"></result-type>
+		</result-types>
+		
+		<interceptors>
+			<interceptor name="exception" class="com.asiainfo.aiom.exception.ExceptionInterceptor"/>
+			<interceptor name="authorizationcheck" class="com.asiainfo.aiom.login.AuthorizationCheckInterceptor"/>
+			
+			<interceptor-stack name="default-stack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="authorizationcheck"></interceptor-ref>
+				<interceptor-ref name="exception"></interceptor-ref>
+			</interceptor-stack>
+			
+			<interceptor-stack name="default-uncheck-stack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="exception"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="default-stack"></default-interceptor-ref>
+		
+		<global-results>
+			<result name="no-login">/login.jsp</result>
+		</global-results>
+		
+		<action name="login" class="com.asiainfo.aiom.login.LoginAction">
+			<interceptor-ref name="default-uncheck-stack"></interceptor-ref>
+			<result type="json">
+				<param name="property">loginResult</param>
+			</result>
+			<result name="error" type="json">
+				<param name="property">loginResult</param>
+			</result>
+		</action>
+		
+		<action name="logout" class="com.asiainfo.aiom.login.LogoutAction">
+			<result>/login.jsp</result>
+		</action>
+		
+		<action name="main" class="com.asiainfo.aiom.view.MainAction">
+			<result>/WEB-INF/view/main.jsp</result>
+		</action>
+		
+	</package>
+	
+	<include file="com/asiainfo/aiom/view/system/struts.xml"></include>
+	<include file="com/asiainfo/aiom/view/inventory/struts.xml"></include>
+	
+</struts>

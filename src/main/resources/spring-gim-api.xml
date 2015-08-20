@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         classpath:/org/springframework/beans/factory/xml/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context
+         classpath:/org/springframework/context/config/spring-context-3.0.xsd">
+	
+	<bean id="tokenApi" class="com.asiainfo.gim.client.auth.api.TokenApi">
+		<constructor-arg index="0" value="${service.auth.endpoint}" />
+	</bean>
+	
+	<bean id="userApi" class="com.asiainfo.gim.client.auth.api.UserApi">
+		<constructor-arg index="0" value="${service.auth.endpoint}" />
+	</bean>
+	
+	<bean id="roleApi" class="com.asiainfo.gim.client.auth.api.RoleApi">
+		<constructor-arg index="0" value="${service.auth.endpoint}" />
+	</bean>
+	
+	<bean id="locationApi" class="com.asiainfo.gim.client.site.api.LocationApi">
+		<constructor-arg index="0" value="${service.site.endpoint}" />
+	</bean>
+</beans>

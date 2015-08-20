@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<package name="system-location" namespace="/system/location" extends="system">
+		
+		<action name="main">
+			<result>/WEB-INF/view/system/location/main.jsp</result>
+		</action>
+		
+		<action name="list" class="com.asiainfo.aiom.view.system.location.LocationListAction">
+			<result type="json">
+				<param name="property">locations</param>
+			</result>
+		</action>
+		
+		<action name="tolocationadd">
+			<result>/WEB-INF/view/system/location/locationadd.jsp</result>
+		</action>
+		
+		<action name="addlocation" class="com.asiainfo.aiom.view.system.location.LocationAddAction">
+			<result type="json">
+				<param name="property">location</param>
+			</result>
+		</action>
+		 
+		<action name="tolocationupdate" class="com.asiainfo.aiom.view.system.location.LocationUpdateAction" method="initUpdate">
+			<result>/WEB-INF/view/system/location/locationupdate.jsp</result>
+		</action>
+		
+		<action name="updatelocation" class="com.asiainfo.aiom.view.system.location.LocationUpdateAction">
+			<result type="json"></result>
+		</action>
+		
+		<action name="deletelocation" class="com.asiainfo.aiom.view.system.location.LocationDeleteAction">
+			<result type="json"></result>
+		</action>
+		
+	</package>
+	
+</struts>

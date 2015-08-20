@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.asiainfo.aiom.dao.MachineDao">
+	<resultMap id="Machine" type="com.asiainfo.aiom.domain.Machine">
+		<id property="id" column="id" />
+		<result property="name" column="name"/>
+		<result property="description" column="description"/>
+		<result property="type" column="type"/>
+		<result property="serviceEndpoint" column="service_endpoint"/>
+	</resultMap>
+	
+	<select id="listMachines" resultMap="Machine">
+		select * from aiom_machine;
+	</select>
+	
+	<select id="findMachineById" resultMap="Machine" parameterType="java.lang.Integer">
+		select * from aiom_machine where id = #{id};
+	</select>
+	
+	<select id="findMachineByName" resultMap="Machine" parameterType="java.lang.String">
+		select * from aiom_machine where name = #{name};
+	</select>
+	
+	<insert id="insertMachine" parameterType="com.asiainfo.aiom.domain.Machine">
+		insert into aiom_machine(name, description, type, service_endpoint) values(#{name}, #{description}, #{type}, #{serviceEndpoint})
+	</insert>
+	
+	<update id="updateMachine" parameterType="com.asiainfo.aiom.domain.Machine">
+		update aiom_machine set name = #{name}, description = #{description}, type = #{type}, service_endpoint = #{serviceEndpoint}
+		where id = #{id};
+	</update>
+	
+	<delete id="deleteMachine" parameterType="java.lang.Integer">
+		delete from aiom_machine where id = #{id};
+	</delete>
+</mapper>

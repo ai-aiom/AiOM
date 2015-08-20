@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<package name="system-machine" namespace="/system/machine" extends="system">
+		
+		<action name="main">
+			<result>/WEB-INF/view/system/machine/main.jsp</result>
+		</action>
+		
+		<action name="list" class="com.asiainfo.aiom.view.system.machine.MachineListAction">
+			<result type="json">
+				<param name="property">machines</param>
+			</result>
+		</action>
+		
+		<action name="tomachineadd">
+			<result>/WEB-INF/view/system/machine/machineadd.jsp</result>
+		</action>
+		
+		<action name="addmachine" class="com.asiainfo.aiom.view.system.machine.MachineAddAction">
+			<result type="json"></result>
+		</action>
+		
+		<action name="tomachineupdate" class="com.asiainfo.aiom.view.system.machine.MachineUpdateAction" method="initUpdate">
+			<result>/WEB-INF/view/system/machine/machineupdate.jsp</result>
+		</action>
+		
+		<action name="updatemachine" class="com.asiainfo.aiom.view.system.machine.MachineUpdateAction">
+			<result type="json"></result>
+		</action>
+		
+		<action name="deletemachine" class="com.asiainfo.aiom.view.system.machine.MachineDeleteAction">
+			<result type="json"></result>
+		</action>
+		
+	</package>
+	
+</struts>

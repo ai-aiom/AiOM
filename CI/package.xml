@@ -1,0 +1,26 @@
+<project name="aiom-package" default="build" basedir="..">
+	
+	<property name="VERSION" value="1.0"></property>
+	
+	<target name="prepare">
+		<delete dir="temp"></delete>
+		<mkdir dir="temp"/>
+		<mkdir dir="temp/aiom"/>
+	</target>
+	
+	<target name="copyfile">
+		<copydir dest="temp/aiom/conf" src="conf"></copydir>
+		<copy tofile="temp/aiom/aiom.war" file="target/aiom.war"></copy>
+	</target>
+	
+	<target name="package">
+		<zip destfile="temp/aiom.zip" basedir="temp"></zip>
+	</target>
+	
+	<target name="build">
+		<antcall target="prepare"></antcall>
+		<antcall target="copyfile"></antcall>
+		<antcall target="package"></antcall>
+	</target>
+	
+</project>

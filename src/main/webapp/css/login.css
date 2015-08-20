@@ -1,0 +1,47 @@
+body {
+	background: url('../images/login/xingkong_beijing.png') no-repeat;
+	background-size: cover;
+}
+
+#login_panel {
+	position: absolute;
+	height: 254px;
+	width: 404px;
+	text-align: center;
+	background: url('../images/login/baise_beijing.png') no-repeat;
+	padding-top: 10px;
+}
+
+.input_username {
+	width: 183px;
+	height: 29px;
+	padding-left: 35px;
+	margin-top: 10px;
+	border: 0px;
+	background: url('../images/login/shurukuang_1.png') no-repeat;
+}
+
+.input_password {
+	width: 183px;
+	height: 29px;
+	padding-left: 35px;
+	margin-top: 15px;
+	border: 0px;
+	background: url('../images/login/shurukuang_2.png') no-repeat;
+}
+
+.btn {
+	font-family: "Microsoft YaHei", 微软雅黑, Arial;
+	color: #FFFFFF;
+	width: 68px;
+	height: 30px;
+	border: 0px;
+	cursor: pointer;
+	background: url("../images/login/login_btn.png") no-repeat;
+}
+
+.error {
+	color: red;
+	font-size: 12px;
+	margin-top: 5px;
+}

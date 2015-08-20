@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	
+	<package name="system-user" namespace="/system/user" extends="system">
+		
+		<action name="main">
+			<result>/WEB-INF/view/system/user/main.jsp</result>
+		</action>
+		
+		<action name="list" class="com.asiainfo.aiom.view.system.user.UserListAction">
+			<result type="json">
+				<param name="property">users</param>
+			</result>
+		</action>
+		
+		<action name="touseradd">
+			<result>/WEB-INF/view/system/user/useradd.jsp</result>
+		</action>
+		
+		<action name="adduser" class="com.asiainfo.aiom.view.system.user.UserAction" method="addUser">
+			<result type="json">
+				<param name="property">user</param>
+			</result>
+		</action>
+		
+		<action name="touserupdate" class="com.asiainfo.aiom.view.system.user.UserAction" method="initUpdateUser">
+			<result>/WEB-INF/view/system/user/userupdate.jsp</result>
+		</action>
+		
+		<action name="updateuser" class="com.asiainfo.aiom.view.system.user.UserAction" method="updateUser">
+			<result type="json">
+				<param name="property">user</param>
+			</result>
+		</action>
+		
+		<action name="touserupdatepassword" class="com.asiainfo.aiom.view.system.user.UserAction" method="initUpdateUserPassword">
+			<result>/WEB-INF/view/system/user/userupdatepassword.jsp</result>
+		</action>
+		
+		<action name="deleteuser" class="com.asiainfo.aiom.view.system.user.UserAction" method="deleteUser">
+			<result type="json"></result>
+		</action>
+		
+	</package>
+	
+</struts>
