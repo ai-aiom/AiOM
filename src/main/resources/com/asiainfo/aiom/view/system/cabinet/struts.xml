@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<package name="system-cabinet" namespace="/system/cabinet" extends="system">
+		
+		<action name="main">
+			<result>/WEB-INF/view/system/cabinet/main.jsp</result>
+		</action>
+		
+		<action name="list" class="com.asiainfo.aiom.view.system.cabinet.CabinetListAction">
+			<result type="json">
+				<param name="property">cabinets</param>
+			</result>
+		</action>
+		
+		<action name="tocabinetadd">
+			<result>/WEB-INF/view/system/cabinet/cabinetadd.jsp</result>
+		</action>
+		
+		<action name="addcabinet" class="com.asiainfo.aiom.view.system.cabinet.CabinetAddAction">
+			<result type="json">
+				<param name="property">cabinet</param>
+			</result>
+		</action>
+		 
+		<action name="tocabinetupdate" class="com.asiainfo.aiom.view.system.cabinet.CabinetUpdateAction" method="initUpdate">
+			<result>/WEB-INF/view/system/cabinet/cabinetupdate.jsp</result>
+		</action>
+		
+		<action name="updatecabinet" class="com.asiainfo.aiom.view.system.cabinet.CabinetUpdateAction">
+			<result type="json"></result>
+		</action>
+		
+		<action name="deletecabinet" class="com.asiainfo.aiom.view.system.cabinet.CabinetDeleteAction">
+			<result type="json"></result>
+		</action>
+		
+	</package>
+	
+</struts>
