@@ -80,7 +80,7 @@
 						<span>
 							<a id="main_button_show_user_menu" href="javascript: void(0)" style="color: #FFFFFF;">
 								<span><s:property value="#session.user.name" /></span>
-								<span></span>
+								<img src="<%=ctp %>/images/main/icon_sj2.png" style="vertical-align: middle;">
 							</a>
 						</span>
 					</span>
@@ -118,6 +118,7 @@
 		<iframe id="main_frame" name="main_frame" src="" width="100%" height="100%" frameborder="0"></iframe>
 	</div>
 	<div id="main_user_menu">
+		<span></span>
 		<div>修改密码</div>
 		<div id="main_user_menu_system">系统设置</div>
 		<div id="main_user_menu_exit">退出</div>

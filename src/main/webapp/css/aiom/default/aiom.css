@@ -19,16 +19,20 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 	font-family: "Microsoft YaHei", 微软雅黑, Arial;
 	font-size:13px;
 	width: 130px;
-	height: 100px;
-	top: 62px;
+	top: 37px;
 	right: 10px;
 	position: absolute;
 	z-index: 9999;
-	border: solid 1px #DDDDDD;
-	box-shadow: 3px 3px 2px #DFDFDF;
-	-webkit-box-shadow: 3px 3px 2px #DFDFDF;
-	background-color: #FFFFFF;
+	/*box-shadow: 3px 3px 2px #DFDFDF;
+	-webkit-box-shadow: 3px 3px 2px #DFDFDF;*/
 	display: none;
+}
+
+#main_user_menu span {
+	display: inline-block;
+	width: 130px;
+	height: 20px;
+	background: url("../../../images/main/icon_sj.png");
 }
 
 #main_user_menu div {
@@ -37,6 +41,11 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 	padding-left: 10px;
 	cursor: pointer;
 	border-bottom: solid 1px #DDDDDD;
+	border-left: solid 1px #DDDDDD;
+	border-right: solid 1px #DDDDDD;
+	background-color: #FFFFFF;
+	box-shadow: 3px 3px 2px #DFDFDF;
+	-webkit-box-shadow: 3px 3px 2px #DFDFDF;
 }
 
 .sub_menu {
@@ -47,7 +56,7 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 }
 .sub_menu_title {
 	font-family: "Microsoft YaHei", 微软雅黑, Arial;
-	color: #848685;
+	color: #555555;
 	font-size: 16px;
 	font-weight: bold;
 	margin-left: 10px;
@@ -62,21 +71,21 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 }
 .sub_menu_group span {
 	font-family: "Microsoft YaHei", 微软雅黑, Arial;
-	color: #848685;
+	color: #555555;
 	font-size: 14px;
 	font-weight: bold;
 	margin-left: 10px;
 }
 .sub_menu_item {
 	font-family: "Microsoft YaHei", 微软雅黑, Arial;
-	color: #848685;
+	color: #555555;
 	font-size: 13px;
 	margin-left: 20px;
 	cursor: pointer;
 }
 .content_title {
 	font-family: "Microsoft YaHei", 微软雅黑, Arial;
-	color: #848685;
+	color: #555555;
 	font-size: 16px;
 	font-weight: bold;
 	margin: 20px 10px 0px 10px;
@@ -110,7 +119,7 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 }
 .form_fieldset span{
 	font-family: "Microsoft YaHei", 微软雅黑, Arial;
-	color: #848685;
+	color: #555555;
 	font-size: 14px;
 	font-weight: bold;
 	margin-left: 10px;
