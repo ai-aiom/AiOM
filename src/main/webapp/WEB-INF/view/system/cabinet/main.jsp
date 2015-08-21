@@ -16,18 +16,15 @@
 	<script type="text/javascript">
 		
 		$(function(){
-			$('#location_main_grid').datagrid({    
-			    url:'<%=ctp %>/system/location/list.action',
+			$('#cabinet_main_grid').datagrid({    
+			    url:'<%=ctp %>/system/cabinet/list.action',
 			    fit: true,
 			    fitColumns: true,
 			    columns:[[
 			        {field: 'name', title: '名称', width: 100, align: 'center'},
-			        {field: 'site', title: '位置', width: 200, align: 'center'},
-			        {field: 'floor', title: '楼层', width: 100, align: 'center'},
-			        {field: 'room', title: '房间号', width: 100, align: 'center'},
-			        {field: 'description', title: '描述', width: 200, align: 'center'},
+			        {field: 'size', title: '大小', width: 200, align: 'center'},
 			        {field: 'id', title: '操作', width: 100, align: 'center', formatter: function(value, row, index){
-			        	return '<div grid_operation locationId="' + value + '" style="text-align: left"></div>';
+			        	return '<div grid_operation cabinetId="' + value + '" style="text-align: left"></div>';
 			        }}
 			    ]],
 			    onLoadSuccess: function(data){
@@ -46,24 +43,24 @@
 				    		$deleteButton.appendTo($(this));
 				    		
 				    		$editButton.click(function(){
-				    			var locationIdforUpdate = $(this).parent().attr('locationId');
-				    			window.location.href = '<%=ctp %>/system/location/tolocationupdate.action?id=' + locationIdforUpdate;
+				    			var cabinetIdforUpdate = $(this).parent().attr('cabinetId');
+				    			window.location.href = '<%=ctp %>/system/cabinet/tocabinetupdate.action?id=' + cabinetIdforUpdate;
 				    		});
 				    		
 				    		$deleteButton.click(function(){
-				    			var locationIdforDelete = $(this).parent().attr('locationId');
-				    			if (locationIdforDelete == 1){
-				    				$.messager.alert('失败','默认机房无法删除！','warning');
+				    			var cabinetIdforDelete = $(this).parent().attr('cabinetId');
+				    			if (cabinetIdforDelete == 1){
+				    				$.messager.alert('失败','默认机柜无法删除！','warning');
 				    			}else{
-					    			$.messager.confirm('确认删除', '确认要删除此机房', function(r){
+					    			$.messager.confirm('确认删除', '确认要删除此机柜', function(r){
 					    				if (r){
 					    					$.messager.progress({text: '正在处理，请稍后...'});
 					    					$.ajax({
-					    						url: '<%=ctp %>/system/location/deletelocation.action?id=' + locationIdforDelete,
+					    						url: '<%=ctp %>/system/cabinet/deletecabinet.action?id=' + cabinetIdforDelete,
 					    						dataType: 'json',
 					    						success: function(){
 					    							$.messager.progress('close');
-					    							$('#location_main_grid').datagrid('reload');
+					    							$('#cabinet_main_grid').datagrid('reload');
 					    						}
 					    					});
 					    				}
@@ -84,17 +81,17 @@
 <body class="easyui-layout">
 	<div data-options="region:'north', border: false" style="height:50px;">
 		<div class="content_title">
-			<div>机房管理</div>
+			<div>机柜管理</div>
 			<div class="content_title_operation">
-				<a href="tolocationadd.action" style="color: #000000">
+				<a href="tocabinetadd.action" style="color: #000000">
 					<span class="operation_icon_black" style="background-position: 0px -190px"></span>
-					<span>添加机房</span>
+					<span>添加机柜</span>
 				</a>
 			</div>
 		</div>
 	</div>
 	<div data-options="region:'center', border: false" style="padding: 10px">
-		<table id="location_main_grid"></table>
+		<table id="cabinet_main_grid"></table>
 	</div>
 </body>
 </html>
