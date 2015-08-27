@@ -20,7 +20,9 @@
 		}
 		
 		$(function(){
-			
+			$('.sub_menu_item').click(function(){
+				window.content_frame.location.href = $(this).attr('link');
+			});
 		});
 	</script>
 </head>
@@ -35,7 +37,7 @@
 			</div>
 			<div class="sub_menu_group">
 				<span>设备清单</span>
-				<div class="sub_menu_item">服务器</div>
+				<div class="sub_menu_item" link="<%=ctp %>/inventory/server/main.action">服务器</div>
 			</div>
 		</div>
 	</div>

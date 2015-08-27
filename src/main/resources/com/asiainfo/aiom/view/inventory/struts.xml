@@ -13,6 +13,6 @@
 		
 	</package>
 	
-	<include file="server/struts.xml"></include>
+	<include file="com/asiainfo/aiom/view/inventory/server/struts.xml"></include>
 		
 </struts>
