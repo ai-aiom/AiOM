@@ -5,8 +5,39 @@
 
 <struts>
 
-	<package name="machine-server" namespace="/inventory/server" extends="default">
+	<package name="machine-server" namespace="/inventory/server" extends="inventory">
+	
+		<action name="main">
+			<result>/WEB-INF/view/inventory/server/main.jsp</result>
+		</action>
 		
+		<action name="list" class="com.asiainfo.aiom.view.inventory.server.ServerListAction">
+			<result type="json">
+				<param name="property">servers</param>
+			</result>
+		</action>
+		
+		<action name="toserveradd">
+			<result>/WEB-INF/view/inventory/server/serveradd.jsp</result>
+		</action>
+		
+		<action name="addserver" class="com.asiainfo.aiom.view.inventory.server.ServerAddAction">
+			<result type="json">
+				<param name="property">server</param>
+			</result>
+		</action>
+		 
+		<action name="toserverupdate" class="com.asiainfo.aiom.view.inventory.server.ServerUpdateAction" method="initUpdate">
+			<result>/WEB-INF/view/inventory/server/serverupdate.jsp</result>
+		</action>
+		
+		<action name="updateserver" class="com.asiainfo.aiom.view.inventory.server.ServerUpdateAction">
+			<result type="json"></result>
+		</action>
+		
+		<action name="deleteserver" class="com.asiainfo.aiom.view.inventory.server.ServerDeleteAction">
+			<result type="json"></result>
+		</action>
 		
 	</package>
 	
