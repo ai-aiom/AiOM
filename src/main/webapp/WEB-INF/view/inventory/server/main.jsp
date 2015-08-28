@@ -31,7 +31,7 @@
 			        	}
 			        }},
 			        {field: 'ip', title: 'IP', width: 100, align: 'center'},
-			        {field: 'properties.moudleId', title: '所属模块', width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'properties.moduleId', title: '所属模块', width: 100, align: 'center', formatter: function(value, row, index){
 			        	return MACHINE_SERVER_MOUDLE[value] ? MACHINE_SERVER_MOUDLE[value] : value;
 			        }},
 			        {field: 'serverRuntime.cpuRate', title: 'cpu使用率', width: 100, align: 'center'},
@@ -54,12 +54,12 @@
 			    		$deleteButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 			    		$deleteButton.appendTo($(this));
 			    		
-			    		<%-- $editButton.click(function(){
+			    		$editButton.click(function(){
 			    			var serverIdforUpdate = $(this).parent().attr('serverId');
 			    			window.location.href = '<%=ctp %>/inventory/server/toserverupdate.action?id=' + serverIdforUpdate;
-			    		}); --%>
+			    		});
 			    		
-			    		<%-- $deleteButton.click(function(){
+			    		$deleteButton.click(function(){
 			    			var serverIdforDelete = $(this).parent().attr('serverId');
 			    			$.messager.confirm('确认删除', '确认要删除此服务器', function(r){
 			    				if (r){
@@ -74,7 +74,7 @@
 			    					});
 			    				}
 			    			});
-			    		}); --%>
+			    		});
 			    	});
 			    },
 				onClickRow: function (rowIndex, rowData) {
@@ -90,10 +90,10 @@
 		<div class="content_title">
 			<div>服务器管理</div>
 			<div class="content_title_operation">
-				<%-- <a href="toserveradd.action" style="color: #000000">
+				<a href="toserveradd.action" style="color: #000000">
 					<span class="operation_icon_black" style="background-position: 0px -190px"></span>
 					<span>添加服务器</span>
-				</a> --%>
+				</a>
 			</div>
 		</div>
 	</div>

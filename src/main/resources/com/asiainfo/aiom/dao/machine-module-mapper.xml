@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.asiainfo.aiom.dao.MachineModuleDao">
+	<resultMap id="MachineModule" type="com.asiainfo.aiom.domain.MachineModule">
+		<id property="id" column="id" />
+		<result property="name" column="name"/>
+		<result property="machineType" column="machine_type"/>
+	</resultMap>
+	
+	<select id="liMachineModules" resultMap="MachineModule" parameterType="com.asiainfo.aiom.domain.query.MachineModuleQueryCondition">
+		select * from aiom_machine_module
+		<where>
+			<if test="machineType != null">
+				machine_type = #{machineType}
+			</if>
+		</where>
+	</select>
+	
+</mapper>
