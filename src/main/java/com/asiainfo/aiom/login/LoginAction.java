@@ -8,6 +8,8 @@
  */
 package com.asiainfo.aiom.login;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import com.asiainfo.gim.client.auth.api.TokenApi;
 import com.asiainfo.gim.client.auth.domain.Token;
 import com.asiainfo.support.struts2.ResultBean;
@@ -53,6 +55,7 @@ public class LoginAction extends ServletAwareActionSupport
 		Token token = tokenApi.getToken(username, password);
 		session.put("token", token.getId());
 		session.put("user", token.getUser());
+		session.put("password", DigestUtils.md5Hex(password));
 		return SUCCESS;
 	}
 }

@@ -50,6 +50,10 @@
 				$(this).css('display', 'none');
 			});
 			
+			$('#user_update_own_password').click(function(){
+				window.main_frame.location.href = '<%=ctp %>/system/user/touserupdateownpassowrd.action';
+			});
+			
 			$('#main_user_menu_exit').click(function(){
 				window.location.href = '<%=ctp %>/logout.action';
 			});
@@ -79,7 +83,7 @@
 						<span>欢迎</span>
 						<span>
 							<a id="main_button_show_user_menu" href="javascript: void(0)" style="color: #FFFFFF;">
-								<span><s:property value="#session.user.name" /></span>
+								<span><s:property value="#session.user.account" /></span>
 								<img src="<%=ctp %>/images/main/icon_sj2.png" style="vertical-align: middle;">
 							</a>
 						</span>
@@ -119,7 +123,7 @@
 	</div>
 	<div id="main_user_menu">
 		<span></span>
-		<div>修改密码</div>
+		<div id="user_update_own_password">修改密码</div>
 		<div id="main_user_menu_system">系统设置</div>
 		<div id="main_user_menu_exit">退出</div>
 	</div>
