@@ -26,4 +26,8 @@
 	<bean id="cabinetApi" class="com.asiainfo.gim.client.site.api.CabinetApi">
 		<constructor-arg index="0" value="${service.site.endpoint}" />
 	</bean>
+	
+	<bean id="imageApi" class="com.asiainfo.gim.client.deploy.api.ImageApi">
+		<constructor-arg index="0" value="${service.deploy.endpoint}" />
+	</bean>
 </beans>
