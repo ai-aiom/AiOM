@@ -45,6 +45,14 @@
 			<result type="json"></result>
 		</action>
 		
+		<action name="touserupdateownpassowrd">
+			<result>/WEB-INF/view/system/user/userupdateownpassword.jsp</result>
+		</action>
+		
+		<action name="updateuserownpassword" class="com.asiainfo.aiom.view.system.user.UserUpdateOwnPasswordAction">
+			<result type="json"></result>
+		</action>
+		
 	</package>
 	
 </struts>

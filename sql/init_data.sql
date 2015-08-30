@@ -19,3 +19,7 @@ insert into site_datacenter(id, name, description) value('1', '默认', '默认�
 insert into site_location(id, name, description, datacenter_id) value('1', '默认', '默认的机房', '1');
 
 insert into site_cabinet(id, name, location_id) value('1', '默认', '1');
+
+insert into aiom_machine_module(id, name, machine_type) value('1', 'NAMENODE', '1');
+
+insert into aiom_machine_module(id, name, machine_type) value('2', 'DATANODE', '1');

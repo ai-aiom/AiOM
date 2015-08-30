@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	
+	<package name="system-image" namespace="/system/image" extends="system">
+	
+		<action name="main">
+			<result>/WEB-INF/view/system/image/main.jsp</result>
+		</action>
+		
+		<action name="addimage">
+			<result>/WEB-INF/view/system/image/imageadd.jsp</result>
+		</action>
+	
+		<action name="listdistro" class="com.asiainfo.aiom.view.system.image.ImageManagerAction" method="listDistro">
+			<result type="json">
+				<param name="property">distroList</param>
+			</result>
+		</action>
+		
+		<action name="listimage" class="com.asiainfo.aiom.view.system.image.ImageManagerAction" method="listImage">
+			<result type="json">
+				<param name="property">imageList</param>
+			</result>
+		</action>
+		
+		<action name="listisofile" class="com.asiainfo.aiom.view.system.image.ImageManagerAction" method="listIsoFile">
+			<result type="json">
+				<param name="property">isoList</param>
+			</result>
+		</action>
+		
+		<action name="createimage" class="com.asiainfo.aiom.view.system.image.ImageManagerAction" method="createImage">
+			<result type="json">
+				<param name="property">resultBean</param>
+			</result>
+		</action>
+		
+		<action name="deletedistro" class="com.asiainfo.aiom.view.system.image.ImageManagerAction" method="deleteDistro">
+			<result type="json">
+				<param name="property">resultBean</param>
+			</result>
+		</action>
+		
+	</package>
+	
+</struts>

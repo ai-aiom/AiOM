@@ -8,6 +8,10 @@
 */
 package com.asiainfo.aiom.exception;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.ProcessingException;
 
 import org.apache.struts2.ServletActionContext;
@@ -56,23 +60,61 @@ public class ExceptionInterceptor extends AbstractInterceptor
 			if(e.getCause() instanceof UnAuthorizedException)
 			{
 				ServletActionContext.getResponse().setStatus(401);
-				if(isAjax())
-				{
-					return null;
-				}
-				else
-				{
-					return "no-login";
-				}
+				return doResult("no-login", null);
 			}
 			else
 			{
 				return null;
 			}
 		}
-		else
+		else if(e instanceof ValidateException)
+		{
+			ServletActionContext.getResponse().setStatus(409);
+			return doResult("validata-error", e.getMessage());
+		}
+		else 
 		{
 			return null;
 		}
+	}
+	
+	private String doResult(String result, String message)
+	{
+		if(isAjax())
+		{
+			if(message != null)
+			{
+				send(message);
+			}
+			return null;
+		}
+		else
+		{
+			if(message != null)
+			{
+				ServletActionContext.getRequest().setAttribute("message", message);
+			}
+			return result;
+		}
+	}
+	
+	private void send(String body)
+	{
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setCharacterEncoding("UTF-8");
+
+		PrintWriter pw = null;
+		try
+		{
+			pw = response.getWriter();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		pw.write(body);
+		pw.flush();
 	}
 }
