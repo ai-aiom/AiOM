@@ -22,7 +22,7 @@
 			
 			// 取消
 			$('#user_op_update_own_password_cancel').click(function(){
-				window.location.href = '<%=ctp %>/main.action';
+				parent.location.href = '<%=ctp %>/main.action';
 			});
 			
 			// 确定
@@ -37,7 +37,7 @@
 						success: function(data){
 							$.messager.progress('close');
 							$.messager.alert('成功','修改个人密码成功！','info',function(){
-								window.location.href = '<%=ctp %>/main.action';
+								parent.location.href = '<%=ctp %>/main.action';
 							});
 						}
 					});
