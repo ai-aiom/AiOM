@@ -11,6 +11,14 @@
 			<result>/WEB-INF/view/inventory/server/main.jsp</result>
 		</action>
 		
+		<action name="detail">
+			<result>/WEB-INF/view/inventory/server/serverdetail.jsp</result>
+		</action>
+		
+		<action name="summary">
+			<result>/WEB-INF/view/inventory/server/serversummary.jsp</result>
+		</action>
+		
 		<action name="list" class="com.asiainfo.aiom.view.inventory.server.ServerListAction">
 			<result type="json">
 				<param name="property">servers</param>

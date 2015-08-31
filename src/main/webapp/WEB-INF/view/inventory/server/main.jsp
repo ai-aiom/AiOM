@@ -79,6 +79,9 @@
 			    },
 				onClickRow: function (rowIndex, rowData) {
 	                $(this).datagrid('unselectRow', rowIndex);
+	            },
+	            onDblClickRow: function(rowIndex, rowData){
+	            	window.location.href = '<%=ctp%>/inventory/server/detail.action?serverId=' + rowData.id;
 	            }
 			});
 		});

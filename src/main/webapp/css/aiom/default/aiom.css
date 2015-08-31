@@ -127,3 +127,15 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 .form_fieldset table{
 	margin: 10px 0px 0px 50px; 
 }
+
+.info_grid {
+	width: 95%;
+}
+
+.info_grid span{
+	font-family: "Microsoft YaHei", 微软雅黑, Arial;
+	color: #555555;
+	font-size: 12px;
+	font-weight: bold;
+	margin-left: 10px;
+}
