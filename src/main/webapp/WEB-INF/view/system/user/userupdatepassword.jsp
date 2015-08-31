@@ -68,7 +68,6 @@
 	<div data-options="region:'center', border: false" style="padding: 10px">
 		<form id="user_updatepassword_form">
 			<div class="form_fieldset">
-				<span>登录信息</span>
 				<table>
 					<tr>
 						<td width="150">登录帐号</td>
