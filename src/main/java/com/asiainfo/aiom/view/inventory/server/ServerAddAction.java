@@ -9,6 +9,11 @@
  */
 package com.asiainfo.aiom.view.inventory.server;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.asiainfo.aiom.domain.Machine;
 import com.asiainfo.gim.client.server_manage.api.ServerApi;
 import com.asiainfo.gim.client.server_manage.domain.Server;
@@ -47,6 +52,30 @@ public class ServerAddAction extends ServletAwareActionSupport
 		server.getProperties().put("machineId", machineSelected.getId().toString());
 		
 		server = serverApi.addServer(server);
+		return SUCCESS;
+	}
+	
+	public String serverAddByExist()
+	{
+		Machine machineSelected = (Machine) session.get("machine");
+		
+		String moduleId = server.getProperties().get("moduleId");
+		String[] ids = StringUtils.split(server.getId(), ",");
+		
+		for (String id : ids)
+		{
+			Server serverInDb = serverApi.findServerById(StringUtils.trim(id));
+			Map<String, String> properties = serverInDb.getProperties();
+			if (properties == null)
+			{
+				properties = new HashMap<String, String>();
+				serverInDb.setProperties(properties);
+			}
+			properties.put("moduleId", moduleId);
+			properties.put("machineId", machineSelected.getId().toString());
+			
+			serverApi.updateServer(serverInDb);
+		}
 		return SUCCESS;
 	}
 }

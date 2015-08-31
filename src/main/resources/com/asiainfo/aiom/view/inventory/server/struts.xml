@@ -17,6 +17,12 @@
 			</result>
 		</action>
 		
+		<action name="listserveroutofmachine" class="com.asiainfo.aiom.view.inventory.server.ServerListAction" method="listServerOutOfMachine">
+			<result type="json">
+				<param name="property">servers</param>
+			</result>
+		</action>
+		
 		<action name="toserveradd">
 			<result>/WEB-INF/view/inventory/server/serveradd.jsp</result>
 		</action>
@@ -25,6 +31,10 @@
 			<result type="json">
 				<param name="property">server</param>
 			</result>
+		</action>
+		 
+		<action name="serveraddbyexist" class="com.asiainfo.aiom.view.inventory.server.ServerAddAction" method="serverAddByExist">
+			<result type="json"></result>
 		</action>
 		 
 		<action name="toserverupdate" class="com.asiainfo.aiom.view.inventory.server.ServerUpdateAction" method="initUpdate">

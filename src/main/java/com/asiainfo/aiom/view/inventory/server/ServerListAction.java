@@ -9,6 +9,7 @@
  */
 package com.asiainfo.aiom.view.inventory.server;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,6 +31,11 @@ public class ServerListAction extends ServletAwareActionSupport
 	private ServerApi serverApi;
 	private List<Server> servers;
 	
+	public void setServers(List<Server> servers)
+	{
+		this.servers = servers;
+	}
+
 	public List<Server> getServers()
 	{
 		return servers;
@@ -38,6 +44,21 @@ public class ServerListAction extends ServletAwareActionSupport
 	public void setServerApi(ServerApi serverApi)
 	{
 		this.serverApi = serverApi;
+	}
+	
+	public String listServerOutOfMachine()
+	{
+		List<Server> serverInDbs = new ArrayList<Server>();
+		servers	= serverApi.listServers();
+		for (Server server : servers)
+		{
+			if (server.getProperties() == null || !server.getProperties().containsKey("machineId"))
+			{
+				serverInDbs.add(server);
+			}
+		}
+		servers = serverInDbs;
+		return SUCCESS;
 	}
 	
 	public String execute()
@@ -54,4 +75,5 @@ public class ServerListAction extends ServletAwareActionSupport
 		}
 		return SUCCESS;
 	}
+	
 }
