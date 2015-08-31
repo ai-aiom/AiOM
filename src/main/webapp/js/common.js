@@ -11,13 +11,14 @@ $(function(){
 		else if(xhr.status == 409) {
 			$.messager.alert('错误', xhr.responseText, 'error');
 		}
-		
-		try {
-			var fault = $.parseJSON(xhr.responseText);
-			$.messager.alert('错误', fault.errorCode + ' , ' + fault.message, 'error');
-		}
-		catch (e) {
-			$.messager.alert('错误', xhr.responseText, 'error');
+		else {
+			try {
+				var fault = $.parseJSON(xhr.responseText);
+				$.messager.alert('错误', fault.errorCode + ' , ' + fault.message, 'error');
+			}
+			catch (e) {
+				$.messager.alert('错误', xhr.responseText, 'error');
+			}
 		}
 	});
 	
