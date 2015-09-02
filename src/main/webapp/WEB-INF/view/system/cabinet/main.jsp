@@ -48,23 +48,19 @@
 			    		
 			    		$deleteButton.click(function(){
 			    			var cabinetIdforDelete = $(this).parent().attr('cabinetId');
-			    			if (cabinetIdforDelete == 1){
-			    				$.messager.alert('失败','默认机柜无法删除！','warning');
-			    			}else{
-				    			$.messager.confirm('确认删除', '确认要删除此机柜', function(r){
-				    				if (r){
-				    					$.messager.progress({text: '正在处理，请稍后...'});
-				    					$.ajax({
-				    						url: '<%=ctp %>/system/cabinet/deletecabinet.action?id=' + cabinetIdforDelete,
-				    						dataType: 'json',
-				    						success: function(){
-				    							$.messager.progress('close');
-				    							$('#cabinet_main_grid').datagrid('reload');
-				    						}
-				    					});
-				    				}
-				    			});
-			    			}
+			    			$.messager.confirm('确认删除', '确认要删除此机柜', function(r){
+			    				if (r){
+			    					$.messager.progress({text: '正在处理，请稍后...'});
+			    					$.ajax({
+			    						url: '<%=ctp %>/system/cabinet/deletecabinet.action?id=' + cabinetIdforDelete,
+			    						dataType: 'json',
+			    						success: function(){
+			    							$.messager.progress('close');
+			    							$('#cabinet_main_grid').datagrid('reload');
+			    						}
+			    					});
+			    				}
+			    			});
 			    		});
 			    	});
 			    },

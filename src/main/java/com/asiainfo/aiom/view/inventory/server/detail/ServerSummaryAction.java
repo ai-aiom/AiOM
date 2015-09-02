@@ -17,6 +17,8 @@ import com.asiainfo.aiom.Constants;
 import com.asiainfo.gim.client.monitor.domain.Metric;
 import com.asiainfo.gim.client.server_manage.api.ServerApi;
 import com.asiainfo.gim.client.server_manage.domain.Server;
+import com.asiainfo.gim.client.site.api.CabinetApi;
+import com.asiainfo.gim.client.site.domain.Cabinet;
 import com.asiainfo.support.struts2.ServletAwareActionSupport;
 
 /**
@@ -28,6 +30,8 @@ public class ServerSummaryAction extends ServletAwareActionSupport
 	private static final long serialVersionUID = 909337154775659389L;
 	
 	private ServerApi serverApi;
+	
+	private CabinetApi cabinetApi;
 	
 	private Server server;
 	
@@ -58,6 +62,11 @@ public class ServerSummaryAction extends ServletAwareActionSupport
 		this.serverApi = serverApi;
 	}
 	
+	public void setCabinetApi(CabinetApi cabinetApi)
+	{
+		this.cabinetApi = cabinetApi;
+	}
+
 	public String execute()
 	{
 		server = serverApi.findServerById(serverId);
@@ -102,7 +111,12 @@ public class ServerSummaryAction extends ServletAwareActionSupport
 			long runTime = getTime.getTime() - boottime.longValue();
 			SimpleDateFormat sdf2 = new SimpleDateFormat("dd日 HH时mm分ss秒");
 			server.getProperties().put("runtime", sdf2.format(runTime));
-			
+		}
+		
+		if (server.getSite() != null && server.getSite().getRack() != null)
+		{
+			Cabinet cabinet = cabinetApi.findCabinetById(server.getSite().getRack());
+			server.getProperties().put("cabinetName", cabinet.getName());
 		}
 		return SUCCESS;
 	}
