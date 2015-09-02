@@ -21,4 +21,11 @@ public interface Constants
 		public static final int DACP = 3;
 		public static final int ORACLE = 4;
 	}
+	
+	public static interface MonitorType
+	{
+		public static final int ICMP = 1;
+		public static final int SSH = 2;
+		public static final int AGENT = 3;
+	}
 }

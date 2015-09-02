@@ -22,7 +22,9 @@
 			    fit: true,
 			    fitColumns: true,
 			    columns:[[
-			        {field: 'hostname', title: '主机名', width: 100, align: 'center'},
+			        {field: 'ip', title: 'IP', width: 100, align: 'center', formatter: function(value, row, index){
+			        	return '<a href = <%=ctp%>/inventory/server/detail.action?serverId='+row.id+' style="text-align: left">'+value+'</a>';
+			        }},
 			        {field: 'serverRuntime.status', title: '状态', width: 100, align: 'center', formatter: function(value, row, index){
 			        	if(value == 1){
 			        		return '正常';
@@ -30,12 +32,12 @@
 			        		return '不可达';
 			        	}
 			        }},
-			        {field: 'ip', title: 'IP', width: 100, align: 'center'},
+			        {field: 'hostname', title: '主机名', width: 100, align: 'center'},
 			        {field: 'properties.moduleId', title: '所属模块', width: 100, align: 'center', formatter: function(value, row, index){
 			        	return MACHINE_SERVER_MOUDLE[value] ? MACHINE_SERVER_MOUDLE[value] : value;
 			        }},
-			        {field: 'serverRuntime.cpuRate', title: 'cpu使用率', width: 100, align: 'center'},
-			        {field: 'serverRuntime.memoryRate', title: '内存使用率', width: 100, align: 'center'},
+			        {field: 'properties.cpuRate', title: 'cpu使用率', width: 100, align: 'center'},
+			        {field: 'properties.memoryRate', title: '内存使用率', width: 100, align: 'center'},
 			        {field: 'id', title: '操作', width: 100, align: 'center', formatter: function(value, row, index){
 			        	return '<div grid_operation serverId="' + value + '" style="text-align: left"></div>';
 			        }}
