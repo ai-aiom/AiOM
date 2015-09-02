@@ -27,10 +27,9 @@
 				"cabinet.locationId": '<s:property value="cabinet.locationId"/>',
 			});
 			
-			
 			// 取消
 			$('#cabinet_op_update_cancel').click(function(){
-				window.cabinet.href = '<%=ctp %>/system/cabinet/main.action';
+				window.location.href = '<%=ctp %>/system/cabinet/main.action';
 			});
 			
 			// 确定

@@ -25,7 +25,7 @@ public class LocationUpdateAction extends ServletAwareActionSupport
 	
 	private Location location;
 	
-	private String id;
+	private Integer id;
 
 	public Location getLocation()
 	{
@@ -42,12 +42,12 @@ public class LocationUpdateAction extends ServletAwareActionSupport
 		this.locationApi = locationApi;
 	}
 
-	public String getId()
+	public Integer getId()
 	{
 		return id;
 	}
 
-	public void setId(String id)
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}

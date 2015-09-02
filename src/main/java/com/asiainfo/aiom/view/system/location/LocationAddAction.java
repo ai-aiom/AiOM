@@ -42,7 +42,7 @@ public class LocationAddAction extends ServletAwareActionSupport
 	
 	public String execute()
 	{
-		location.setDatacenterId("1");
+		location.setDatacenterId(1);
 		location = locationApi.addLocation(location);
 		return SUCCESS;
 	}
