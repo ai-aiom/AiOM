@@ -15,7 +15,7 @@
 			<result>/WEB-INF/view/inventory/server/serverdetail.jsp</result>
 		</action>
 		
-		<action name="summary">
+		<action name="summary" class="com.asiainfo.aiom.view.inventory.server.detail.ServerSummaryAction">
 			<result>/WEB-INF/view/inventory/server/serversummary.jsp</result>
 		</action>
 		

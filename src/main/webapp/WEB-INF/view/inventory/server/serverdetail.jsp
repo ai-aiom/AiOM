@@ -14,6 +14,7 @@
 	<script type="text/javascript" src="<%=ctp %>/js/easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/common.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/constants.js"></script>
+	<script type="text/javascript" src="<%=ctp %>/js/echarts/dist/echarts.js"></script>
 	<script type="text/javascript">
 		
 		$(function(){
