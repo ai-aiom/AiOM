@@ -382,7 +382,7 @@ require(
 					<table class="info_grid">
 						<tr>
 							<td width=100><span>机架</span></td>
-							<td><s:property value="server.site.rack"/></td>
+							<td><s:property value="server.properties.cabinetName"/></td>
 						</tr>
 						<tr>
 							<td><span>大小</span></td>
