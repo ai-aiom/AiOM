@@ -152,6 +152,53 @@ require(
 		$('#server_summary_machine_panel').panel({
 			title: '一体机'
 		});
+
+		$('#server_summary_site_panel').panel({
+			title: '机架信息',
+			tools: [{
+				iconCls:'icon-edit',
+				handler:function(){
+					$('#server_summary_site_edit').show();
+					$('#server_summary_site_show').hide();
+				}
+			}]
+		});
+		
+		$('#server_edit_site').combobox({
+			url: '<%=ctp %>/system/cabinet/list.action',
+			valueField:'id',
+		    textField:'name'
+		});
+		
+		//编辑机架信息 取消
+		$('#server_summary_site_edit_cancel').click(function(){
+			$('#server_summary_site_show').show();
+			$('#server_summary_site_edit').hide();
+		});
+		
+		//编辑机架信息 确认
+		$('#server_summary_site_edit_submit').click(function(){
+			if($('#server_summary_site_edit_form').form('validate')) {
+				$.messager.progress({text: '正在处理，请稍后...'});
+				$('#server_summary_site_edit_form').ajaxSubmit({
+					url: '<%=ctp %>/inventory/server/updateserversite.action',
+					type: 'POST',
+					method: 'POST',
+					dataType: 'json',
+					success: function(data){
+						$.messager.progress('close');
+						$.messager.alert('成功','修改机架信息成功！','info',function(){
+							$('#server_summary_site_show_table tr:eq(0) td:nth-child(2)').text(data.properties.cabinetName);
+							$('#server_summary_site_show_table tr:eq(1) td:nth-child(2)').text(data.site.size);
+							$('#server_summary_site_show_table tr:eq(2) td:nth-child(2)').text(data.site.slot);
+							
+							$('#server_summary_site_show').show();
+							$('#server_summary_site_edit').hide();
+						});
+					}
+				});
+			}
+		});
 		
 		$('#server_summary_asset_panel').panel({
 			title: '资产信息',
@@ -182,7 +229,14 @@ require(
 					success: function(data){
 						$.messager.progress('close');
 						$.messager.alert('成功','修改资产信息成功！','info',function(){
-							$('#server_detail_summary').load('<%=ctp %>/inventory/server/summary.action?serverId='+data.id);
+							$('#server_summary_asset_show_table tr:eq(0) td:nth-child(2)').text(data.asset.manufacturer);
+							$('#server_summary_asset_show_table tr:eq(1) td:nth-child(2)').text(data.asset.modal);
+							$('#server_summary_asset_show_table tr:eq(2) td:nth-child(2)').text(data.asset.serialsNo);
+							$('#server_summary_asset_show_table tr:eq(3) td:nth-child(2)').text(data.asset.contacter);
+							$('#server_summary_asset_show_table tr:eq(4) td:nth-child(2)').text(data.asset.telephone);
+							
+							$('#server_summary_asset_show').show();
+							$('#server_summary_asset_edit').hide();
 						});
 					}
 				});
@@ -270,57 +324,22 @@ require(
 			}
 		});
 		
-		$('#server_summary_site_panel').panel({
-			title: '机架信息',
+		$('#server_summary_note_panel').panel({
+			title: '备注',
+			height: 100,
 			tools: [{
 				iconCls:'icon-edit',
 				handler:function(){
-					$('#server_edit_site').combobox({
-						url: '<%=ctp %>/system/cabinet/list.action',
-						valueField:'id',
-					    textField:'name'
-					});
-					$('#server_summary_site_edit').show();
-					$('#server_summary_site_show').hide();
+					$('#server_summary_note_panel_edit').show();
+					$('#server_summary_note_panel_show').hide();
 				}
 			}]
 		});
 		
-		//编辑机架信息 取消
-		$('#server_summary_site_edit_cancel').click(function(){
-			$('#server_summary_site_show').show();
-			$('#server_summary_site_edit').hide();
-		});
-		
-		//编辑机架信息 确认
-		$('#server_summary_site_edit_submit').click(function(){
-			if($('#server_summary_site_edit_form').form('validate')) {
-				$.messager.progress({text: '正在处理，请稍后...'});
-				$('#server_summary_site_edit_form').ajaxSubmit({
-					url: '<%=ctp %>/inventory/server/updateserversite.action',
-					type: 'POST',
-					method: 'POST',
-					dataType: 'json',
-					success: function(data){
-						$.messager.progress('close');
-						$.messager.alert('成功','修改机架信息成功！','info',function(){
-							$('#server_summary_site_show_table tr:eq(0) td:nth-child(2)').text(data.properties.cabinetName);
-							$('#server_summary_site_show_table tr:eq(1) td:nth-child(2)').text(data.site.size);
-							$('#server_summary_site_show_table tr:eq(2) td:nth-child(2)').text(data.site.slot);
-							alert(data.site.rack);
-							$('#server_edit_site').val(data.site.rack);
-							$('#server_edit_site').combobox('setValue',data.site.rack);
-							$('#server_summary_site_show').show();
-							$('#server_summary_site_edit').hide();
-						});
-					}
-				});
-			}
-		});
-		
-		$('#server_summary_note_panel').panel({
-			title: '备注',
-			height: 100
+		//编辑备注信息 取消
+		$('#server_summary_note_panel_edit_cancel').click(function(){
+			$('#server_summary_note_panel_show').show();
+			$('#server_summary_note_panel_edit').hide();
 		});
 		
 		$('#server_summary_perfermance_panel').panel({
@@ -519,7 +538,7 @@ require(
 				<br/>
 				<div id="server_summary_asset_panel">
 					<div id="server_summary_asset_show" style="display: block">
-						<table class="info_grid">
+						<table id="server_summary_asset_show_table" class="info_grid">
 							<tr>
 								<td width=100><span>厂商</span></td>
 								<td><s:property value="server.asset.manufacturer"/></td>
@@ -706,7 +725,27 @@ require(
 				</div>
 				<br/>
 				<div id="server_summary_note_panel">
-					<s:property value="server.asset.note"/>
+					<div id="server_summary_note_panel_show" style="display: block">
+						<table>
+							<tr>
+								<td><s:property value="server.asset.note"/></td>
+							</tr>
+						</table>
+					</div>
+					<div id="server_summary_note_panel_edit" style="display: none">
+						<form id="server_summary_note_panel_edit_form">
+							<table>
+								<tr>
+									<td><input class="easyui-textbox" data-options="validType:['maxLength[250]']" name="note" value="<s:property value="server.asset.note"/>" style="width: 650px"></td>
+								</tr>
+							</table>
+							<input type="hidden" name="id" value="<s:property value="#parameters.serverId"/>">
+						</form>
+						<div style="text-align: right;padding: 5px">
+							<a id="server_summary_note_panel_edit_submit" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">确定</a>  
+							<a id="server_summary_note_panel_edit_cancel" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">取消</a>
+						</div>
+					</div>
 				</div>
 			</td>
 		</tr>
