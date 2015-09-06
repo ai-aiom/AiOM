@@ -486,6 +486,14 @@ require(
 		}else{
 			$('#swap_free').text(swapFreeValue + swapFreeUnit);
 		}
+		
+		var procRun = '<s:property value="server.serverRuntime.metrics.proc_run.value"/>';
+		var procTotal = '<s:property value="server.serverRuntime.metrics.proc_total.value"/>';
+		if (procRun != "" && procTotal != ""){
+			procRun = Math.round(procRun);
+			procTotal = Math.round(procTotal);
+			$('#server_proc').text(procRun + " / " + procTotal);
+		}
 	})
 </script>
 
@@ -814,6 +822,10 @@ require(
 						<tr>
 							<td><span>交换分区</span></td>
 							<td><div id="swap_free"></div></td>
+						</tr>
+						<tr>
+							<td><span>进程</span></td>
+							<td><div id="server_proc"></div></td>
 						</tr>
 					</table>
 				</div>
