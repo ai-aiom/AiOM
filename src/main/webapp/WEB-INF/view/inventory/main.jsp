@@ -32,7 +32,7 @@
 			<div class="sub_menu_title">资源清单</div>
 			<div class="sub_menu_group">
 				<span>视图</span>
-				<div class="sub_menu_item">机架视图</div>
+				<div class="sub_menu_item" link="<%=ctp %>/inventory/rackview.action">机柜视图</div>
 				<div class="sub_menu_item">拓扑结构</div>
 			</div>
 			<div class="sub_menu_group">
