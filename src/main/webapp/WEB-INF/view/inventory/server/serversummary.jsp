@@ -139,6 +139,7 @@ require(
 </script>
 <script type="text/javascript">
 	$(function(){
+		$.parser.parse('#server_summary_main_body');
 		
 		$('#server_summary_info_panel').panel({
 			title: '服务器详情',
@@ -153,19 +154,168 @@ require(
 		});
 		
 		$('#server_summary_asset_panel').panel({
-			title: '资产信息'
+			title: '资产信息',
+			tools: [{
+				iconCls:'icon-edit',
+				handler:function(){
+					$('#server_summary_asset_edit').show();
+					$('#server_summary_asset_show').hide();
+				}
+			}]
+		});
+		
+		//编辑资产信息 取消
+		$('#server_summary_asset_edit_cancel').click(function(){
+			$('#server_summary_asset_show').show();
+			$('#server_summary_asset_edit').hide();
+		});
+		
+		//编辑资产信息 确认
+		$('#server_summary_asset_edit_submit').click(function(){
+			if($('#server_summary_asset_edit_form').form('validate')) {
+				$.messager.progress({text: '正在处理，请稍后...'});
+				$('#server_summary_asset_edit_form').ajaxSubmit({
+					url: '<%=ctp %>/inventory/server/updateserverasset.action',
+					type: 'POST',
+					method: 'POST',
+					dataType: 'json',
+					success: function(data){
+						$.messager.progress('close');
+						$.messager.alert('成功','修改资产信息成功！','info',function(){
+							$('#server_detail_summary').load('<%=ctp %>/inventory/server/summary.action?serverId='+data.id);
+						});
+					}
+				});
+			}
 		});
 		
 		$('#server_summary_ssh_panel').panel({
-			title: 'SSH信息'
+			title: 'SSH信息',
+			tools: [{
+				iconCls:'icon-edit',
+				handler:function(){
+					$('#server_summary_ssh_edit').show();
+					$('#server_summary_ssh_show').hide();
+				}
+			}]
+		});
+		
+		//编辑SSH信息 取消
+		$('#server_summary_ssh_edit_cancel').click(function(){
+			$('#server_summary_ssh_show').show();
+			$('#server_summary_ssh_edit').hide();
+		});
+		
+		//编辑SSH信息 确认
+		$('#server_summary_ssh_edit_submit').click(function(){
+			if($('#server_summary_ssh_edit_form').form('validate')) {
+				$.messager.progress({text: '正在处理，请稍后...'});
+				$('#server_summary_ssh_edit_form').ajaxSubmit({
+					url: '<%=ctp %>/inventory/server/updateserverssh.action',
+					type: 'POST',
+					method: 'POST',
+					dataType: 'json',
+					success: function(data){
+						$.messager.progress('close');
+						$.messager.alert('成功','修改SSH信息成功！','info',function(){
+							$('#server_summary_ssh_show_table tr:eq(0) td:nth-child(2)').text(data.ssh.host);
+							$('#server_summary_ssh_show_table tr:eq(1) td:nth-child(2)').text(data.ssh.port);
+							$('#server_summary_ssh_show_table tr:eq(2) td:nth-child(2)').text(data.ssh.username);
+							
+							$('#server_summary_ssh_show').show();
+							$('#server_summary_ssh_edit').hide();
+						});
+					}
+				});
+			}
 		});
 		
 		$('#server_summary_ipmi_panel').panel({
-			title: 'IPMI信息'
+			title: 'IPMI信息',
+			tools: [{
+				iconCls:'icon-edit',
+				handler:function(){
+					$('#server_summary_ipmi_edit').show();
+					$('#server_summary_ipmi_show').hide();
+				}
+			}]
 		});
 		
-		$('#server_summary_cabinet_panel').panel({
-			title: '机架信息'
+		//编辑IPMI信息 取消
+		$('#server_summary_ipmi_edit_cancel').click(function(){
+			$('#server_summary_ipmi_show').show();
+			$('#server_summary_ipmi_edit').hide();
+		});
+		
+		//编辑IPMI信息 确认
+		$('#server_summary_ipmi_edit_submit').click(function(){
+			if($('#server_summary_ipmi_edit_form').form('validate')) {
+				$.messager.progress({text: '正在处理，请稍后...'});
+				$('#server_summary_ipmi_edit_form').ajaxSubmit({
+					url: '<%=ctp %>/inventory/server/updateserveripmi.action',
+					type: 'POST',
+					method: 'POST',
+					dataType: 'json',
+					success: function(data){
+						$.messager.progress('close');
+						$.messager.alert('成功','修改IPMI信息成功！','info',function(){
+							$('#server_summary_ipmi_show_table tr:eq(0) td:nth-child(2)').text(data.ipmi.host);
+							$('#server_summary_ipmi_show_table tr:eq(1) td:nth-child(2)').text(data.ipmi.username);
+							
+							$('#server_summary_ipmi_show').show();
+							$('#server_summary_ipmi_edit').hide();
+						});
+					}
+				});
+			}
+		});
+		
+		$('#server_summary_site_panel').panel({
+			title: '机架信息',
+			tools: [{
+				iconCls:'icon-edit',
+				handler:function(){
+					$('#server_edit_site').combobox({
+						url: '<%=ctp %>/system/cabinet/list.action',
+						valueField:'id',
+					    textField:'name'
+					});
+					$('#server_summary_site_edit').show();
+					$('#server_summary_site_show').hide();
+				}
+			}]
+		});
+		
+		//编辑机架信息 取消
+		$('#server_summary_site_edit_cancel').click(function(){
+			$('#server_summary_site_show').show();
+			$('#server_summary_site_edit').hide();
+		});
+		
+		//编辑机架信息 确认
+		$('#server_summary_site_edit_submit').click(function(){
+			if($('#server_summary_site_edit_form').form('validate')) {
+				$.messager.progress({text: '正在处理，请稍后...'});
+				$('#server_summary_site_edit_form').ajaxSubmit({
+					url: '<%=ctp %>/inventory/server/updateserversite.action',
+					type: 'POST',
+					method: 'POST',
+					dataType: 'json',
+					success: function(data){
+						$.messager.progress('close');
+						$.messager.alert('成功','修改机架信息成功！','info',function(){
+							$('#server_summary_site_show_table tr:eq(0) td:nth-child(2)').text(data.properties.cabinetName);
+							$('#server_summary_site_show_table tr:eq(1) td:nth-child(2)').text(data.site.size);
+							$('#server_summary_site_show_table tr:eq(2) td:nth-child(2)').text(data.site.slot);
+							alert(data.site.rack);
+							$('#server_edit_site').val(data.site.rack);
+							$('#server_edit_site').combobox('setValue',data.site.rack);
+							$('#server_summary_site_show').show();
+							$('#server_summary_site_edit').hide();
+						});
+					}
+				});
+			}
 		});
 		
 		$('#server_summary_note_panel').panel({
@@ -180,6 +330,13 @@ require(
 		$('#server_summary_status_panel').panel({
 			title: '运行状态'
 		});
+		
+		var serverRuntimeStatus = <s:property value="server.serverRuntime.status"/>;
+		if (serverRuntimeStatus == 1){
+			$('#server_runtime_status').text("正常");
+		}else{
+			$('#server_runtime_status').text("不可达");
+		}
 		
 		var monitorType = <s:property value="server.monitorType"/>;
 		switch (monitorType) {
@@ -229,21 +386,14 @@ require(
 			break;
 		}
 		
-		var swapFreeValue = '<s:property value="server.serverRuntime.metrics.swap_free.value"/>'; 
-		var swapFreeUnit = '<s:property value="server.serverRuntime.metrics.swap_free.unit"/>';
-		if (swapFreeUnit == "KB"){
-			swapFreeValue = Math.round(swapFreeValue/1024);
-			$('#swap_free').text(swapFreeValue + "M");
-		}else{
-			$('#swap_free').text(swapFreeValue + swapFreeUnit);
-		}
-		
 		var cpuNumValue = '<s:property value="server.serverRuntime.metrics.cpu_num.value"/>'; 
-		var cpuNumUnit = '<s:property value="server.serverRuntime.metrics.cpu_num.unit"/>';
-		if (cpuNumUnit == "CPUs"){
+		var cpuSpeedValue = '<s:property value="server.serverRuntime.metrics.cpu_speed.value"/>'; 
+		var cpuSpeedUnit = '<s:property value="server.serverRuntime.metrics.cpu_speed.unit"/>';
+		if (cpuSpeedUnit == "MHz"){
 			cpuNumValue = Math.round(cpuNumValue);
+			cpuSpeedValue = Math.round(cpuSpeedValue);
+			$('#cpu_num').text(cpuNumValue + " x " + cpuSpeedValue + " " + cpuSpeedUnit);
 		}
-		$('#cpu_num').text(cpuNumValue + " " + cpuNumUnit);
 		
 		var memoryTotalValue = '<s:property value="server.serverRuntime.metrics.mem_total.value"/>';   
 		var memoryTotalUnit = '<s:property value="server.serverRuntime.metrics.mem_total.unit"/>';
@@ -254,12 +404,18 @@ require(
 			$('#memory_size').text(memoryTotalValue + memoryTotalUnit);
 		}
 		
-		/* var monitorType = <s:property value="server.monitorType"/>;
-		var status = <s:property value="server.serverRuntime.status"/>; */
+		var swapFreeValue = '<s:property value="server.serverRuntime.metrics.swap_free.value"/>'; 
+		var swapFreeUnit = '<s:property value="server.serverRuntime.metrics.swap_free.unit"/>';
+		if (swapFreeUnit == "KB"){
+			swapFreeValue = Math.round(swapFreeValue/1024);
+			$('#swap_free').text(swapFreeValue + "M");
+		}else{
+			$('#swap_free').text(swapFreeValue + swapFreeUnit);
+		}
 	})
 </script>
 
-<div>
+<div id="server_summary_main_body">
 	<table style="width: 100%; border-spacing: 0px; border-collapse: collapse;">
 		<s:set name="serverMonitorType" value="%{server.monitorType}" />
 		<s:set name="serverStatus" value="%{server.serverRuntime.status}" />
@@ -268,7 +424,11 @@ require(
 				<div id="server_summary_info_panel">
 					<table class="info_grid">
 						<tr>
-							<td width=100><span>IP</span></td>
+							<td width=100><span>状态</span></td>
+							<td><div id="server_runtime_status"></div></td>
+						</tr>
+						<tr>
+							<td><span>IP</span></td>
 							<td><s:property value="server.ip"/></td>
 						</tr>
 						<tr>
@@ -315,84 +475,188 @@ require(
 					</table>
 				</div>
 				<br/>
+				<div id="server_summary_site_panel">
+					<div id="server_summary_site_show" style="display: block">
+						<table id="server_summary_site_show_table" class="info_grid">
+							<tr>
+								<td width=100><span>机架</span></td>
+								<td><s:property value="server.properties.cabinetName"/></td>
+							</tr>
+							<tr>
+								<td><span>大小</span></td>
+								<td><s:property value="server.site.size"/></td>
+							</tr>
+							<tr>
+								<td><span>槽位</span></td>
+								<td><s:property value="server.site.slot"/></td>
+							</tr>
+						</table>
+					</div>
+					<div id="server_summary_site_edit" style="display: none">
+						<form id="server_summary_site_edit_form">
+							<table class="info_grid">
+								<tr>
+									<td width=100><span>机架</span></td>
+									<td><input id="server_edit_site" class="easyui-textbox" data-options="editable:false" name="site.rack" value="<s:property value="server.site.rack"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>大小</span></td>
+									<td><input class="easyui-textbox" data-options="validType:['maxLength[40]']" name="site.size" value="<s:property value="server.site.size"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>槽位</span></td>
+									<td><input class="easyui-textbox" data-options="validType:['maxLength[40]']" name="site.slot" value="<s:property value="server.site.slot"/>" style="width: 150px"></td>
+								</tr>
+							</table>
+							<input type="hidden" name="id" value="<s:property value="#parameters.serverId"/>">
+						</form>
+						<div style="text-align: right;padding: 5px">
+							<a id="server_summary_site_edit_submit" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">确定</a>  
+							<a id="server_summary_site_edit_cancel" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">取消</a>
+						</div>
+					</div>
+				</div>
+				<br/>
 				<div id="server_summary_asset_panel">
-					<table class="info_grid">
-						<tr>
-							<td width=100><span>厂商</span></td>
-							<td><s:property value="server.asset.manufacturer"/></td>
-						</tr>
-						<tr>
-							<td><span>型号</span></td>
-							<td><s:property value="server.asset.modal"/></td>
-						</tr>
-						<tr>
-							<td><span>序列号</span></td>
-							<td><s:property value="server.asset.serialsNo"/></td>
-						</tr>
-						<tr>
-							<td><span>联系人</span></td>
-							<td><s:property value="server.asset.contacter"/></td>
-						</tr>
-						<tr>
-							<td><span>联系电话</span></td>
-							<td><s:property value="server.asset.telephone"/></td>
-						</tr>
-					</table>
+					<div id="server_summary_asset_show" style="display: block">
+						<table class="info_grid">
+							<tr>
+								<td width=100><span>厂商</span></td>
+								<td><s:property value="server.asset.manufacturer"/></td>
+							</tr>
+							<tr>
+								<td><span>型号</span></td>
+								<td><s:property value="server.asset.modal"/></td>
+							</tr>
+							<tr>
+								<td><span>序列号</span></td>
+								<td><s:property value="server.asset.serialsNo"/></td>
+							</tr>
+							<tr>
+								<td><span>联系人</span></td>
+								<td><s:property value="server.asset.contacter"/></td>
+							</tr>
+							<tr>
+								<td><span>联系电话</span></td>
+								<td><s:property value="server.asset.telephone"/></td>
+							</tr>
+						</table>
+					</div>
+					<div id="server_summary_asset_edit" style="display: none">
+						<form id="server_summary_asset_edit_form">
+							<table class="info_grid">
+								<tr>
+									<td width=100><span>厂商</span></td>
+									<td><input class="easyui-textbox" data-options="validType:['maxLength[40]']" name="asset.manufacturer" value="<s:property value="server.asset.manufacturer"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>型号</span></td>
+									<td><input class="easyui-textbox" data-options="validType:['maxLength[40]']" name="asset.modal" value="<s:property value="server.asset.modal"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>序列号</span></td>
+									<td><input class="easyui-textbox" data-options="validType:['maxLength[40]']" name="asset.serialsNo" value="<s:property value="server.asset.serialsNo"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>联系人</span></td>
+									<td><input class="easyui-textbox" data-options="validType:['maxLength[40]']" name="asset.contacter" value="<s:property value="server.asset.contacter"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>联系电话</span></td>
+									<td><input class="easyui-textbox" data-options="validType:['maxLength[40]']" name="asset.telephone" value="<s:property value="server.asset.telephone"/>" style="width: 150px"></td>
+								</tr>
+							</table>
+							<input type="hidden" name="id" value="<s:property value="#parameters.serverId"/>">
+						</form>
+						<div style="text-align: right;padding: 5px">
+							<a id="server_summary_asset_edit_submit" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">确定</a>  
+							<a id="server_summary_asset_edit_cancel" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">取消</a>
+						</div>
+					</div>
 				</div>
 				<br/>
 				<div id="server_summary_ssh_panel">
-					<table class="info_grid">
-						<tr>
-							<td width=100><span>主机</span></td>
-							<td><s:property value="server.ssh.host"/></td>
-						</tr>
-						<tr>
-							<td><span>端口</span></td>
-							<td><s:property value="server.ssh.port"/></td>
-						</tr>
-						<tr>
-							<td><span>账号</span></td>
-							<td><s:property value="server.ssh.username"/></td>
-						</tr>
-						<%-- <tr>
-							<td><span>密码</span></td>
-							<td><s:property value="server.ssh.password"/></td>
-						</tr> --%>
-					</table>
+					<div id="server_summary_ssh_show" style="display: block">
+						<table id="server_summary_ssh_show_table" class="info_grid">
+							<tr>
+								<td width=100><span>主机</span></td>
+								<td><s:property value="server.ssh.host"/></td>
+							</tr>
+							<tr>
+								<td><span>端口</span></td>
+								<td><s:property value="server.ssh.port"/></td>
+							</tr>
+							<tr>
+								<td><span>账号</span></td>
+								<td><s:property value="server.ssh.username"/></td>
+							</tr>
+						</table>
+					</div>
+					<div id="server_summary_ssh_edit" style="display: none">
+						<form id="server_summary_ssh_edit_form">
+							<table class="info_grid">
+								<tr>
+									<td width=100><span>主机</span></td>
+									<td><input class="easyui-textbox" data-options="required:true,validType:['maxLength[40]']" name="ssh.host" value="<s:property value="server.ssh.host"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>端口</span></td>
+									<td><input class="easyui-textbox" data-options="required:true,validType:['maxLength[12]']" name="ssh.port" value="<s:property value="server.ssh.port"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>账号</span></td>
+									<td><input class="easyui-textbox" data-options="required:true,validType:['maxLength[40]']" name="ssh.username" value="<s:property value="server.ssh.username"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>密码</span></td>
+									<td><input class="easyui-textbox" type="password" data-options="required:true,validType:['maxLength[40]']" name="ssh.password" value="<s:property value="server.ssh.password"/>" style="width: 150px"></td>
+								</tr>
+							</table>
+							<input type="hidden" name="id" value="<s:property value="#parameters.serverId"/>">
+						</form>
+						<div style="text-align: right;padding: 5px">
+							<a id="server_summary_ssh_edit_submit" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">确定</a>  
+							<a id="server_summary_ssh_edit_cancel" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">取消</a>
+						</div>
+					</div>
 				</div>
 				<br/>
 				<div id="server_summary_ipmi_panel">
-					<table class="info_grid">
-						<tr>
-							<td width=100><span>主机</span></td>
-							<td><s:property value="server.ipmi.host"/></td>
-						</tr>
-						<tr>
-							<td><span>账号</span></td>
-							<td><s:property value="server.ipmi.username"/></td>
-						</tr>
-						<%-- <tr>
-							<td><span>密码</span></td>
-							<td><s:property value="server.ipmi.password"/></td>
-						</tr> --%>
-					</table>
-				</div>
-				<br/>
-				<div id="server_summary_cabinet_panel">
-					<table class="info_grid">
-						<tr>
-							<td width=100><span>机架</span></td>
-							<td><s:property value="server.properties.cabinetName"/></td>
-						</tr>
-						<tr>
-							<td><span>大小</span></td>
-							<td><s:property value="server.site.size"/></td>
-						</tr>
-						<tr>
-							<td><span>槽位</span></td>
-							<td><s:property value="server.site.slot"/></td>
-						</tr>
-					</table>
+					<div id="server_summary_ipmi_show" style="display: block">
+						<table id="server_summary_ipmi_show_table" class="info_grid">
+							<tr>
+								<td width=100><span>主机</span></td>
+								<td><s:property value="server.ipmi.host"/></td>
+							</tr>
+							<tr>
+								<td><span>账号</span></td>
+								<td><s:property value="server.ipmi.username"/></td>
+							</tr>
+						</table>
+					</div>
+					<div id="server_summary_ipmi_edit" style="display: none">
+						<form id="server_summary_ipmi_edit_form">
+							<table class="info_grid">
+								<tr>
+									<td width=100><span>主机</span></td>
+									<td><input class="easyui-textbox" data-options="required:true,validType:['maxLength[40]']" name="ipmi.host" value="<s:property value="server.ipmi.host"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>账号</span></td>
+									<td><input class="easyui-textbox" data-options="required:true,validType:['maxLength[40]']" name="ipmi.username" value="<s:property value="server.ipmi.username"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>密码</span></td>
+									<td><input class="easyui-textbox" type="password" data-options="required:true,validType:['maxLength[40]']" name="ipmi.password" value="<s:property value="server.ipmi.password"/>" style="width: 150px"></td>
+								</tr>
+							</table>
+							<input type="hidden" name="id" value="<s:property value="#parameters.serverId"/>">
+						</form>
+						<div style="text-align: right;padding: 5px">
+							<a id="server_summary_ipmi_edit_submit" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">确定</a>  
+							<a id="server_summary_ipmi_edit_cancel" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">取消</a>
+						</div>
+					</div>
 				</div>
 			</td>
 			<td style="vertical-align: top; padding-left: 5px;">
@@ -420,20 +684,18 @@ require(
 							<td><span>CPU使用率</span></td>
 							<td>
 								<s:if test="#serverMonitorType == 3 && #serverStatus == 1">
-								系统   <s:property value="server.serverRuntime.metrics.cpu_system.value"/>   <s:property value="server.serverRuntime.metrics.cpu_system.unit"/>  
-								用户   <s:property value="server.serverRuntime.metrics.cpu_user.value"/>   <s:property value="server.serverRuntime.metrics.cpu_user.unit"/>   
-								等待IO   <s:property value="server.serverRuntime.metrics.cpu_wio.value"/>   <s:property value="server.serverRuntime.metrics.cpu_wio.unit"/>   
+								system <s:property value="server.serverRuntime.metrics.cpu_system.value"/> <s:property value="server.serverRuntime.metrics.cpu_system.unit"/>&nbsp&nbsp&nbsp   
+								user <s:property value="server.serverRuntime.metrics.cpu_user.value"/> <s:property value="server.serverRuntime.metrics.cpu_user.unit"/>&nbsp&nbsp&nbsp    
+								wio <s:property value="server.serverRuntime.metrics.cpu_wio.value"/> <s:property value="server.serverRuntime.metrics.cpu_wio.unit"/>   
 								</s:if>
 							</td>
 						</tr>
 						<tr>
 							<td><span>负载</span></td>
 							<td>
-								<s:if test="#serverMonitorType == 3 && #serverStatus == 1">
-								1秒负载   <s:property value="server.serverRuntime.metrics.load_one.value"/>         
-								5秒负载   <s:property value="server.serverRuntime.metrics.load_five.value"/>          
-								15秒负载   <s:property value="server.serverRuntime.metrics.load_fifteen.value"/>         
-								</s:if>
+								<s:property value="server.serverRuntime.metrics.load_one.value"/>&nbsp&nbsp&nbsp         
+								<s:property value="server.serverRuntime.metrics.load_five.value"/>&nbsp&nbsp&nbsp        
+							    <s:property value="server.serverRuntime.metrics.load_fifteen.value"/>       
 							</td>
 						</tr>
 						<tr>

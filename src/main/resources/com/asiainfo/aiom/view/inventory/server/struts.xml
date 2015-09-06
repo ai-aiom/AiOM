@@ -57,6 +57,29 @@
 			<result type="json"></result>
 		</action>
 		
+		<action name="updateserverasset" class="com.asiainfo.aiom.view.inventory.server.detail.ServerSummaryAssetAction">
+			<result type="json">
+				<param name="property">server</param>
+			</result>
+		</action>
+		
+		<action name="updateserverssh" class="com.asiainfo.aiom.view.inventory.server.detail.ServerSummarySshAction">
+			<result type="json">
+				<param name="property">server</param>
+			</result>
+		</action>
+		
+		<action name="updateserveripmi" class="com.asiainfo.aiom.view.inventory.server.detail.ServerSummaryIpmiAction">
+			<result type="json">
+				<param name="property">server</param>
+			</result>
+		</action>		
+		
+		<action name="updateserversite" class="com.asiainfo.aiom.view.inventory.server.detail.ServerSummarySiteAction">
+			<result type="json">
+				<param name="property">server</param>
+			</result>
+		</action>
 	</package>
 	
 </struts>
