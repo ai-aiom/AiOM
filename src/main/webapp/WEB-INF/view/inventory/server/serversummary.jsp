@@ -145,8 +145,41 @@ require(
 			title: '服务器详情',
 			tools: [{
 				iconCls:'icon-edit',
-				handler:function(){alert('edit')}
+				handler:function(){
+					$('#server_summary_info_edit').show();
+					$('#server_summary_info_show').hide();
+				}
 			}]
+		});
+		
+		//编辑服务器详情 取消
+		$('#server_summary_info_edit_cancel').click(function(){
+			$('#server_summary_info_show').show();
+			$('#server_summary_info_edit').hide();
+		});
+		
+		//编辑服务器详情 确认
+		$('#server_summary_info_edit_submit').click(function(){
+			if($('#server_summary_info_edit_form').form('validate')) {
+				$.messager.progress({text: '正在处理，请稍后...'});
+				$('#server_summary_info_edit_form').ajaxSubmit({
+					url: '<%=ctp %>/inventory/server/updateserverinfo.action',
+					type: 'POST',
+					method: 'POST',
+					dataType: 'json',
+					success: function(data){
+						$.messager.progress('close');
+						$.messager.alert('成功','修改服务器详情成功！','info',function(){
+							$('#server_summary_info_show_table tr:eq(1) td:nth-child(2)').text(data.ip);
+							$('#server_summary_info_show_table tr:eq(3) td:nth-child(2)').text(data.alias);
+							$('#server_summary_info_show_table tr:eq(8) td:nth-child(2)').text($('#server_monitor_type_edit').combobox('getText'));
+							
+							$('#server_summary_info_show').show();
+							$('#server_summary_info_edit').hide();
+						});
+					}
+				});
+			}
 		});
 		
 		$('#server_summary_machine_panel').panel({
@@ -342,6 +375,28 @@ require(
 			$('#server_summary_note_panel_edit').hide();
 		});
 		
+		//编辑备注信息 确认
+		$('#server_summary_note_panel_edit_submit').click(function(){
+			if($('#server_summary_note_panel_edit_form').form('validate')) {
+				$.messager.progress({text: '正在处理，请稍后...'});
+				$('#server_summary_note_panel_edit_form').ajaxSubmit({
+					url: '<%=ctp %>/inventory/server/updateservernote.action',
+					type: 'POST',
+					method: 'POST',
+					dataType: 'json',
+					success: function(data){
+						$.messager.progress('close');
+						$.messager.alert('成功','修改备注信息成功！','info',function(){
+							$('#server_summary_note_panel_show_table tr:eq(0) td:nth-child(1)').text(data.asset.note);
+							
+							$('#server_summary_note_panel_show').show();
+							$('#server_summary_note_panel_edit').hide();
+						});
+					}
+				});
+			}
+		});
+		
 		$('#server_summary_perfermance_panel').panel({
 			title: '使用率'
 		});
@@ -441,44 +496,83 @@ require(
 		<tr>
 			<td width="40%" style="padding-right: 5px;">
 				<div id="server_summary_info_panel">
-					<table class="info_grid">
-						<tr>
-							<td width=100><span>状态</span></td>
-							<td><div id="server_runtime_status"></div></td>
-						</tr>
-						<tr>
-							<td><span>IP</span></td>
-							<td><s:property value="server.ip"/></td>
-						</tr>
-						<tr>
-							<td><span>主机名</span></td>
-							<td><s:property value="server.hostname"/></td>
-						</tr>
-						<tr>
-							<td><span>别名</span></td>
-							<td><s:property value="server.alias"/></td>
-						</tr>
-						<tr>
-							<td><span>CPU</span></td>
-							<td><div id="cpu_num"></div></td>
-						</tr>
-						<tr>
-							<td><span>内存</span></td>
-							<td><div id="memory_size"></div></td>
-						</tr>
-						<tr>
-							<td><span>硬盘</span></td>
-							<td><s:property value="server.serverRuntime.metrics.disk_total.value"/>   <s:property value="server.serverRuntime.metrics.disk_total.unit"/></td>
-						</tr>
-						<tr>
-							<td><span>操作系统</span></td>
-							<td><s:property value="server.serverRuntime.metrics.os_name.value"/>  <s:property value="server.serverRuntime.metrics.os_release.value"/></td>
-						</tr>
-						<tr>
-							<td><span>监控类型</span></td>
-							<td><div id="server_monitorType"></div></td>
-						</tr>
-					</table>
+					<div id="server_summary_info_show" style="display: block">
+						<table id="server_summary_info_show_table" class="info_grid">
+							<tr>
+								<td width=100><span>状态</span></td>
+								<td><div id="server_runtime_status"></div></td>
+							</tr>
+							<tr>
+								<td><span>IP</span></td>
+								<td><s:property value="server.ip"/></td>
+							</tr>
+							<tr>
+								<td><span>主机名</span></td>
+								<td><s:property value="server.hostname"/></td>
+							</tr>
+							<tr>
+								<td><span>别名</span></td>
+								<td><s:property value="server.alias"/></td>
+							</tr>
+							<tr>
+								<td><span>CPU</span></td>
+								<td><div id="cpu_num"></div></td>
+							</tr>
+							<tr>
+								<td><span>内存</span></td>
+								<td><div id="memory_size"></div></td>
+							</tr>
+							<tr>
+								<td><span>硬盘</span></td>
+								<td><s:property value="server.serverRuntime.metrics.disk_total.value"/>   <s:property value="server.serverRuntime.metrics.disk_total.unit"/></td>
+							</tr>
+							<tr>
+								<td><span>操作系统</span></td>
+								<td><s:property value="server.serverRuntime.metrics.os_name.value"/>  <s:property value="server.serverRuntime.metrics.os_release.value"/></td>
+							</tr>
+							<tr>
+								<td><span>监控类型</span></td>
+								<td><div id="server_monitorType"></div></td>
+							</tr>
+						</table>
+					</div>
+					<div id="server_summary_info_edit" style="display: none">
+						<form id="server_summary_info_edit_form">
+							<table class="info_grid">
+								<tr>
+									<td><span>IP</span></td>
+									<td><input class="easyui-textbox" data-options="required:true,validType:['blank','maxLength[128]']" name="server.ip" value="<s:property value="server.ip"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>别名</span></td>
+									<td><input class="easyui-textbox" data-options="" name="server.alias" value="<s:property value="server.alias"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>监控类型</span></td>
+									<td>
+										<input id="server_monitor_type_edit" class="easyui-combobox" data-options="editable:false,
+											valueField: 'label',
+											textField: 'value',
+											data: [{
+												label: '1',
+												value: 'ICMP'
+											},{
+												label: '2',
+												value: 'SSH'
+											},{
+												label: '3',
+												value: 'AGENT'
+											}]" name="server.monitorType" value="<s:property value="server.monitorType"/>" style="width: 150px">
+									</td>
+								</tr>
+							</table>
+							<input type="hidden" name="id" value="<s:property value="#parameters.serverId"/>">
+						</form>
+						<div style="text-align: right;padding: 5px">
+							<a id="server_summary_info_edit_submit" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">确定</a>  
+							<a id="server_summary_info_edit_cancel" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">取消</a>
+						</div>
+					</div>
 				</div>
 				<br/>
 				<div id="server_summary_machine_panel">
@@ -726,7 +820,7 @@ require(
 				<br/>
 				<div id="server_summary_note_panel">
 					<div id="server_summary_note_panel_show" style="display: block">
-						<table>
+						<table id="server_summary_note_panel_show_table">
 							<tr>
 								<td><s:property value="server.asset.note"/></td>
 							</tr>

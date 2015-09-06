@@ -80,6 +80,18 @@
 				<param name="property">server</param>
 			</result>
 		</action>
+		
+		<action name="updateservernote" class="com.asiainfo.aiom.view.inventory.server.detail.ServerSummaryNoteAction">
+			<result type="json">
+				<param name="property">server</param>
+			</result>
+		</action>
+		
+		<action name="updateserverinfo" class="com.asiainfo.aiom.view.inventory.server.detail.ServerSummaryInfoAction">
+			<result type="json">
+				<param name="property">server</param>
+			</result>
+		</action>
 	</package>
 	
 </struts>
