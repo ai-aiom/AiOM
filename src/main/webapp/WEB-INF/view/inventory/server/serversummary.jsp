@@ -144,7 +144,7 @@ require(
 		$('#server_summary_info_panel').panel({
 			title: '服务器详情',
 			tools: [{
-				iconCls:'icon-edit',
+				iconCls:'icon-edit-panel',
 				handler:function(){
 					$('#server_summary_info_edit').show();
 					$('#server_summary_info_show').hide();
@@ -189,7 +189,7 @@ require(
 		$('#server_summary_site_panel').panel({
 			title: '机架信息',
 			tools: [{
-				iconCls:'icon-edit',
+				iconCls:'icon-edit-panel',
 				handler:function(){
 					$('#server_summary_site_edit').show();
 					$('#server_summary_site_show').hide();
@@ -236,7 +236,7 @@ require(
 		$('#server_summary_asset_panel').panel({
 			title: '资产信息',
 			tools: [{
-				iconCls:'icon-edit',
+				iconCls:'icon-edit-panel',
 				handler:function(){
 					$('#server_summary_asset_edit').show();
 					$('#server_summary_asset_show').hide();
@@ -279,7 +279,7 @@ require(
 		$('#server_summary_ssh_panel').panel({
 			title: 'SSH信息',
 			tools: [{
-				iconCls:'icon-edit',
+				iconCls:'icon-edit-panel',
 				handler:function(){
 					$('#server_summary_ssh_edit').show();
 					$('#server_summary_ssh_show').hide();
@@ -320,7 +320,7 @@ require(
 		$('#server_summary_ipmi_panel').panel({
 			title: 'IPMI信息',
 			tools: [{
-				iconCls:'icon-edit',
+				iconCls:'icon-edit-panel',
 				handler:function(){
 					$('#server_summary_ipmi_edit').show();
 					$('#server_summary_ipmi_show').hide();
@@ -361,7 +361,7 @@ require(
 			title: '备注',
 			height: 100,
 			tools: [{
-				iconCls:'icon-edit',
+				iconCls:'icon-edit-panel',
 				handler:function(){
 					$('#server_summary_note_panel_edit').show();
 					$('#server_summary_note_panel_show').hide();
