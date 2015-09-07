@@ -10,6 +10,7 @@
 <title>亚信一体机管理系统</title>
 	<link rel="stylesheet" type="text/css" href="<%=ctp %>/js/easyui/themes/gray/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=ctp %>/css/aiom/default/aiom.css">
+	<link rel="stylesheet" type="text/css" href="<%=ctp %>/css/aiom/default/serverDetail.css">
 	<script type="text/javascript" src="<%=ctp %>/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/common.js"></script>
@@ -36,8 +37,12 @@
 			        {field: 'properties.moduleId', title: '所属模块', width: 100, align: 'center', formatter: function(value, row, index){
 			        	return MACHINE_SERVER_MOUDLE[value] ? MACHINE_SERVER_MOUDLE[value] : value;
 			        }},
-			        {field: 'properties.cpuRate', title: 'cpu使用率', width: 100, align: 'center'},
-			        {field: 'properties.memoryRate', title: '内存使用率', width: 100, align: 'center'},
+			        {field: 'properties.cpuRate', title: 'cpu使用率', width: 100, align: 'center', formatter: function(value, row, index){
+						return viewStyle(value);
+					}},
+			        {field: 'properties.memoryRate', title: '内存使用率', width: 100, align: 'center', formatter: function(value, row, index){
+						return viewStyle(value);
+					}},
 			        {field: 'id', title: '操作', width: 100, align: 'center', formatter: function(value, row, index){
 			        	return '<div grid_operation serverId="' + value + '" style="text-align: left"></div>';
 			        }}
@@ -86,6 +91,27 @@
 	            	window.location.href = '<%=ctp%>/inventory/server/detail.action?serverId=' + rowData.id;
 	            }
 			});
+			
+			function viewStyle(value){
+				if (value == "N/A"){
+					return value;
+				}
+				var pef_num = parseInt(value);
+				if(!pef_num) {
+					pef_num = 0;
+				}
+				var v = pef_num + '%';
+				var insert_div = '';
+				if(pef_num < 90){
+					insert_div = "<div class='pef_insert_normal_div' style='width: "+v+"'></div>";
+				}else if(pef_num >= 90){
+					insert_div = "<div class='pef_insert_warning_div' style='width: "+v+"'></div>";
+				}else if(pef_num > 100){
+					insert_div = "<div class='pef_insert_warning_div' style='width: 100%'></div>";
+				}
+				var pef_span = "<span class='pef_span'>"+v+"</span>";
+				return '<div class="pef_div" >' + insert_div + pef_span + '</div>';
+			}
 		});
 		
 	</script>
