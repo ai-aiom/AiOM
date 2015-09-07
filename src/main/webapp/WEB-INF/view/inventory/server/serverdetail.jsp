@@ -11,7 +11,10 @@
 	<link rel="stylesheet" type="text/css" href="<%=ctp %>/js/easyui/themes/gray/easyui.css">
 	<link rel="stylesheet" type="text/css" href="<%=ctp %>/css/aiom/default/aiom.css">
 	<script type="text/javascript" src="<%=ctp %>/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<%=ctp %>/js/jquery.form.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=ctp %>/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="<%=ctp %>/js/easyui/validatebox.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/common.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/constants.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/echarts/dist/echarts.js"></script>
