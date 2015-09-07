@@ -20,5 +20,6 @@
 	<include file="com/asiainfo/aiom/view/system/cabinet/struts.xml"></include>
 	<include file="com/asiainfo/aiom/view/system/image/struts.xml"></include>
 	<include file="com/asiainfo/aiom/view/system/machineModule/struts.xml"></include>
+	<include file="com/asiainfo/aiom/view/system/template/struts.xml"></include>
 	
 </struts>

@@ -46,6 +46,8 @@
 			
 			$('#select_iso_file').combobox({
 				url: '<%=ctp %>/system/image/listisofile.action',
+				required: true,
+				editable:false,
 				valueField:'filePath',
 			    textField:'fileName'
 			});
@@ -66,7 +68,7 @@
 				<table>
 					<tr>
 						<td width="150">选择镜像文件</td>
-						<td><input id="select_iso_file" class="easyui-textbox" data-options="required: true,editable:false" name="image.isoFile" style="width: 300px; height: 25px;"></td>
+						<td><input id="select_iso_file" name="image.isoFile" style="width: 300px; height: 25px;"></td>
 					</tr>
 				</table>
 			</div>
