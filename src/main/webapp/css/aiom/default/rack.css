@@ -1,0 +1,49 @@
+.leftside {
+	background: url("../../../images/rack/RackLeftSide.png") no-repeat;
+	width: 28px;
+	height: 21px;
+	text-align: center;
+	padding: 0px;
+	color: #ffffff;
+}
+
+.rightside {
+	background: url("../../../images/rack/RackRightSide.png") no-repeat;
+	width: 28px;
+	height: 21px;
+	text-align: center;
+	padding: 0px;
+	color: #ffffff;
+}
+
+.center {
+	background: url("../../../images/rack/RackCenterFiller.png") no-repeat;
+	width: 240px;
+	height: 21px;
+	text-align: center;
+	padding: 0px;
+	color: #ffffff;
+}
+
+.racktable {
+	border-collapse: separate;
+	border-spacing: 0px;
+}
+
+.server_1u {
+	background: url("../../../images/rack/server_1u_front.png") no-repeat;
+	width: 240px;
+	height: 21px;
+}
+
+.server_2u {
+	background: url("../../../images/rack/server_2u_front.png") no-repeat;
+	width: 240px;
+	height: 42px;
+}
+
+.server_4u {
+	background: url("../../../images/rack/server_4u_front.png") no-repeat;
+	width: 240px;
+	height: 84px;
+}

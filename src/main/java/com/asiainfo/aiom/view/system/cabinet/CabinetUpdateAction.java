@@ -25,7 +25,7 @@ public class CabinetUpdateAction extends ServletAwareActionSupport
 	
 	private Cabinet cabinet;
 	
-	private String id;
+	private Integer id;
 	
 	public Cabinet getCabinet()
 	{
@@ -42,12 +42,12 @@ public class CabinetUpdateAction extends ServletAwareActionSupport
 		this.cabinetApi = cabinetApi;
 	}
 	
-	public String getId()
+	public Integer getId()
 	{
 		return id;
 	}
 
-	public void setId(String id)
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}

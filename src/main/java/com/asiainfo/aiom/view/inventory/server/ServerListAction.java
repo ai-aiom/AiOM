@@ -12,10 +12,13 @@ package com.asiainfo.aiom.view.inventory.server;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.asiainfo.aiom.Constants;
 import com.asiainfo.aiom.domain.Machine;
+import com.asiainfo.gim.client.monitor.domain.Metric;
 import com.asiainfo.gim.client.server_manage.api.ServerApi;
 import com.asiainfo.gim.client.server_manage.domain.Server;
 import com.asiainfo.support.struts2.ServletAwareActionSupport;
@@ -71,6 +74,28 @@ public class ServerListAction extends ServletAwareActionSupport
 			if (server.getProperties() == null || !StringUtils.equals(server.getProperties().get("machineId"), machineSelected.getId().toString()))
 			{
 				iterator.remove();
+			}
+			else if(server.getMonitorType() == Constants.MonitorType.ICMP || server.getServerRuntime() == null 
+					|| server.getServerRuntime().getMetrics() == null)
+			{
+				server.getProperties().put("cpuRate", "N/A");
+				server.getProperties().put("memoryRate", "N/A");
+			}
+			else
+			{
+				Map<String, Metric> metrics = server.getServerRuntime().getMetrics();
+				
+				// cpu使用率
+				int cpuIdle = ((Double) metrics.get("cpu_idle").getValue()).intValue();
+				int cpuRate = 100 - cpuIdle;
+				server.getProperties().put("cpuRate", String.valueOf(cpuRate));
+				
+				// 内存使用率
+				double memTotal = (double) metrics.get("mem_total").getValue();
+				double memFree = (double) metrics.get("mem_free").getValue();
+				double memUsed = memTotal - memFree;
+				int memoryRate = (int) (memUsed / memTotal * 100);
+				server.getProperties().put("memoryRate", String.valueOf(memoryRate));
 			}
 		}
 		return SUCCESS;

@@ -29,45 +29,39 @@
 			    ]],
 			    onLoadSuccess: function(data){
 			    	$('[grid_operation]').each(function(){
-			    		if ($(this).attr('cabinetId') != 1){
-				    		var $editButton = $('<span></span>').addClass('operation_icon_black');
-				    		$editButton.css('background-position', '-64px -112px');
-				    		$editButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
-				    		$editButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
-				    		$editButton.appendTo($(this));
-				    		
-				    		var $deleteButton = $('<span></span>').addClass('operation_icon_black');
-				    		$deleteButton.css('background-position', '-176px -96px');
-				    		$deleteButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
-				    		$deleteButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
-				    		$deleteButton.appendTo($(this));
-				    		
-				    		$editButton.click(function(){
-				    			var cabinetIdforUpdate = $(this).parent().attr('cabinetId');
-				    			window.location.href = '<%=ctp %>/system/cabinet/tocabinetupdate.action?id=' + cabinetIdforUpdate;
-				    		});
-				    		
-				    		$deleteButton.click(function(){
-				    			var cabinetIdforDelete = $(this).parent().attr('cabinetId');
-				    			if (cabinetIdforDelete == 1){
-				    				$.messager.alert('失败','默认机柜无法删除！','warning');
-				    			}else{
-					    			$.messager.confirm('确认删除', '确认要删除此机柜', function(r){
-					    				if (r){
-					    					$.messager.progress({text: '正在处理，请稍后...'});
-					    					$.ajax({
-					    						url: '<%=ctp %>/system/cabinet/deletecabinet.action?id=' + cabinetIdforDelete,
-					    						dataType: 'json',
-					    						success: function(){
-					    							$.messager.progress('close');
-					    							$('#cabinet_main_grid').datagrid('reload');
-					    						}
-					    					});
-					    				}
-					    			});
-				    			}
-				    		});
-			    		}
+			    		var $editButton = $('<span></span>').addClass('operation_icon_black');
+			    		$editButton.css('background-position', '-64px -112px');
+			    		$editButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
+			    		$editButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
+			    		$editButton.appendTo($(this));
+			    		
+			    		var $deleteButton = $('<span></span>').addClass('operation_icon_black');
+			    		$deleteButton.css('background-position', '-176px -96px');
+			    		$deleteButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
+			    		$deleteButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
+			    		$deleteButton.appendTo($(this));
+			    		
+			    		$editButton.click(function(){
+			    			var cabinetIdforUpdate = $(this).parent().attr('cabinetId');
+			    			window.location.href = '<%=ctp %>/system/cabinet/tocabinetupdate.action?id=' + cabinetIdforUpdate;
+			    		});
+			    		
+			    		$deleteButton.click(function(){
+			    			var cabinetIdforDelete = $(this).parent().attr('cabinetId');
+			    			$.messager.confirm('确认删除', '确认要删除此机柜', function(r){
+			    				if (r){
+			    					$.messager.progress({text: '正在处理，请稍后...'});
+			    					$.ajax({
+			    						url: '<%=ctp %>/system/cabinet/deletecabinet.action?id=' + cabinetIdforDelete,
+			    						dataType: 'json',
+			    						success: function(){
+			    							$.messager.progress('close');
+			    							$('#cabinet_main_grid').datagrid('reload');
+			    						}
+			    					});
+			    				}
+			    			});
+			    		});
 			    	});
 			    },
 				onClickRow: function (rowIndex, rowData) {

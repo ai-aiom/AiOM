@@ -11,6 +11,10 @@
 			<result>/WEB-INF/view/inventory/main.jsp</result>
 		</action>
 		
+		<action name="rackview" class="com.asiainfo.aiom.view.inventory.RackViewAction">
+			<result>/WEB-INF/view/inventory/rackview.jsp</result>
+		</action>
+		
 	</package>
 	
 	<include file="com/asiainfo/aiom/view/inventory/server/struts.xml"></include>
