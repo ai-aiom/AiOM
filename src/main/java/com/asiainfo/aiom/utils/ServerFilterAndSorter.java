@@ -1,11 +1,11 @@
 /**   
-* @Title: ServerFilter.java 
-* @Package com.asiainfo.aiom.utils 
-* @Description: TODO(用一句话描述该文件做什么) 
-* @author zhangli
-* @date 2015年9月6日 下午3:01:08 
-* @version V1.0   
-*/
+ * @Title: ServerFilter.java 
+ * @Package com.asiainfo.aiom.utils 
+ * @Description: TODO(用一句话描述该文件做什么) 
+ * @author zhangli
+ * @date 2015年9月6日 下午3:01:08 
+ * @version V1.0   
+ */
 package com.asiainfo.aiom.utils;
 
 import java.util.Iterator;
@@ -25,10 +25,18 @@ public class ServerFilterAndSorter
 	public static List<Server> filterByMachine(List<Server> servers, Machine machine)
 	{
 		Iterator<Server> it = servers.iterator();
-		while(it.hasNext())
+		while (it.hasNext())
 		{
 			Server server = it.next();
-			if(!StringUtils.equals(server.getProperties().get("machineId"), String.valueOf(machine.getId())))
+			if (server.getProperties() == null)
+			{
+				it.remove();
+			}
+			else if (!server.getProperties().containsKey("machineId"))
+			{
+				it.remove();
+			}
+			else if (!StringUtils.equals(server.getProperties().get("machineId"), String.valueOf(machine.getId())))
 			{
 				it.remove();
 			}

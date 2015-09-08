@@ -80,6 +80,7 @@ public class ServerListAction extends ServletAwareActionSupport
 			{
 				server.getProperties().put("cpuRate", "N/A");
 				server.getProperties().put("memoryRate", "N/A");
+				server.getProperties().put("diskRate", "N/A");
 			}
 			else
 			{
@@ -96,6 +97,13 @@ public class ServerListAction extends ServletAwareActionSupport
 				double memUsed = memTotal - memFree;
 				int memoryRate = (int) (memUsed / memTotal * 100);
 				server.getProperties().put("memoryRate", String.valueOf(memoryRate));
+				
+				// 磁盘
+				double diskTotle = (double) metrics.get("disk_total").getValue();
+				double diskFree = (double) metrics.get("disk_free").getValue();
+				double diskUsed = diskTotle - diskFree;
+				int diskRate = (int) (diskUsed / diskTotle * 100);
+				server.getProperties().put("diskRate", String.valueOf(diskRate));
 			}
 		}
 		return SUCCESS;

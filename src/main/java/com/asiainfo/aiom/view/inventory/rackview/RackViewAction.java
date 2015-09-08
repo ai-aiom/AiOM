@@ -6,7 +6,7 @@
  * @date 2015年9月6日 上午11:43:22 
  * @version V1.0   
  */
-package com.asiainfo.aiom.view.inventory;
+package com.asiainfo.aiom.view.inventory.rackview;
 
 import java.util.List;
 

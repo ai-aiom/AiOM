@@ -1,0 +1,8 @@
+.icon-edit-panel{
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	cursor: pointer;
+	background-image: url("../../../images/icon_all01_black.png");
+	background-position: -64px -112px;
+}

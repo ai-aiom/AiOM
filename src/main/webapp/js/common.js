@@ -2,6 +2,18 @@ var getContextPath = function(){
 	return window.top.getCtp();
 }
 
+var commonSorter = function(a, b){
+	if(!a) {
+		return -1;
+	}
+	else if(!b) {
+		return 1;
+	}
+	else {
+		return a > b ? 1 : -1;
+	}
+}
+
 //date format
 Date.prototype.Format = function (fmt) {
     var o = {

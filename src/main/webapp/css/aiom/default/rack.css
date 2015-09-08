@@ -36,14 +36,40 @@
 	height: 21px;
 }
 
+.server_1u a {
+	width: 240px;
+	height: 21px;
+	display: block;
+	cursor: pointer;
+}
+
 .server_2u {
 	background: url("../../../images/rack/server_2u_front.png") no-repeat;
 	width: 240px;
 	height: 42px;
 }
 
+.server_2u a {
+	width: 240px;
+	height: 42px;
+	display: block;
+	cursor: pointer;
+}
+
 .server_4u {
 	background: url("../../../images/rack/server_4u_front.png") no-repeat;
 	width: 240px;
 	height: 84px;
+}
+
+.server_4u a {
+	width: 240px;
+	height: 84px;
+	display: block;
+	cursor: pointer;
+}
+
+.server_summary_tooltip {
+	width: 300px;
+	height: 200px;
 }

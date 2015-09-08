@@ -278,6 +278,7 @@ require(
 		
 		$('#server_summary_ssh_panel').panel({
 			title: 'SSH信息',
+			closed: true,
 			tools: [{
 				iconCls:'icon-edit-panel',
 				handler:function(){
@@ -696,6 +697,44 @@ require(
 					</div>
 				</div>
 				<br/>
+				<div id="server_summary_ipmi_panel">
+					<div id="server_summary_ipmi_show" style="display: block">
+						<table id="server_summary_ipmi_show_table" class="info_grid">
+							<tr>
+								<td width=100><span>主机</span></td>
+								<td><s:property value="server.ipmi.host"/></td>
+							</tr>
+							<tr>
+								<td><span>账号</span></td>
+								<td><s:property value="server.ipmi.username"/></td>
+							</tr>
+						</table>
+					</div>
+					<div id="server_summary_ipmi_edit" style="display: none">
+						<form id="server_summary_ipmi_edit_form">
+							<table class="info_grid">
+								<tr>
+									<td width=100><span>主机</span></td>
+									<td><input class="easyui-textbox" data-options="required:true,validType:['maxLength[40]']" name="ipmi.host" value="<s:property value="server.ipmi.host"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>账号</span></td>
+									<td><input class="easyui-textbox" data-options="required:true,validType:['maxLength[40]']" name="ipmi.username" value="<s:property value="server.ipmi.username"/>" style="width: 150px"></td>
+								</tr>
+								<tr>
+									<td><span>密码</span></td>
+									<td><input class="easyui-textbox" type="password" data-options="required:true,validType:['maxLength[40]']" name="ipmi.password" value="<s:property value="server.ipmi.password"/>" style="width: 150px"></td>
+								</tr>
+							</table>
+							<input type="hidden" name="id" value="<s:property value="#parameters.serverId"/>">
+						</form>
+						<div style="text-align: right;padding: 5px">
+							<a id="server_summary_ipmi_edit_submit" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">确定</a>  
+							<a id="server_summary_ipmi_edit_cancel" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">取消</a>
+						</div>
+					</div>
+				</div>
+				<br/>
 				<div id="server_summary_ssh_panel">
 					<div id="server_summary_ssh_show" style="display: block">
 						<table id="server_summary_ssh_show_table" class="info_grid">
@@ -738,44 +777,6 @@ require(
 						<div style="text-align: right;padding: 5px">
 							<a id="server_summary_ssh_edit_submit" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">确定</a>  
 							<a id="server_summary_ssh_edit_cancel" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">取消</a>
-						</div>
-					</div>
-				</div>
-				<br/>
-				<div id="server_summary_ipmi_panel">
-					<div id="server_summary_ipmi_show" style="display: block">
-						<table id="server_summary_ipmi_show_table" class="info_grid">
-							<tr>
-								<td width=100><span>主机</span></td>
-								<td><s:property value="server.ipmi.host"/></td>
-							</tr>
-							<tr>
-								<td><span>账号</span></td>
-								<td><s:property value="server.ipmi.username"/></td>
-							</tr>
-						</table>
-					</div>
-					<div id="server_summary_ipmi_edit" style="display: none">
-						<form id="server_summary_ipmi_edit_form">
-							<table class="info_grid">
-								<tr>
-									<td width=100><span>主机</span></td>
-									<td><input class="easyui-textbox" data-options="required:true,validType:['maxLength[40]']" name="ipmi.host" value="<s:property value="server.ipmi.host"/>" style="width: 150px"></td>
-								</tr>
-								<tr>
-									<td><span>账号</span></td>
-									<td><input class="easyui-textbox" data-options="required:true,validType:['maxLength[40]']" name="ipmi.username" value="<s:property value="server.ipmi.username"/>" style="width: 150px"></td>
-								</tr>
-								<tr>
-									<td><span>密码</span></td>
-									<td><input class="easyui-textbox" type="password" data-options="required:true,validType:['maxLength[40]']" name="ipmi.password" value="<s:property value="server.ipmi.password"/>" style="width: 150px"></td>
-								</tr>
-							</table>
-							<input type="hidden" name="id" value="<s:property value="#parameters.serverId"/>">
-						</form>
-						<div style="text-align: right;padding: 5px">
-							<a id="server_summary_ipmi_edit_submit" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">确定</a>  
-							<a id="server_summary_ipmi_edit_cancel" href="javascript: void(0)" class="easyui-linkbutton" style="width: 70px;">取消</a>
 						</div>
 					</div>
 				</div>

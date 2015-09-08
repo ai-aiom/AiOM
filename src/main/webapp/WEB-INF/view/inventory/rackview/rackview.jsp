@@ -25,27 +25,42 @@
 					$tr.append($('<td/>').addClass('rightside').text(i));
 					$(this).append($tr);
 				}
-			})
+			});
 			
 			$('div[rack]').each(function(){
-				var slot = parseInt($(this).attr('slot'));
-				var size = parseInt($(this).attr('size'));
-				
-				var $rack = $('[rackId=' + $(this).attr('rack') + ']');
-				var $serverContainerTD = null;
-				
-				if(size > 1) {
-					$serverContainerTD = $rack.find('[index=' + (slot + size - 1) + ']').find('td:eq(1)');
-					$serverContainerTD.attr('rowspan', size);
-					for(var i = 0; i < (size - 1); i++) {
-						$rack.find('[index=' + (slot + i) + ']').find('td:eq(1)').remove();
+				if($(this).attr('slot') && $(this).attr('size')) {
+					var slot = parseInt($(this).attr('slot'));
+					var size = parseInt($(this).attr('size'));
+					
+					var $rack = $('[rackId=' + $(this).attr('rack') + ']');
+					var $serverContainerTD = null;
+					
+					if(size > 1) {
+						$serverContainerTD = $rack.find('[index=' + (slot + size - 1) + ']').find('td:eq(1)');
+						$serverContainerTD.attr('rowspan', size);
+						for(var i = 0; i < (size - 1); i++) {
+							$rack.find('[index=' + (slot + i) + ']').find('td:eq(1)').remove();
+						}
+					} else {
+						$serverContainerTD = $rack.find('[index=' + slot + ']').find('td:eq(1)');
 					}
-				} else {
-					$serverContainerTD = $rack.find('[index=' + slot + ']').find('td:eq(1)');
+					
+					$serverContainerTD.append($(this));
 				}
-				
-				$serverContainerTD.append($(this));
-			})
+			});
+			
+			$('div[rack]').find('a').tooltip({
+				position: 'right',
+				content: '<div class="server_summary_tooltip"></div>',
+				//hideEvent: 'click',
+				onShow: function(){
+					var serverId = $(this).attr('serverId');
+					var $content = $(this).tooltip('tip').find('.server_summary_tooltip');
+					if(!$content.html()) {
+						$content.load('<%=ctp %>/inventory/rackview/loadserversummary.action?server.id=' + serverId);
+					}
+				}
+			});
 		});
 	</script>
 </head>
@@ -69,7 +84,9 @@
 	</div>
 	<div id="servers">
 		<s:iterator value="servers" var="server">
-			<div class="server_<s:property value='#server.site.size'/>u" size="<s:property value='#server.site.size'/>" slot="<s:property value='#server.site.slot'/>" rack="<s:property value='#server.site.rack'/>"></div>
+			<div class="server_<s:property value='#server.site.size'/>u" size="<s:property value='#server.site.size'/>" slot="<s:property value='#server.site.slot'/>" rack="<s:property value='#server.site.rack'/>">
+				<a href="javascript:void(0)" serverId="<s:property value='#server.id'/>"></a>
+			</div>
 		</s:iterator>
 	</div>
 </body>
