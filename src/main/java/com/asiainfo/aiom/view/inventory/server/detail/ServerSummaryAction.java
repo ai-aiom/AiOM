@@ -111,7 +111,7 @@ public class ServerSummaryAction extends ServletAwareActionSupport
 			long day = between / (24 * 3600);
 			long hour = between % (24 * 3600) / 3600;
 			long minute = between % 3600 / 60;
-			long second = between % 60 / 60;
+			long second = between % 60;
 			server.getProperties().put("runtime", "" + day + "天" + hour + "小时" + minute + "分" + second + "秒");
 		}
 
