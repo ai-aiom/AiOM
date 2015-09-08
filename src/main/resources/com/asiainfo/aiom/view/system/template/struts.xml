@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<package name="system-template" namespace="/system/template" extends="system">
+
+		<action name="main">
+			<result>/WEB-INF/view/system/template/main.jsp</result>
+		</action>
+
+		<action name="addtemplate">
+			<result>/WEB-INF/view/system/template/templateadd.jsp</result>
+		</action>
+
+		<action name="updatetemplate" class="com.asiainfo.aiom.view.system.template.TemplateManagerAction"
+			method="getTemplateDetail">
+			<result>/WEB-INF/view/system/template/templateupdate.jsp</result>
+		</action>
+
+		<action name="listtemplate"
+			class="com.asiainfo.aiom.view.system.template.TemplateManagerAction"
+			method="listTemplate">
+			<result type="json">
+				<param name="property">templateList</param>
+			</result>
+		</action>
+
+		<action name="createorupdate"
+			class="com.asiainfo.aiom.view.system.template.TemplateManagerAction"
+			method="createOrUpdateTemplate">
+			<result type="json">
+				<param name="property">resultBean</param>
+			</result>
+		</action>
+
+		<action name="deletetemplate"
+			class="com.asiainfo.aiom.view.system.template.TemplateManagerAction"
+			method="deleteTemplate">
+			<result type="json">
+				<param name="property">resultBean</param>
+			</result>
+		</action>
+
+	</package>
+
+</struts>
