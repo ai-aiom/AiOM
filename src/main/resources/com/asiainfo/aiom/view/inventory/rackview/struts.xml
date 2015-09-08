@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<package name="inventory-rackview" namespace="/inventory/rackview" extends="inventory">
+	
+		<action name="rackview" class="com.asiainfo.aiom.view.inventory.rackview.RackViewAction">
+			<result>/WEB-INF/view/inventory/rackview/rackview.jsp</result>
+		</action>
+		
+		<action name="loadserversummary" class="com.asiainfo.aiom.view.inventory.rackview.ServerSummaryLoadAction">
+			<result>/WEB-INF/view/inventory/rackview/serversummary.jsp</result>
+		</action>
+		
+	</package>
+	
+</struts>
