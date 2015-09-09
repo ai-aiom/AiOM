@@ -13,12 +13,52 @@
 	<script type="text/javascript" src="<%=ctp %>/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/common.js"></script>
+	<script type="text/javascript" src="<%=ctp %>/js/echarts/dist/echarts-all.js"></script>
 	<script type="text/javascript">
 		
 		$(function(){
+
+	        var cpuChart = echarts.init(document.getElementById('overview_server_status_distribution_view'));
+	        
+	        var option = {
+        	   /*  title : {
+        	        text: '某站点用户访问来源',
+        	        subtext: '纯属虚构',
+        	        x:'center'
+        	    }, */
+        	    tooltip : {
+        	        trigger: 'item',
+        	        formatter: "{a} <br/>{b} : {c} ({d}%)"
+        	    },
+        	    legend: {
+        	        orient : 'vertical',
+        	        x : 'left',
+        	        data:['正常','监控不可达']
+        	    },
+        	    calculable : true,
+        	    series : [
+        	        {
+        	            name:'访问来源',
+        	            type:'pie',
+        	            radius : '55%',
+        	            center: ['50%', '60%'],
+        	            data:[
+        	                {value:"", name:'正常'},
+        	                {value:"", name:'监控不可达'}
+        	            ]
+        	        }
+        	    ]
+        	};
+			
+	        var statusOn = '<s:property value="properties.statusOn"/>';
+	        var statusOff = '<s:property value="properties.statusOff"/>';
+	        option.series[0].data[0].value = statusOn;
+	        option.series[0].data[1].value = statusOff;
+	        cpuChart.setOption(option);
+			
 			$('#overview_server_status_distribution').panel({
 				title: '服务器状态分布',
-				height: 200
+				height: 250
 			});
 			
 			$('#overview_server_cpu_distribution').panel({
@@ -38,7 +78,7 @@
 			
 			$('#overview_server_cpu_top5').panel({
 				title: '服务器CPU使用TOP5',
-				height: 200
+				height: 181
 			});
 			
 			$('#overview_server_memory_top5').panel({
@@ -56,6 +96,36 @@
 				height: 200
 			});
 			
+			$('#overview_server_cpu_top5_table').datagrid({    
+			    url:'<%=ctp %>/overview/getserverscputop.action',
+			    fit: true,
+			    remoteSort: false,
+			    fitColumns: true,
+			    columns:[[
+					{field: 'ip', title: 'IP', width: 100, align: 'center'},
+					{field: 'serverRuntime.metrics.cpu_system.value', title: 'CPU_SYSTEM', width: 100, align: 'center', formatter: function(value, row, index){
+			        	if(row.monitorType == 1){
+			        		return "N/A";
+			        	} else {
+			        		return value;
+			        	}
+			        }},
+			        {field: 'serverRuntime.metrics.cpu_user.value', title: 'CPU_USER', width: 100, align: 'center', formatter: function(value, row, index){
+			        	if(row.monitorType == 1){
+			        		return "N/A";
+			        	} else {
+			        		return value;
+			        	}
+			        }},
+			        {field: 'serverRuntime.metrics.cpu_wio.value', title: 'CPU_WIO', width: 100, align: 'center', formatter: function(value, row, index){
+			        	if(row.monitorType == 1){
+			        		return "N/A";
+			        	} else {
+			        		return value;
+			        	}
+			        }}
+				]]
+			});
 		});
 		
 	</script>
@@ -65,7 +135,9 @@
 		<table width="100%">
 			<tr>
 				<td width="40%" style="vertical-align: top;">
-					<div id="overview_server_status_distribution"></div>
+					<div id="overview_server_status_distribution">
+						<div id="overview_server_status_distribution_view" style="height: 200px"></div>
+					</div>
 					<br>
 					<div id="overview_server_cpu_distribution"></div>
 					<br>
@@ -73,8 +145,11 @@
 					<br>
 					<div id="overview_server_disk_distribution"></div>
 				</td>
+				<td width="10"></td>
 				<td style="vertical-align: top;">
-					<div id="overview_server_cpu_top5"></div>
+					<div id="overview_server_cpu_top5">
+						<table id="overview_server_cpu_top5_table"></table>
+					</div>
 					<br>
 					<div id="overview_server_memory_top5"></div>
 					<br>

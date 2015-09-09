@@ -18,7 +18,7 @@
 	<script type="text/javascript" src="<%=ctp %>/js/easyui/validatebox.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/common.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/constants.js"></script>
-	<script type="text/javascript" src="<%=ctp %>/js/echarts/dist/echarts.js"></script>
+	<script type="text/javascript" src="<%=ctp %>/js/echarts/dist/echarts-all.js"></script>
 	<script type="text/javascript">
 		
 		$(function(){

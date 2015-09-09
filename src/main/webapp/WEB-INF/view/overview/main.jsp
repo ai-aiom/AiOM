@@ -19,6 +19,8 @@
 			$('.sub_menu_item').click(function(){
 				window.content_frame.location.href = $(this).attr('link');
 			});
+			
+			$('.sub_menu_item:eq(0)').click();
 		});
 		
 	</script>

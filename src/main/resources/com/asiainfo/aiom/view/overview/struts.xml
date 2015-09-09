@@ -11,10 +11,15 @@
 			<result>/WEB-INF/view/overview/main.jsp</result>
 		</action>
 		
-		<action name="serveroverview">
+		<action name="serveroverview" class="com.asiainfo.aiom.view.overview.serverview.ServerOverViewAction">
 			<result>/WEB-INF/view/overview/serveroverview.jsp</result>
 		</action>
 		
+		<action name="getserverscputop" class="com.asiainfo.aiom.view.overview.serverview.ServerCpuTopViewAction">
+			<result type="json">
+				<param name="property">servers</param>
+			</result>
+		</action>
 	</package>
 		
 </struts>

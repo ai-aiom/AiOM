@@ -45,7 +45,7 @@
 			        	}
 			        }},
 			        {field: 'hostname', title: '主机名', sortable: true, sorter: commonSorter, width: 100, align: 'center'},
-			        {field: 'properties.moduleId', title: '所属模块', width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'properties.moduleId', title: '所属模块', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
 			        	return MACHINE_SERVER_MOUDLE[value] ? MACHINE_SERVER_MOUDLE[value] : value;
 			        }},
 			        {field: 'properties.cpuRate', title: 'cpu使用率', width: 100, align: 'center', formatter: function(value, row, index){
