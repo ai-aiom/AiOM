@@ -4,22 +4,13 @@
 	String ctp = request.getContextPath();
 %>
 <script type="text/javascript">
-require.config({
-    paths: {
-        echarts: '<%=ctp %>/js/echarts/dist'
-    }
-});
-
-require(
-    [
-        'echarts',
-        'echarts/chart/gauge' 
-    ],
-    function (ec) {
+	$(function(){
+		$.parser.parse('#server_summary_main_body');
+		
         // 基于准备好的dom，初始化echarts图表
-        var cpuChart = ec.init(document.getElementById('main_cpuRate'));
-        var memoryChart = ec.init(document.getElementById('main_memoryRate'));
-        var diskChart = ec.init(document.getElementById('main_diskRate'));
+        var cpuChart = echarts.init(document.getElementById('main_cpuRate'));
+        var memoryChart = echarts.init(document.getElementById('main_memoryRate'));
+        var diskChart = echarts.init(document.getElementById('main_diskRate'));
         
         var option = {
         	    tooltip : {
@@ -134,12 +125,8 @@ require(
         option.series[0].data[0].value = diskRate;
       	option.series[0].data[0].name = '硬盘';
         diskChart.setOption(option);
-    }
-);
-</script>
-<script type="text/javascript">
-	$(function(){
-		$.parser.parse('#server_summary_main_body');
+		
+		
 		
 		$('#server_summary_info_panel').panel({
 			title: '服务器详情',
