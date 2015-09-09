@@ -46,7 +46,6 @@
 						users['template.tempUserList['+i+'].groups'] = $(this).find("[attr='group']").val();
 						users['template.tempUserList['+i+'].password'] = $(this).find("[attr='passwd']").val();
 					});
-					console.log(users);
 					$('#template_update_form').ajaxSubmit({
 						url: '<%=ctp %>/system/template/createorupdate.action',
 						type: 'POST',

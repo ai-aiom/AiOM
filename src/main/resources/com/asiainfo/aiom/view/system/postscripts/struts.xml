@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<package name="system-postscripts" namespace="/system/postscripts" extends="system">
+
+		<action name="main">
+			<result>/WEB-INF/view/system/postscripts/main.jsp</result>
+		</action>
+
+		<action name="addpostscripts">
+			<result>/WEB-INF/view/system/postscripts/postscriptsadd.jsp</result>
+		</action>
+
+		<action name="updatepostscriptspage" class="com.asiainfo.aiom.view.system.scripts.PostScriptsManagerAction"
+			method="findPostScriptsById">
+			<result>/WEB-INF/view/system/postscripts/postscriptsupdate.jsp</result>
+		</action>
+
+		<action name="listpostscripts"
+			class="com.asiainfo.aiom.view.system.scripts.PostScriptsManagerAction"
+			method="listPostScripts">
+			<result type="json">
+				<param name="property">postScriptsList</param>
+			</result>
+		</action>
+
+		<action name="createpostscripts"
+			class="com.asiainfo.aiom.view.system.scripts.PostScriptsManagerAction"
+			method="createPostScripts">
+			<result type="json">
+				<param name="property">resultBean</param>
+			</result>
+		</action>
+		
+		<action name="updatepostscripts"
+			class="com.asiainfo.aiom.view.system.scripts.PostScriptsManagerAction"
+			method="updatePostScripts">
+			<result type="json">
+				<param name="property">resultBean</param>
+			</result>
+		</action>
+
+		<action name="deletepostscripts"
+			class="com.asiainfo.aiom.view.system.scripts.PostScriptsManagerAction"
+			method="deletePostScripts">
+			<result type="json">
+				<param name="property">resultBean</param>
+			</result>
+		</action>
+		
+		<action name="downloadpostscripts"
+			class="com.asiainfo.aiom.view.system.scripts.PostScriptsManagerAction"
+			method="downloadPostScriptsFile">
+			<result name="success" type="stream">
+				<param name="contentDisposition">attachment;filename=${defaultAttachName}</param>
+                <param name="inputName">downloadFile</param>
+			</result>
+		</action>
+
+	</package>
+
+</struts>
