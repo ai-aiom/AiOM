@@ -106,26 +106,6 @@
 	            }
 			});
 			
-			function percentageView(value){
-				if (value == "N/A"){
-					return value;
-				}
-				var pef_num = parseInt(value);
-				if(!pef_num) {
-					pef_num = 0;
-				}
-				var v = pef_num + '%';
-				var insert_div = '';
-				if(pef_num < 80){
-					insert_div = "<div style='width: "+v+"'></div>";
-				}else if(pef_num >= 80){
-					insert_div = "<div style='width: "+v+"; background-color: red'></div>";
-				}else if(pef_num > 100){
-					insert_div = "<div style='width: 100%; background-color: red'></div>";
-				}
-				var pef_span = "<span>"+v+"</span>";
-				return '<div class="percentage" >' + insert_div + pef_span + '</div>';
-			}
 		});
 		
 	</script>

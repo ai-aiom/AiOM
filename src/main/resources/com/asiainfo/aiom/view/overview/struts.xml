@@ -20,6 +20,36 @@
 				<param name="property">servers</param>
 			</result>
 		</action>
+		
+		<action name="getserversmemorytop" class="com.asiainfo.aiom.view.overview.serverview.ServerMemoryTopViewAction">
+			<result type="json">
+				<param name="property">servers</param>
+			</result>
+		</action>
+		
+		<action name="getserversdisktop" class="com.asiainfo.aiom.view.overview.serverview.ServerDiskTopViewAction">
+			<result type="json">
+				<param name="property">servers</param>
+			</result>
+		</action>
+		
+		<action name="getserversdisktop" class="com.asiainfo.aiom.view.overview.serverview.ServerDiskTopViewAction">
+			<result type="json">
+				<param name="property">servers</param>
+			</result>
+		</action>
+		
+		<action name="getserversnetworktop" class="com.asiainfo.aiom.view.overview.serverview.ServerNetworkTopViewAction">
+			<result type="json">
+				<param name="property">servers</param>
+			</result>
+		</action>
+		
+		<action name="getserversloadtop" class="com.asiainfo.aiom.view.overview.serverview.ServerLoadTopViewAction">
+			<result type="json">
+				<param name="property">servers</param>
+			</result>
+		</action>
 	</package>
 		
 </struts>

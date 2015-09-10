@@ -30,7 +30,7 @@
         	        x : 'left',
         	        data:['正常','监控不可达']
         	    },
-        	    calculable : true,
+        	    calculable : false,
         	    series : [
         	        {
         	            name:'访问来源',
@@ -73,22 +73,27 @@
 			
 			$('#overview_server_cpu_top5').panel({
 				title: '服务器CPU使用TOP5',
-				height: 181
+				height: 179
 			});
 			
 			$('#overview_server_memory_top5').panel({
 				title: '服务器内存使用TOP5',
-				height: 200
+				height: 179
 			});
 			
 			$('#overview_server_disk_top5').panel({
 				title: '服务器磁盘使用TOP5',
-				height: 200
+				height: 179
 			});
 			
 			$('#overview_server_network_top5').panel({
 				title: '服务器网络带宽使用TOP5',
-				height: 200
+				height: 179
+			});
+			
+			$('#overview_server_load_top5').panel({
+				title: '服务器负载使用TOP5',
+				height: 179
 			});
 			
 			$('#overview_server_cpu_top5_table').datagrid({    
@@ -98,21 +103,113 @@
 			    fitColumns: true,
 			    columns:[[
 					{field: 'ip', title: 'IP', width: 100, align: 'center'},
-					{field: 'serverRuntime.metrics.cpu_system.value', title: 'CPU_SYSTEM', width: 100, align: 'center', formatter: function(value, row, index){
+					{field: 'serverRuntime.metrics.cpu_system.value', title: 'SYSTEM', width: 100, align: 'center', formatter: function(value, row, index){
+			        	if(row.monitorType == 1){
+			        		return "N/A";
+			        	} else {
+			        		return percentageView(value);
+			        	}
+			        }},
+			        {field: 'serverRuntime.metrics.cpu_user.value', title: 'USER', width: 100, align: 'center', formatter: function(value, row, index){
+			        	if(row.monitorType == 1){
+			        		return "N/A";
+			        	} else {
+			        		return percentageView(value);
+			        	}
+			        }},
+			        {field: 'serverRuntime.metrics.cpu_wio.value', title: 'WIO', width: 100, align: 'center', formatter: function(value, row, index){
+			        	if(row.monitorType == 1){
+			        		return "N/A";
+			        	} else {
+			        		return percentageView(value);
+			        	}
+			        }}
+				]]
+			});
+			
+			$('#overview_server_memory_top5_table').datagrid({    
+			    url:'<%=ctp %>/overview/getserversmemorytop.action',
+			    fit: true,
+			    remoteSort: false,
+			    fitColumns: true,
+			    columns:[[
+					{field: 'ip', title: 'IP', width: 100, align: 'center'},
+					{field: 'properties.shared', title: 'SHARED', width: 100, align: 'center'},
+			        {field: 'properties.buffers', title: 'BUFFERS', width: 100, align: 'center'},
+			        {field: 'properties.cached', title: 'CACHED', width: 100, align: 'center'}
+				]]
+			});
+			
+			$('#overview_server_disk_top5_table').datagrid({    
+			    url:'<%=ctp %>/overview/getserversdisktop.action',
+			    fit: true,
+			    remoteSort: false,
+			    fitColumns: true,
+			    columns:[[
+					{field: 'ip', title: 'IP', width: 100, align: 'center'},
+					{field: 'serverRuntime.metrics.disk_total.value', title: 'TOTAL', width: 100, align: 'center', formatter: function(value, row, index){
+			        	if(row.monitorType == 1){
+			        		return "N/A";
+			        	} else {
+			        		return value + " GB";
+			        	}
+			        }},
+			        {field: 'serverRuntime.metrics.disk_free.value', title: 'FREE', width: 100, align: 'center', formatter: function(value, row, index){
+			        	if(row.monitorType == 1){
+			        		return "N/A";
+			        	} else {
+			        		return value + " GB";
+			        	}
+			        }}
+				]]
+			});
+			
+			$('#overview_server_network_top5_table').datagrid({    
+			    url:'<%=ctp %>/overview/getserversnetworktop.action',
+			    fit: true,
+			    remoteSort: false,
+			    fitColumns: true,
+			    columns:[[
+					{field: 'ip', title: 'IP', width: 100, align: 'center'},
+					{field: 'serverRuntime.metrics.bytes_out.value', title: 'OUT', width: 100, align: 'center', formatter: function(value, row, index){
+			        	if(row.monitorType == 1){
+			        		return "N/A";
+			        	} else {
+			        		return value + " B/S";
+			        	}
+			        }},
+			        {field: 'serverRuntime.metrics.bytes_in.value', title: 'IN', width: 100, align: 'center', formatter: function(value, row, index){
+			        	if(row.monitorType == 1){
+			        		return "N/A";
+			        	} else {
+			        		return value + " B/S";
+			        	}
+			        }}
+				]]
+			});
+			
+			$('#overview_server_load_top5_table').datagrid({    
+			    url:'<%=ctp %>/overview/getserversnetworktop.action',
+			    fit: true,
+			    remoteSort: false,
+			    fitColumns: true,
+			    columns:[[
+					{field: 'ip', title: 'IP', width: 100, align: 'center'},
+					{field: 'serverRuntime.metrics.load_one.value', title: 'ONE', width: 100, align: 'center', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
 			        	} else {
 			        		return value;
 			        	}
 			        }},
-			        {field: 'serverRuntime.metrics.cpu_user.value', title: 'CPU_USER', width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'serverRuntime.metrics.load_five.value', title: 'FIVE', width: 100, align: 'center', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
 			        	} else {
 			        		return value;
 			        	}
 			        }},
-			        {field: 'serverRuntime.metrics.cpu_wio.value', title: 'CPU_WIO', width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'serverRuntime.metrics.load_fifteen.value', title: 'FIFTEEN', width: 100, align: 'center', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
 			        	} else {
@@ -143,14 +240,24 @@
 				<td width="10"></td>
 				<td style="vertical-align: top;">
 					<div id="overview_server_cpu_top5">
-						<table id="overview_server_cpu_top5_table"></table>
+						<table id="overview_server_cpu_top5_table" border="0"></table>
 					</div>
 					<br>
-					<div id="overview_server_memory_top5"></div>
+					<div id="overview_server_memory_top5">
+						<table id="overview_server_memory_top5_table" border="0"></table>
+					</div>
 					<br>
-					<div id="overview_server_disk_top5"></div>
+					<div id="overview_server_disk_top5">
+						<table id="overview_server_disk_top5_table" border="0"></table>
+					</div>
 					<br>
-					<div id="overview_server_network_top5"></div>
+					<div id="overview_server_network_top5">
+						<table id="overview_server_network_top5_table" border="0"></table>
+					</div>
+					<br>
+					<div id="overview_server_load_top5">
+						<table id="overview_server_load_top5_table" border="0"></table>
+					</div>
 				</td>
 			</tr>
 		</table>	

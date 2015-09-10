@@ -26,11 +26,11 @@ import com.asiainfo.support.struts2.ServletAwareActionSupport;
 public class ServerOverViewAction extends ServletAwareActionSupport
 {
 	private static final long serialVersionUID = 6735652189422443541L;
-	
+
 	private ServerApi serverApi;
-	
+
 	private Map<String, Integer> properties = new HashMap<String, Integer>();
-	
+
 	public Map<String, Integer> getProperties()
 	{
 		return properties;
@@ -45,30 +45,30 @@ public class ServerOverViewAction extends ServletAwareActionSupport
 	{
 		this.serverApi = serverApi;
 	}
-	
+
 	public String execute()
 	{
 		List<Server> servers = serverApi.listServers();
 		Machine machine = (Machine) session.get("machine");
 		servers = ServerFilterAndSorter.filterByMachine(servers, machine);
-		
+
 		int statusOn = 0;
 		int statusOff = 0;
 		for (Server s : servers)
 		{
 			if (s.getServerRuntime() != null && s.getServerRuntime().getStatus() == 1)
 			{
-				statusOn++ ;
+				statusOn++;
 			}
 			else
 			{
 				statusOff++;
 			}
 		}
-		
+
 		properties.put("statusOn", statusOn);
 		properties.put("statusOff", statusOff);
-		
+
 		return SUCCESS;
 	}
 }

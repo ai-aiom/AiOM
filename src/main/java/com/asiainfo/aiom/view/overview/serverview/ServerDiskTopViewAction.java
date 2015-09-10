@@ -1,9 +1,9 @@
 /**
- * @File: ServerCpuTopViewAction.java 
+ * @File: ServerDiskTopViewAction.java 
  * @Package  com.asiainfo.aiom.view.overview.serverview
  * @Description: 
  * @author luyang
- * @date 2015年9月9日 下午2:00:52 
+ * @date 2015年9月10日 上午10:57:29 
  * @version V1.0
  * 
  */
@@ -12,8 +12,6 @@ package com.asiainfo.aiom.view.overview.serverview;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import org.apache.commons.lang.math.NumberUtils;
 
 import com.asiainfo.aiom.domain.Machine;
 import com.asiainfo.aiom.utils.ServerFilterAndSorter;
@@ -25,9 +23,9 @@ import com.asiainfo.support.struts2.ServletAwareActionSupport;
  * @author luyang
  *
  */
-public class ServerCpuTopViewAction extends ServletAwareActionSupport
+public class ServerDiskTopViewAction extends ServletAwareActionSupport
 {
-	private static final long serialVersionUID = 46245700387558956L;
+	private static final long serialVersionUID = 2850461489578473385L;
 
 	private ServerApi serverApi;
 
@@ -59,22 +57,30 @@ public class ServerCpuTopViewAction extends ServletAwareActionSupport
 			public int compare(Server server1, Server server2)
 			{
 				if (server1.getServerRuntime().getMetrics() == null
-						|| !server1.getServerRuntime().getMetrics().containsKey("cpu_idle"))
+						|| !server1.getServerRuntime().getMetrics().containsKey("disk_total")
+						|| !server1.getServerRuntime().getMetrics().containsKey("disk_free"))
 				{
 					return 1;
 				}
 				else if (server2.getServerRuntime().getMetrics() == null
-						|| !server2.getServerRuntime().getMetrics().containsKey("cpu_idle"))
+						|| !server2.getServerRuntime().getMetrics().containsKey("disk_total")
+						|| !server2.getServerRuntime().getMetrics().containsKey("disk_free"))
 				{
 					return -1;
 				}
 				else
 				{
-					float cpuIdle1 = NumberUtils.toFloat(String.valueOf(server1.getServerRuntime().getMetrics()
-							.get("cpu_idle").getValue()));
-					float cpuIdle2 = NumberUtils.toFloat(String.valueOf(server2.getServerRuntime().getMetrics()
-							.get("cpu_idle").getValue()));
-					return cpuIdle1 > cpuIdle2 ? 1 : -1;
+					double diskTotal1 = (double) server1.getServerRuntime().getMetrics().get("disk_total").getValue();
+					double diskFree1 = (double) server1.getServerRuntime().getMetrics().get("disk_free").getValue();
+					double diskUsed1 = diskTotal1 - diskFree1;
+					int diskRate1 = (int) (diskUsed1 / diskTotal1 * 100);
+
+					double diskTotal2 = (double) server2.getServerRuntime().getMetrics().get("disk_total").getValue();
+					double diskFree2 = (double) server2.getServerRuntime().getMetrics().get("disk_free").getValue();
+					double diskUsed2 = diskTotal2 - diskFree2;
+					int diskRate2 = (int) (diskUsed2 / diskTotal2 * 100);
+
+					return diskRate2 - diskRate1;
 				}
 			}
 		});
@@ -83,6 +89,7 @@ public class ServerCpuTopViewAction extends ServletAwareActionSupport
 		{
 			servers = servers.subList(0, 5);
 		}
+
 		return SUCCESS;
 	}
 }
