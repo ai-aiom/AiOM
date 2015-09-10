@@ -57,5 +57,5 @@
 	
 	<include file="com/asiainfo/aiom/view/system/struts.xml"></include>
 	<include file="com/asiainfo/aiom/view/inventory/struts.xml"></include>
-	
+	<include file="com/asiainfo/aiom/view/metric/struts.xml"></include>
 </struts>
