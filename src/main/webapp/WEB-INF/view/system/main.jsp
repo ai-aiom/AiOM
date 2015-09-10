@@ -35,12 +35,13 @@
 			<div class="sub_menu_group">
 				<span>位置</span>
 				<div class="sub_menu_item" link="<%=ctp %>/system/location/main.action">机房管理</div>
-				<div class="sub_menu_item" link="<%=ctp %>/system/cabinet/main.action">机架管理</div>
+				<div class="sub_menu_item" link="<%=ctp %>/system/cabinet/main.action">机柜管理</div>
 			</div>
 			<div class="sub_menu_group">
 				<span>配置</span>
 				<div class="sub_menu_item" link="<%=ctp %>/system/image/main.action">系统镜像管理</div>
-				<div class="sub_menu_item">系统模板配置</div>
+				<div class="sub_menu_item" link="<%=ctp %>/system/template/main.action">系统模板配置</div>
+				<div class="sub_menu_item" link="<%=ctp %>/system/postscripts/main.action">脚本配置管理</div>
 				<div class="sub_menu_item">邮箱配置</div>
 			</div>
 		</div>

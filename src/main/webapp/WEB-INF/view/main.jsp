@@ -95,7 +95,7 @@
 	<div data-options="region:'west', border: false" style="width:60px; overflow: hidden;">
 		<div id="main_menu">
 			<ul>
-				<li type="0">
+				<li type="0" link="<%=ctp %>/overview/main.action">
 					<div><img src="<%=ctp %>/images/main/icon_summary.png"></div>
 					<div>概览</div>
 				</li>

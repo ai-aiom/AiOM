@@ -30,6 +30,14 @@
 	<bean id="imageApi" class="com.asiainfo.gim.client.deploy.api.ImageApi">
 		<constructor-arg index="0" value="${service.deploy.endpoint}" />
 	</bean>
+	
+	<bean id="templateApi" class="com.asiainfo.gim.client.deploy.api.TemplateApi">
+		<constructor-arg index="0" value="${service.deploy.endpoint}" />
+	</bean>
+	
+	<bean id="postScriptsApi" class="com.asiainfo.gim.client.deploy.api.PostScriptsApi">
+		<constructor-arg index="0" value="${service.deploy.endpoint}" />
+	</bean>
 
 	<bean id="serverApi" class="com.asiainfo.gim.client.server_manage.api.ServerApi">
 		<constructor-arg index="0" value="${service.server.endpoint}" />

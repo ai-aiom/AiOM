@@ -1,14 +1,50 @@
-a:link { text-decoration: none;}
-a:active { text-decoration: none}
-a:hover { text-decoration: none;} 
-a:visited { text-decoration: none;}
+a:link {
+	text-decoration: none;
+}
 
-body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
+a:active {
+	text-decoration: none
+}
 
-#main_menu { background-color: #193E63; height: 100%; width: 100%; color: #FFFFFF; padding-top: 20px;}
-#main_menu ul { list-style-type: none; width: 60px; padding-left: 0px; margin-top: 0px;}
-#main_menu li { display: none; text-align: center; font-weight: bold; font-size: 13px; margin-bottom: 30px; cursor: pointer;}
-#main_menu img { margin-bottom: 5px;}
+a:hover {
+	text-decoration: none;
+}
+
+a:visited {
+	text-decoration: none;
+}
+
+body {
+	font-family: "Microsoft YaHei", 微软雅黑, Arial;
+}
+
+#main_menu {
+	background-color: #193E63;
+	height: 100%;
+	width: 100%;
+	color: #FFFFFF;
+	padding-top: 20px;
+}
+
+#main_menu ul {
+	list-style-type: none;
+	width: 60px;
+	padding-left: 0px;
+	margin-top: 0px;
+}
+
+#main_menu li {
+	display: none;
+	text-align: center;
+	font-weight: bold;
+	font-size: 13px;
+	margin-bottom: 30px;
+	cursor: pointer;
+}
+
+#main_menu img {
+	margin-bottom: 5px;
+}
 
 #main_header {
 	height: 60px;
@@ -17,7 +53,7 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 
 #main_user_menu {
 	font-family: "Microsoft YaHei", 微软雅黑, Arial;
-	font-size:13px;
+	font-size: 13px;
 	width: 130px;
 	top: 37px;
 	right: 10px;
@@ -54,6 +90,7 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 	background-color: #EDEEF0;
 	padding-top: 20px;
 }
+
 .sub_menu_title {
 	font-family: "Microsoft YaHei", 微软雅黑, Arial;
 	color: #555555;
@@ -64,11 +101,13 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 	padding-bottom: 5px;
 	border-bottom: solid 2px #E0DDE4;
 }
+
 .sub_menu_group {
 	width: 130px;
 	margin-left: 10px;
 	margin-top: 20px;
 }
+
 .sub_menu_group span {
 	font-family: "Microsoft YaHei", 微软雅黑, Arial;
 	color: #555555;
@@ -76,6 +115,7 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 	font-weight: bold;
 	margin-left: 10px;
 }
+
 .sub_menu_item {
 	font-family: "Microsoft YaHei", 微软雅黑, Arial;
 	color: #555555;
@@ -83,6 +123,7 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 	margin-left: 20px;
 	cursor: pointer;
 }
+
 .content_title {
 	font-family: "Microsoft YaHei", 微软雅黑, Arial;
 	color: #555555;
@@ -92,18 +133,21 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 	padding-bottom: 5px;
 	border-bottom: solid 2px #E0DDE4;
 }
+
 .content_title_operation {
 	position: absolute;
 	font-family: "Microsoft YaHei", 微软雅黑, Arial;
-	font-size:13px;
+	font-size: 13px;
 	font-weight: normal;
 	color: #000000;
 	top: 25px;
 	right: 20px;
 }
+
 .content_container {
 	margin: 10px 10px 0px 10px;
 }
+
 .operation_icon_black {
 	width: 16px;
 	height: 16px;
@@ -111,28 +155,32 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 	cursor: pointer;
 	background-image: url("../../../images/icon_all01_black.png");
 }
+
 .operation_icon_blue {
 	background-image: url("../../../images/icon_all01_blue.png");
 }
+
 .form_fieldset {
 	margin-bottom: 20px;
 }
-.form_fieldset span{
+
+.form_fieldset span {
 	font-family: "Microsoft YaHei", 微软雅黑, Arial;
 	color: #555555;
 	font-size: 14px;
 	font-weight: bold;
 	margin-left: 10px;
 }
-.form_fieldset table{
-	margin: 10px 0px 0px 50px; 
+
+.form_fieldset table {
+	margin: 10px 0px 0px 50px;
 }
 
 .info_grid {
 	width: 95%;
 }
 
-.info_grid span{
+.info_grid span {
 	font-family: "Microsoft YaHei", 微软雅黑, Arial;
 	color: #555555;
 	font-size: 12px;
@@ -166,5 +214,33 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 .metric_chart {
 	width: 550px;
 	height: 220px;
-	float: left;
+	float: left; . percentage { width : 100px;
+	height: 15px;
+	border: 1px solid black;
+	background-color: white;
+	position: relative;
+	padding: 2px;
+}
+
+.percentage div {
+	background-color: #25AA00;
+	height: 15px;
+	display: block;
+	width: 0px;
+}
+
+.percentage span {
+	font-family: "Microsoft YaHei", 微软雅黑, Arial;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	position: absolute;
+	display: block;
+	text-align: center;
+	width: 100px;
+	height: 15px;
+	line-height: 15px;
+	top: 2px;
+	left: 2px;
+	margin: 0px;
 }

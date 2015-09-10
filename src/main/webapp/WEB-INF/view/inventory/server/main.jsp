@@ -17,27 +17,46 @@
 	<script type="text/javascript">
 		
 		$(function(){
+			
 			$('#server_main_grid').datagrid({    
 			    url:'<%=ctp %>/inventory/server/list.action',
 			    fit: true,
+			    remoteSort: false,
 			    fitColumns: true,
 			    columns:[[
 			        {field: 'ip', title: 'IP', width: 100, align: 'center', formatter: function(value, row, index){
 			        	return '<a href = <%=ctp%>/inventory/server/detail.action?serverId='+row.id+'&ip='+row.ip+' style="text-align: left">'+value+'</a>';
 			        }},
-			        {field: 'serverRuntime.status', title: '状态', width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'serverRuntime.status', title: '状态', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
 			        	if(value == 1){
-			        		return '正常';
-			        	}else{
-			        		return '不可达';
+			        		return '<div><img src="<%=ctp%>/images/device/status1.gif" style="vertical-align: middle; margin-right: 5px;">正常</div>';
+			        	} else {
+			        		var message = row.monitorType == '1' ? '监控不可达' : '无监控心跳';
+			        		return '<div><img src="<%=ctp%>/images/device/status0.gif" style="vertical-align: middle; margin-right: 5px;">' + message + '</div>';
 			        	}
 			        }},
-			        {field: 'hostname', title: '主机名', width: 100, align: 'center'},
-			        {field: 'properties.moduleId', title: '所属模块', width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'monitorType', title: '监控类型', sortable: true, sorter: commonSorter, width: 80, align: 'center', formatter: function(value, row, index){
+			        	if(value == 1){
+			        		return 'ICMP';
+			        	} else if(value == 2) {
+			        		return 'SSH';
+			        	} else if(value == 3) {
+			        		return 'AGENT';
+			        	}
+			        }},
+			        {field: 'hostname', title: '主机名', sortable: true, sorter: commonSorter, width: 100, align: 'center'},
+			        {field: 'properties.moduleId', title: '所属模块', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
 			        	return MACHINE_SERVER_MOUDLE[value] ? MACHINE_SERVER_MOUDLE[value] : value;
 			        }},
-			        {field: 'properties.cpuRate', title: 'cpu使用率', width: 100, align: 'center'},
-			        {field: 'properties.memoryRate', title: '内存使用率', width: 100, align: 'center'},
+			        {field: 'properties.cpuRate', title: 'cpu使用率', width: 100, align: 'center', formatter: function(value, row, index){
+						return percentageView(value);
+					}},
+			        {field: 'properties.memoryRate', title: '内存使用率', width: 100, align: 'center', formatter: function(value, row, index){
+						return percentageView(value);
+					}},
+			        {field: 'properties.diskRate', title: '磁盘使用率', width: 100, align: 'center', formatter: function(value, row, index){
+						return percentageView(value);
+					}},
 			        {field: 'id', title: '操作', width: 100, align: 'center', formatter: function(value, row, index){
 			        	return '<div grid_operation serverId="' + value + '" style="text-align: left"></div>';
 			        }}
@@ -86,6 +105,27 @@
 	            	window.location.href = '<%=ctp%>/inventory/server/detail.action?serverId=' + rowData.id + '&ip=' + rowData.ip;
 	            }
 			});
+			
+			function percentageView(value){
+				if (value == "N/A"){
+					return value;
+				}
+				var pef_num = parseInt(value);
+				if(!pef_num) {
+					pef_num = 0;
+				}
+				var v = pef_num + '%';
+				var insert_div = '';
+				if(pef_num < 80){
+					insert_div = "<div style='width: "+v+"'></div>";
+				}else if(pef_num >= 80){
+					insert_div = "<div style='width: "+v+"; background-color: red'></div>";
+				}else if(pef_num > 100){
+					insert_div = "<div style='width: 100%; background-color: red'></div>";
+				}
+				var pef_span = "<span>"+v+"</span>";
+				return '<div class="percentage" >' + insert_div + pef_span + '</div>';
+			}
 		});
 		
 	</script>

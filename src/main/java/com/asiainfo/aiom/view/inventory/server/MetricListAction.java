@@ -1,4 +1,4 @@
-package com.asiainfo.aiom.view.inventory.metric.detail;
+package com.asiainfo.aiom.view.inventory.server;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

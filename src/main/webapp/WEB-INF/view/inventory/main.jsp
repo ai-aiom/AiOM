@@ -23,6 +23,7 @@
 			$('.sub_menu_item').click(function(){
 				window.content_frame.location.href = $(this).attr('link');
 			});
+			$('.sub_menu_item:eq(1)').click();
 		});
 	</script>
 </head>
@@ -32,8 +33,7 @@
 			<div class="sub_menu_title">资源清单</div>
 			<div class="sub_menu_group">
 				<span>视图</span>
-				<div class="sub_menu_item">机架视图</div>
-				<div class="sub_menu_item">拓扑结构</div>
+				<div class="sub_menu_item" link="<%=ctp %>/inventory/rackview/rackview.action">机柜视图</div>
 			</div>
 			<div class="sub_menu_group">
 				<span>设备清单</span>

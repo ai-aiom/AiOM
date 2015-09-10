@@ -52,29 +52,26 @@
 			series : []
 		};
 		
-		var charts = {};
 		
-		var createChart = function(ec){
-			charts['cpu_idle'] = ec.init(document.getElementById('cpu_idle'));
-			charts['cpu_system'] = ec.init(document.getElementById('cpu_system'));
-			charts['cpu_user'] = ec.init(document.getElementById('cpu_user'));
-			charts['cpu_wio'] = ec.init(document.getElementById('cpu_wio'));
-			
-			charts['mem_cached'] = ec.init(document.getElementById('mem_cached'));
-			charts['mem_buffers'] = ec.init(document.getElementById('mem_buffers'));
-			charts['mem_free'] = ec.init(document.getElementById('mem_free'));
-			charts['mem_shared'] = ec.init(document.getElementById('mem_shared'));
-			charts['swap_free'] = ec.init(document.getElementById('swap_free'));
-			
-			charts['disk_free'] = ec.init(document.getElementById('disk_free'));
-			charts['part_max_used'] = ec.init(document.getElementById('part_max_used'));
-			
-			charts['bytes_in'] = ec.init(document.getElementById('bytes_in'));
-			charts['bytes_out'] = ec.init(document.getElementById('bytes_out'));
-			charts['pkts_in'] = ec.init(document.getElementById('pkts_in'));
-			charts['pkts_out'] = ec.init(document.getElementById('pkts_out'));
-			loadData();
-		}
+		var charts = {};
+		charts['cpu_idle'] = echarts.init(document.getElementById('cpu_idle'));
+		charts['cpu_system'] = echarts.init(document.getElementById('cpu_system'));
+		charts['cpu_user'] = echarts.init(document.getElementById('cpu_user'));
+		charts['cpu_wio'] = echarts.init(document.getElementById('cpu_wio'));
+		
+		charts['mem_cached'] = echarts.init(document.getElementById('mem_cached'));
+		charts['mem_buffers'] = echarts.init(document.getElementById('mem_buffers'));
+		charts['mem_free'] = echarts.init(document.getElementById('mem_free'));
+		charts['mem_shared'] = echarts.init(document.getElementById('mem_shared'));
+		charts['swap_free'] = echarts.init(document.getElementById('swap_free'));
+		
+		charts['disk_free'] = echarts.init(document.getElementById('disk_free'));
+		charts['part_max_used'] = echarts.init(document.getElementById('part_max_used'));
+		
+		charts['bytes_in'] = echarts.init(document.getElementById('bytes_in'));
+		charts['bytes_out'] = echarts.init(document.getElementById('bytes_out'));
+		charts['pkts_in'] = echarts.init(document.getElementById('pkts_in'));
+		charts['pkts_out'] = echarts.init(document.getElementById('pkts_out'));
 		
 		var loadData = function(startTime, endTime){
 			$.ajax({
@@ -105,6 +102,9 @@
 		        }
 		   });
 		}
+		
+		loadData();
+		
 		$('#query_button').click(function(){
 			var startTime = $('#start_time').datetimebox('getValue');
 			var endTime = $('#end_time').datetimebox('getValue');
@@ -132,13 +132,6 @@
 			var startTime = endTime - hour*3600*1000;
 			loadData(startTime, endTime);
 		});
-		require.config({
-		    paths: {
-		         echarts: '<%=ctp%>/js/echarts/dist'
-			}
-		});
-		require([ 'echarts', 'echarts/chart/line' ], createChart);
-		
 	});
 
 </script>
