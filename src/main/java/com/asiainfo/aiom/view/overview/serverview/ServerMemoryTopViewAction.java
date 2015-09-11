@@ -60,13 +60,13 @@ public class ServerMemoryTopViewAction extends ServletAwareActionSupport
 						|| !server1.getServerRuntime().getMetrics().containsKey("mem_total")
 						|| !server1.getServerRuntime().getMetrics().containsKey("mem_free"))
 				{
-					return 1;
+					return -1;
 				}
 				else if (server2.getServerRuntime().getMetrics() == null
 						|| !server2.getServerRuntime().getMetrics().containsKey("mem_total")
 						|| !server2.getServerRuntime().getMetrics().containsKey("mem_free"))
 				{
-					return -1;
+					return 1;
 				}
 				else
 				{
@@ -80,11 +80,13 @@ public class ServerMemoryTopViewAction extends ServletAwareActionSupport
 					double memUsed2 = memTotal2 - memFree2;
 					int memoryRate2 = (int) (memUsed2 / memTotal2 * 100);
 
-					return memoryRate2 - memoryRate1;
+					return memoryRate1 - memoryRate2;
 				}
 			}
 		});
 
+		Collections.reverse(servers);
+		
 		if (servers.size() > 5)
 		{
 			servers = servers.subList(0, 5);
