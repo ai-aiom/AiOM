@@ -61,14 +61,14 @@ public class ServerLoadTopViewAction extends ServletAwareActionSupport
 						|| !server1.getServerRuntime().getMetrics().containsKey("load_fifteen")
 						|| !server1.getServerRuntime().getMetrics().containsKey("load_one"))
 				{
-					return 1;
+					return -1;
 				}
 				else if (server2.getServerRuntime().getMetrics() == null
 						|| !server2.getServerRuntime().getMetrics().containsKey("load_five")
 						|| !server2.getServerRuntime().getMetrics().containsKey("load_fifteen")
 						|| !server2.getServerRuntime().getMetrics().containsKey("load_one"))
 				{
-					return -1;
+					return 1;
 				}
 				else
 				{
@@ -76,11 +76,13 @@ public class ServerLoadTopViewAction extends ServletAwareActionSupport
 
 					double loadFifteen2 = (double) server2.getServerRuntime().getMetrics().get("load_fifteen").getValue();
 
-					return loadFifteen1 > loadFifteen2 ? -1 : 1;
+					return loadFifteen1 > loadFifteen2 ? 1 : -1;
 				}
 			}
 		});
 
+		Collections.reverse(servers);
+		
 		if (servers.size() > 5)
 		{
 			servers = servers.subList(0, 5);

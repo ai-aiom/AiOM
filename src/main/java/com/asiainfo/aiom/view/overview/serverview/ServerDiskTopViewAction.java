@@ -60,13 +60,13 @@ public class ServerDiskTopViewAction extends ServletAwareActionSupport
 						|| !server1.getServerRuntime().getMetrics().containsKey("disk_total")
 						|| !server1.getServerRuntime().getMetrics().containsKey("disk_free"))
 				{
-					return 1;
+					return -1;
 				}
 				else if (server2.getServerRuntime().getMetrics() == null
 						|| !server2.getServerRuntime().getMetrics().containsKey("disk_total")
 						|| !server2.getServerRuntime().getMetrics().containsKey("disk_free"))
 				{
-					return -1;
+					return 1;
 				}
 				else
 				{
@@ -80,11 +80,13 @@ public class ServerDiskTopViewAction extends ServletAwareActionSupport
 					double diskUsed2 = diskTotal2 - diskFree2;
 					int diskRate2 = (int) (diskUsed2 / diskTotal2 * 100);
 
-					return diskRate2 - diskRate1;
+					return diskRate1 - diskRate2;
 				}
 			}
 		});
 
+		Collections.reverse(servers);
+		
 		if (servers.size() > 5)
 		{
 			servers = servers.subList(0, 5);

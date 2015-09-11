@@ -61,12 +61,12 @@ public class ServerCpuTopViewAction extends ServletAwareActionSupport
 				if (server1.getServerRuntime().getMetrics() == null
 						|| !server1.getServerRuntime().getMetrics().containsKey("cpu_idle"))
 				{
-					return 1;
+					return -1;
 				}
 				else if (server2.getServerRuntime().getMetrics() == null
 						|| !server2.getServerRuntime().getMetrics().containsKey("cpu_idle"))
 				{
-					return -1;
+					return 1;
 				}
 				else
 				{
@@ -74,11 +74,13 @@ public class ServerCpuTopViewAction extends ServletAwareActionSupport
 							.get("cpu_idle").getValue()));
 					float cpuIdle2 = NumberUtils.toFloat(String.valueOf(server2.getServerRuntime().getMetrics()
 							.get("cpu_idle").getValue()));
-					return cpuIdle1 > cpuIdle2 ? 1 : -1;
+					return cpuIdle1 > cpuIdle2 ? -1 : 1;
 				}
 			}
 		});
 
+		Collections.reverse(servers);
+		
 		if (servers.size() > 5)
 		{
 			servers = servers.subList(0, 5);
