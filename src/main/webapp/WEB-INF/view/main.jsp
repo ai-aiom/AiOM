@@ -41,6 +41,8 @@
 				}
 			});
 			
+			$('#main_menu li:eq(0)').click();
+			
 			// 菜单控制
 			$('#main_button_show_user_menu').click(function(){
 				$('#main_user_menu').css('display', 'block');
