@@ -1,4 +1,4 @@
-package com.asiainfo.aiom.domain;
+package com.asiainfo.aiom.domain.view;
 
 import java.util.List;
 
@@ -8,8 +8,6 @@ public class MetricViewEntity
 	String unit;
 	List<Object> data;
 	List<Object> xdata;
-	long startTime;
-	long endTime;
 
 	public String getName()
 	{
@@ -39,26 +37,6 @@ public class MetricViewEntity
 	public void setXdata(List<Object> xdata)
 	{
 		this.xdata = xdata;
-	}
-
-	public long getStartTime()
-	{
-		return startTime;
-	}
-
-	public void setStartTime(long startTime)
-	{
-		this.startTime = startTime;
-	}
-
-	public long getEndTime()
-	{
-		return endTime;
-	}
-
-	public void setEndTime(long endTime)
-	{
-		this.endTime = endTime;
 	}
 
 	public String getUnit()

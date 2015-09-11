@@ -21,7 +21,7 @@
 		$('#start_time').datetimebox({showSeconds:true, editable:false});
 		$('#end_time').datetimebox({showSeconds:true, editable:false});
 		$('#query_button').linkbutton();
-		$($('.quick_select').get(0)).addClass("quick_selected");
+		$('.quick_select:eq(0)').addClass("quick_selected");
 		
 		var option = {
 			tooltip : {
@@ -75,35 +75,36 @@
 		
 		var loadData = function(startTime, endTime){
 			$.ajax({
-				url : '<%=ctp %>/metric/listMetric.action',
+				url : '<%=ctp %>/inventory/server/listMetric.action',
 		        type : 'POST',
 		        data: {
-		        	ip : '<s:property value="#parameters.ip" />',
+		        	serverId : '<s:property value="#parameters.serverId"/>',
 		        	startTime : startTime,
 		        	endTime : endTime
 		        },
 		        dataType : 'json',
-		        success : function(resultMap) {
+		        success : function(metricDataMap) {
 		        	//这边要得到time
-		        	for(var key in resultMap){
-		        		var series = resultMap[key];
-		        		option.legend.data = [key];
-		        		option.noDataLoadingOption.text = key + '  暂无数据';
-		   	         	option.xAxis[0].data = resultMap[key].xdata;
+		        	for(var metricName in metricDataMap){
+		        		var series = metricDataMap[metricName];
+		        		option.legend.data = [metricName];
+		        		option.noDataLoadingOption.text = metricName + '  暂无数据';
+		   	         	option.xAxis[0].data = metricDataMap[metricName].xdata;
 		   	         	option.yAxis[0].name = '('+ series.unit +')';
 		   	            series.itemStyle = {normal: {areaStyle: {type: 'default'}}};
 		   	            series.type = "line";
 		   	            series.stack = "总量";
 		   	         	option.series[0] = series;
-		   	         	if(charts[key]) {
-		   	         		charts[key].setOption(option);
+		   	         	if(charts[metricName]) {
+		   	         		charts[metricName].setOption(option);
 		   	         	}
 		        	}
 		        }
 		   });
 		}
 		
-		loadData();
+		//默认初始是一个小时之前的数据
+		loadData(new Date().getTime() - 3600*1000, new Date().getTime());
 		
 		$('#query_button').click(function(){
 			var startTime = $('#start_time').datetimebox('getValue');
@@ -125,7 +126,6 @@
 			$('#start_time').datetimebox('setValue', "");
 			$('#end_time').datetimebox('setValue', "");
 			$('.quick_select').removeClass('quick_selected');
-			$('.quick_select').addClass('quick_select');
 			$(this).addClass('quick_selected');
 			var hour = $(this).attr("target");
 			var endTime = new Date().getTime();
@@ -136,8 +136,8 @@
 
 </script>
 <div>
-    <div id="time_div" style="height: 30px; margin-top: 5px; padding-left: 70px;">
-        <div id="time_select_div" style="float: left; margin-left: 10px; margin-right: 10px;">
+    <div style="height: 30px; margin-top: 5px; padding-left: 70px;">
+        <div style="float: left; margin-left: 10px; margin-right: 10px;">
            <div class="quick_select" target="1">1小时</div>
            <div class="quick_select" target="6">6小时</div>
            <div class="quick_select" target="12">12小时</div>
@@ -151,7 +151,7 @@
         <div style="float: left; margin-left: 10px; margin-right: 10px;">
                                结束时间：<input type="input" id="end_time" style="width: 150px;">
         </div>
-        <button id="query_button" style="width: 100px; height: 25px;" >查询</button>
+        <button id="query_button" style="width: 60px; height: 25px;" >查询</button>
     </div>
 	<div id="cpu_metirc_panel">
 	    <div id="cpu_idle" class="metric_chart"></div>

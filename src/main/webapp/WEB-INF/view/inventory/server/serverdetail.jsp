@@ -25,9 +25,7 @@
 			
 			var serverId = '<s:property value="#parameters.serverId" />';
 			$('#server_detail_summary').load('<%=ctp %>/inventory/server/summary.action?serverId=' + serverId);
-			
-			var ip = '<s:property value="#parameters.ip" />';
-			$('#metric').load('<%=ctp %>/metric/returnMetricPage.action?ip=' + ip);
+			$('#server_detail_metric').load('<%=ctp %>/inventory/server/returnMetricPage.action?serverId=' + serverId);
 			
 		});
 		
@@ -38,7 +36,7 @@
 		<div id="tt" class="easyui-tabs" data-options="fit: true, border: false">   
 		    <div id="server_detail_summary" title="概况" data-options="closable: false" style="padding-top: 10px;">   
 		    </div>   
-		    <div id="metric" title="性能" data-options="closable: false">   
+		    <div id="server_detail_metric" title="性能" data-options="closable: false">   
 		    </div>   
 		    <div title="告警" data-options="closable: false"> 
 		        tab3    
