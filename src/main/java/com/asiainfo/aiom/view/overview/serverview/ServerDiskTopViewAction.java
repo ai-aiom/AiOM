@@ -90,6 +90,20 @@ public class ServerDiskTopViewAction extends ServletAwareActionSupport
 			servers = servers.subList(0, 5);
 		}
 
+		for (Server server : servers)
+		{
+			if (server.getServerRuntime().getMetrics() != null
+					&& server.getServerRuntime().getMetrics().containsKey("disk_total")
+					&& server.getServerRuntime().getMetrics().containsKey("disk_free"))
+			{
+				double diskTotal = (double) server.getServerRuntime().getMetrics().get("disk_total").getValue();
+				double diskFree = (double) server.getServerRuntime().getMetrics().get("disk_free").getValue();
+				double diskUsed = diskTotal - diskFree;
+				int diskRate = (int) (diskUsed / diskTotal * 100);
+				server.getProperties().put("diskRate", String.valueOf(diskRate));
+			}
+		}
+		
 		return SUCCESS;
 	}
 }

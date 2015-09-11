@@ -13,8 +13,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.asiainfo.aiom.domain.Machine;
 import com.asiainfo.aiom.utils.ServerFilterAndSorter;
 import com.asiainfo.gim.client.server_manage.api.ServerApi;
@@ -94,30 +92,15 @@ public class ServerMemoryTopViewAction extends ServletAwareActionSupport
 
 		for (Server server : servers)
 		{
-			if (server.getServerRuntime().getMetrics() == null)
+			if (server.getServerRuntime().getMetrics() != null
+					&& server.getServerRuntime().getMetrics().containsKey("mem_total")
+					&& server.getServerRuntime().getMetrics().containsKey("mem_free"))
 			{
-				server.getProperties().put("shared", "N/A");
-				server.getProperties().put("buffers", "N/A");
-				server.getProperties().put("cached", "N/A");
-			}
-			else
-			{
-				double shared = (double) server.getServerRuntime().getMetrics().get("mem_shared").getValue();
-				double buffers = (double) server.getServerRuntime().getMetrics().get("mem_buffers").getValue();
-				double cached = (double) server.getServerRuntime().getMetrics().get("mem_cached").getValue();
-
-				String unit = server.getServerRuntime().getMetrics().get("mem_shared").getUnit();
-
-				if (StringUtils.equals(unit, "KB"))
-				{
-					shared = shared / 1024 / 1024;
-					buffers = buffers / 1024 / 1024;
-					cached = cached / 1024 / 1024;
-				}
-
-				server.getProperties().put("shared", String.valueOf(Math.round(shared * 10) / 10.0) + " GB");
-				server.getProperties().put("buffers", String.valueOf(Math.round(buffers * 10) / 10.0) + " GB");
-				server.getProperties().put("cached", String.valueOf(Math.round(cached * 10) / 10.0) + " GB");
+				double memTotal = (double) server.getServerRuntime().getMetrics().get("mem_total").getValue();
+				double memFree = (double) server.getServerRuntime().getMetrics().get("mem_free").getValue();
+				double memUsed = memTotal - memFree;
+				int memoryRate = (int) (memUsed / memTotal * 100);
+				server.getProperties().put("memoryRate", String.valueOf(memoryRate));
 			}
 		}
 
