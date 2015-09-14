@@ -143,8 +143,8 @@
 </script>
 <html>
   <body style="width: 10%;">
-    <div id="main"style="width: 100%;">
-    	<div style="height: 30px; margin-top: 5px; padding-left: 70px;" class="metric_panel">
+    <div id="main"style="min-width: 1100px;">
+    	<div style="height: 30px; margin-top: 5px; padding-left: 70px;" >
         	<div style="float: left; margin-left: 10px; margin-right: 10px">
            		<div class="quick_select" target="1" style="border-top-left-radius:0.5em;
                 	border-bottom-left-radius:0.5em;">1小时</div>
@@ -163,25 +163,25 @@
         	</div>
         	<button id="query_button" style="float: left; width: 60px; height: 25px;" >查询</button>
     	</div>
-    	<div id="cpu_metirc_panel" class="metric_panel">
+    	<div id="cpu_metirc_panel" >
         	<div id="cpu_idle" class="metric_chart"></div>
 	    	<div id="cpu_system" class="metric_chart"></div>
 	    	<div style="clear: both;"></div>
 	    	<div id="cpu_user" class="metric_chart"></div>
 	    	<div id="cpu_wio" class="metric_chart"></div>
     	</div>
-		<div id="memory_metirc_panel" class="metric_panel">
+		<div id="memory_metirc_panel" >
 	    	<div id="mem_cached" class="metric_chart"></div>
 	    	<div id="mem_buffers" class="metric_chart"></div>
 	    	<div id="mem_free" class="metric_chart"></div>
 	    	<div id="mem_shared" class="metric_chart"></div>
 			<div id="swap_free" class="metric_chart"></div>
 		</div>
-		<div id="disk_metirc_panel" class="metric_panel">
+		<div id="disk_metirc_panel" >
 	    	<div id="disk_free" class="metric_chart"></div>
 	    	<div id="part_max_used" class="metric_chart"></div>
 		</div>
-		<div id="network_metirc_panel" class="metric_panel">
+		<div id="network_metirc_panel" >
 	    	<div id="bytes_in" class="metric_chart"></div>
 	    	<div id="bytes_out" class="metric_chart"></div>
 	    	<div id="pkts_in" class="metric_chart"></div>

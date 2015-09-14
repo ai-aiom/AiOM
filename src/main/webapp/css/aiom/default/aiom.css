@@ -197,8 +197,3 @@ body { font-family: "Microsoft YaHei", 微软雅黑, Arial;}
 	height: 220px;
 	float: left; 
 }
-
-.metric_panel {
-	overflow: auto;
-	min-width: 1000px;
-}
