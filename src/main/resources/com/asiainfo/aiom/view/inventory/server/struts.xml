@@ -92,6 +92,16 @@
 				<param name="property">server</param>
 			</result>
 		</action>
+		
+		<action name="returnMetricPage" class="com.asiainfo.aiom.view.inventory.server.MetricListAction" method="returnMetricPage">
+            <result>/WEB-INF/view/inventory/server/servermetric.jsp</result>
+        </action>
+        
+        <action name="listMetric" class="com.asiainfo.aiom.view.inventory.server.MetricListAction">
+            <result type="json">
+				<param name="property">metricDataMap</param>
+			</result>
+        </action>
 	</package>
 	
 </struts>
