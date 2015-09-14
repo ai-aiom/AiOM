@@ -140,7 +140,7 @@ public class MetricListAction extends ServletAwareActionSupport
 		metricViewEntity.setName(metricQueryParam.getMetricName());
 		List<Object> data = new ArrayList<Object>();
 		List<Object> xdata = new ArrayList<Object>();
-		FastDateFormat formatter = FastDateFormat.getInstance("yyyy-MM-dd HH:mm");
+		FastDateFormat formatter = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
 		for (Metric metric : metricList)
 		{
 			data.add(metric.getValue());

@@ -23,6 +23,10 @@
 		$('#query_button').linkbutton();
 		$('.quick_select:eq(0)').addClass("quick_selected");
 		
+		//通过body计算出图标div的宽度
+		var bodyWidth = $(document.body).width();
+		$('.metric_chart').width(bodyWidth * 0.48);
+		
 		var option = {
 			tooltip : {
 				trigger : 'axis',
@@ -53,25 +57,25 @@
 		};
 		
 		
-		var charts = {};
-		charts['cpu_idle'] = echarts.init(document.getElementById('cpu_idle'));
-		charts['cpu_system'] = echarts.init(document.getElementById('cpu_system'));
-		charts['cpu_user'] = echarts.init(document.getElementById('cpu_user'));
-		charts['cpu_wio'] = echarts.init(document.getElementById('cpu_wio'));
+		var chartsDom = {};
+		chartsDom['cpu_idle'] = document.getElementById('cpu_idle');
+		chartsDom['cpu_system'] = document.getElementById('cpu_system');
+		chartsDom['cpu_user'] = document.getElementById('cpu_user');
+		chartsDom['cpu_wio'] = document.getElementById('cpu_wio');
 		
-		charts['mem_cached'] = echarts.init(document.getElementById('mem_cached'));
-		charts['mem_buffers'] = echarts.init(document.getElementById('mem_buffers'));
-		charts['mem_free'] = echarts.init(document.getElementById('mem_free'));
-		charts['mem_shared'] = echarts.init(document.getElementById('mem_shared'));
-		charts['swap_free'] = echarts.init(document.getElementById('swap_free'));
+		chartsDom['mem_cached'] = document.getElementById('mem_cached');
+		chartsDom['mem_buffers'] = document.getElementById('mem_buffers');
+		chartsDom['mem_free'] = document.getElementById('mem_free');
+		chartsDom['mem_shared'] = document.getElementById('mem_shared');
+		chartsDom['swap_free'] = document.getElementById('swap_free');
 		
-		charts['disk_free'] = echarts.init(document.getElementById('disk_free'));
-		charts['part_max_used'] = echarts.init(document.getElementById('part_max_used'));
+		chartsDom['disk_free'] = document.getElementById('disk_free');
+		chartsDom['part_max_used'] = document.getElementById('part_max_used');
 		
-		charts['bytes_in'] = echarts.init(document.getElementById('bytes_in'));
-		charts['bytes_out'] = echarts.init(document.getElementById('bytes_out'));
-		charts['pkts_in'] = echarts.init(document.getElementById('pkts_in'));
-		charts['pkts_out'] = echarts.init(document.getElementById('pkts_out'));
+		chartsDom['bytes_in'] = document.getElementById('bytes_in');
+		chartsDom['bytes_out'] = document.getElementById('bytes_out');
+		chartsDom['pkts_in'] = document.getElementById('pkts_in');
+		chartsDom['pkts_out'] = document.getElementById('pkts_out');
 		
 		var loadData = function(startTime, endTime){
 			$.ajax({
@@ -95,8 +99,8 @@
 		   	            series.type = "line";
 		   	            series.stack = "总量";
 		   	         	option.series[0] = series;
-		   	         	if(charts[metricName]) {
-		   	         		charts[metricName].setOption(option);
+		   	         	if(chartsDom[metricName]) {
+		   	         	 	echarts.init(chartsDom[metricName]).setOption(option);
 		   	         	}
 		        	}
 		        }
@@ -113,8 +117,10 @@
 				alert("请选择时间段！");
 				return;
 			}
-			var startTimeLong = new Date(startTime).getTime();
-			var endTimeLong = new Date(endTime).getTime();
+			//火狐和IE浏览器不能解析中文版easyui_CN的日期格式
+			var regax = /\-/g;
+			var startTimeLong = new Date(startTime.replace(regax, "/")).getTime();
+			var endTimeLong = new Date(endTime.replace(regax, "/")).getTime();
 			if(startTimeLong > endTimeLong){
 				alert("开始时间大于结束时间");
 				return;
@@ -135,49 +141,54 @@
 	});
 
 </script>
-<div>
-    <div style="height: 30px; margin-top: 5px; padding-left: 70px;">
-        <div style="float: left; margin-left: 10px; margin-right: 10px;">
-           <div class="quick_select" target="1">1小时</div>
-           <div class="quick_select" target="6">6小时</div>
-           <div class="quick_select" target="12">12小时</div>
-           <div class="quick_select" target="24">1天</div>
-           <div class="quick_select" target="168">1周</div>
-           <div class="quick_select" target="720">1个月</div>
-        </div>
-        <div style="float: left; margin-left: 10px; margin-right: 10px;">
-                               开始时间：<input type="input" id="start_time" style="width: 150px;">
-        </div>
-        <div style="float: left; margin-left: 10px; margin-right: 10px;">
-                               结束时间：<input type="input" id="end_time" style="width: 150px;">
-        </div>
-        <button id="query_button" style="width: 60px; height: 25px;" >查询</button>
-    </div>
-	<div id="cpu_metirc_panel">
-	    <div id="cpu_idle" class="metric_chart"></div>
-	    <div id="cpu_system" class="metric_chart"></div>
-	    <div style="clear: both;"></div>
-	    <div id="cpu_user" class="metric_chart"></div>
-	    <div id="cpu_wio" class="metric_chart"></div>
+<html>
+  <body style="width: 10%;">
+    <div id="main"style="width: 100%;">
+    	<div style="height: 30px; margin-top: 5px; padding-left: 70px;" class="metric_panel">
+        	<div style="float: left; margin-left: 10px; margin-right: 10px">
+           		<div class="quick_select" target="1" style="border-top-left-radius:0.5em;
+                	border-bottom-left-radius:0.5em;">1小时</div>
+           		<div class="quick_select" target="6">6小时</div>
+           		<div class="quick_select" target="12">12小时</div>
+           		<div class="quick_select" target="24">1天</div>
+           		<div class="quick_select" target="168">1周</div>
+           		<div class="quick_select" target="720" style="border-top-right-radius:0.5em;
+                border-bottom-right-radius:0.5em;">1个月</div>
+        	</div>
+        	<div style="float: left; margin-left: 10px; margin-right: 10px;">
+                               	开始时间：<input type="input" id="start_time" style="width: 150px;">
+        	</div>
+        	<div style="float: left; margin-left: 10px; margin-right: 10px;">
+                              	 结束时间：<input type="input" id="end_time" style="width: 150px;">
+        	</div>
+        	<button id="query_button" style="float: left; width: 60px; height: 25px;" >查询</button>
+    	</div>
+    	<div id="cpu_metirc_panel" class="metric_panel">
+        	<div id="cpu_idle" class="metric_chart"></div>
+	    	<div id="cpu_system" class="metric_chart"></div>
+	    	<div style="clear: both;"></div>
+	    	<div id="cpu_user" class="metric_chart"></div>
+	    	<div id="cpu_wio" class="metric_chart"></div>
+    	</div>
+		<div id="memory_metirc_panel" class="metric_panel">
+	    	<div id="mem_cached" class="metric_chart"></div>
+	    	<div id="mem_buffers" class="metric_chart"></div>
+	    	<div id="mem_free" class="metric_chart"></div>
+	    	<div id="mem_shared" class="metric_chart"></div>
+			<div id="swap_free" class="metric_chart"></div>
+		</div>
+		<div id="disk_metirc_panel" class="metric_panel">
+	    	<div id="disk_free" class="metric_chart"></div>
+	    	<div id="part_max_used" class="metric_chart"></div>
+		</div>
+		<div id="network_metirc_panel" class="metric_panel">
+	    	<div id="bytes_in" class="metric_chart"></div>
+	    	<div id="bytes_out" class="metric_chart"></div>
+	    	<div id="pkts_in" class="metric_chart"></div>
+	    	<div id="pkts_out" class="metric_chart"></div>
+		</div>
 	</div>
-	<div id="memory_metirc_panel">
-	    <div id="mem_cached" class="metric_chart"></div>
-	    <div id="mem_buffers" class="metric_chart"></div>
-	    <div style="clear: both;"></div>
-	    <div id="mem_free" class="metric_chart"></div>
-	    <div id="mem_shared" class="metric_chart"></div>
-	    <div style="clear: both;"></div>
-	    <div id="swap_free" class="metric_chart"></div>
-	</div>
-	<div id="disk_metirc_panel">
-	    <div id="disk_free" class="metric_chart"></div>
-	    <div id="part_max_used" class="metric_chart"></div>
-	</div>
-	<div id="network_metirc_panel">
-	    <div id="bytes_in" class="metric_chart"></div>
-	    <div id="bytes_out" class="metric_chart"></div>
-	    <div id="pkts_in" class="metric_chart"></div>
-	    <div id="pkts_out" class="metric_chart"></div>
-	</div>
-</div>
+  </body>
+</html>
+
 
