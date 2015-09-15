@@ -24,8 +24,8 @@
 			    remoteSort: false,
 			    fitColumns: true,
 			    columns:[[
-			        {field: 'ip', title: 'IP', width: 100, align: 'center', formatter: function(value, row, index){
-			        	return '<a href = <%=ctp%>/inventory/server/detail.action?serverId='+row.id+'&ip='+row.ip+' style="text-align: left">'+value+'</a>';
+			        {field: 'ip', title: 'IP', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
+			        	return '<a href = <%=ctp%>/inventory/server/detail.action?serverId='+row.id+' style="text-align: left">'+value+'</a>';
 			        }},
 			        {field: 'serverRuntime.status', title: '状态', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
 			        	if(value == 1){
@@ -102,7 +102,7 @@
 	                $(this).datagrid('unselectRow', rowIndex);
 	            },
 	            onDblClickRow: function(rowIndex, rowData){
-	            	window.location.href = '<%=ctp%>/inventory/server/detail.action?serverId=' + rowData.id + '&ip=' + rowData.ip;
+	            	window.location.href = '<%=ctp%>/inventory/server/detail.action?serverId=' + rowData.id;
 	            }
 			});
 			
