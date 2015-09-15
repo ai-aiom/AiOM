@@ -35,6 +35,14 @@
 			        		return '<div><img src="<%=ctp%>/images/device/status0.gif" style="vertical-align: middle; margin-right: 5px;">' + message + '</div>';
 			        	}
 			        }},
+			        {field: 'powerStatus', title: '电源状态', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
+			        	if(value == 1){
+			        		return '<div><img src="<%=ctp%>/images/device/status1.gif" style="vertical-align: middle; margin-right: 5px;">开机</div>';
+			        	} else {
+			        		var message = SERVER_POWER_STATUS[value] ? SERVER_POWER_STATUS[value] : value;
+			        		return '<div><img src="<%=ctp%>/images/device/status0.gif" style="vertical-align: middle; margin-right: 5px;">' + message + '</div>';
+			        	}
+			        }},
 			        {field: 'monitorType', title: '监控类型', sortable: true, sorter: commonSorter, width: 80, align: 'center', formatter: function(value, row, index){
 			        	if(value == 1){
 			        		return 'ICMP';

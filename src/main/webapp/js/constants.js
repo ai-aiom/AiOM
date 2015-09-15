@@ -10,3 +10,10 @@ MACHINE_SERVER_MOUDLE = {
 	9:"CONTROL-IN-DATA",
 	10:"GRM-PROXY"
 }
+
+SERVER_POWER_STATUS = {
+	0:"关机",
+	1:"开机",
+	2:"未知",
+	3:"未配置IPMI"
+}
