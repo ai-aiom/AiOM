@@ -436,17 +436,8 @@
 		}
 		
 		var moduleId = <s:property value="server.properties.moduleId"/>;
-		switch (moduleId) {
-		case 1:
-			$('#server_moduleId').text("NAMENODE");
-			break;
-		case 2:
-			$('#server_moduleId').text("DATANODE");
-			break;
-		default:
-			$('#server_moduleId').text("");
-			break;
-		}
+		var moduleName = MACHINE_SERVER_MOUDLE[moduleId] ? MACHINE_SERVER_MOUDLE[moduleId] : value;
+		$('#server_moduleId').text(moduleName);
 		
 		var cpuNumValue = '<s:property value="server.serverRuntime.metrics.cpu_num.value"/>'; 
 		var cpuSpeedValue = '<s:property value="server.serverRuntime.metrics.cpu_speed.value"/>'; 

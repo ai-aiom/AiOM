@@ -109,7 +109,7 @@
 					<div><img src="<%=ctp %>/images/main/icon_alert.png"></div>
 					<div>告警</div>
 				</li>
-				<li type="2">
+				<li type="2" link="<%=ctp %>/database/main.action">
 					<div><img src="<%=ctp %>/images/main/icon_database.png"></div>
 					<div>数据库</div>
 				</li>

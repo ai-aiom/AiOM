@@ -33,7 +33,7 @@
         	    calculable : false,
         	    series : [
         	        {
-        	            name:'访问来源',
+        	            name:'监控状态',
         	            type:'pie',
         	            radius : '75%',
         	            center: ['50%', '60%'],
