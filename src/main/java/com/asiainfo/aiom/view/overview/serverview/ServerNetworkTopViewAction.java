@@ -60,13 +60,13 @@ public class ServerNetworkTopViewAction extends ServletAwareActionSupport
 						|| !server1.getServerRuntime().getMetrics().containsKey("bytes_out")
 						|| !server1.getServerRuntime().getMetrics().containsKey("bytes_in"))
 				{
-					return 1;
+					return -1;
 				}
 				else if (server2.getServerRuntime().getMetrics() == null
 						|| !server2.getServerRuntime().getMetrics().containsKey("bytes_out")
 						|| !server2.getServerRuntime().getMetrics().containsKey("bytes_in"))
 				{
-					return -1;
+					return 1;
 				}
 				else
 				{
@@ -78,11 +78,13 @@ public class ServerNetworkTopViewAction extends ServletAwareActionSupport
 					double bytesOut2 = (double) server2.getServerRuntime().getMetrics().get("bytes_in").getValue();
 					double bytesTotal2 = bytesIn2 + bytesOut2;
 
-					return bytesTotal1 > bytesTotal2 ? -1 : 1;
+					return bytesTotal1 > bytesTotal2 ? 1 : -1;
 				}
 			}
 		});
 
+		Collections.reverse(servers);
+		
 		if (servers.size() > 5)
 		{
 			servers = servers.subList(0, 5);

@@ -146,7 +146,7 @@
 			    remoteSort: false,
 			    fitColumns: true,
 			    columns:[[
-					{field: 'ip', title: 'IP', width: 200, align: 'center'},
+					{field: 'ip', title: 'IP', width: 150, align: 'center', fixed: true},
 					{field: 'serverRuntime.metrics.cpu_system.value', title: 'SYSTEM', width: 100, align: 'center', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
@@ -177,40 +177,40 @@
 			    remoteSort: false,
 			    fitColumns: true,
 			    columns:[[
-					{field: 'ip', title: 'IP', width: 120, align: 'center'},
-					{field: 'properties.memoryRate', title: '使用率', align: 'center', formatter: function(value, row, index){
+					{field: 'ip', title: 'IP', width: 150, align: 'center', fixed: true},
+					{field: 'properties.memoryRate', title: '使用率', width: 100, align: 'center', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
 			        	} else {
 			        		return percentageView(value);
 			        	}
 			        }},
-					{field: 'serverRuntime.metrics.mem_shared.value', title: 'SHARED', width: 60, align: 'center', formatter: function(value, row, index){
+					{field: 'serverRuntime.metrics.mem_shared.value', title: 'SHARED (KB)', width: 60, halign: 'center', align: 'right', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
 			        	} else {
-			        		return value + " KB";
+			        		return value;
 			        	}
 			        }},
-			        {field: 'serverRuntime.metrics.mem_buffers.value', title: 'BUFFERS', width: 60, align: 'center', formatter: function(value, row, index){
+			        {field: 'serverRuntime.metrics.mem_buffers.value', title: 'BUFFERS (KB)', width: 60, halign: 'center', align: 'right', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
 			        	} else {
-			        		return value + " KB";
+			        		return value;
 			        	}
 			        }},
-			        {field: 'serverRuntime.metrics.mem_cached.value', title: 'CACHED', width: 60, align: 'center', formatter: function(value, row, index){
+			        {field: 'serverRuntime.metrics.mem_cached.value', title: 'CACHED (KB)', width: 60, halign: 'center', align: 'right', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
 			        	} else {
-			        		return value + " KB";
+			        		return value;
 			        	}
 			        }},
-			        {field: 'serverRuntime.metrics.mem_free.value', title: 'FREE', width: 60, align: 'center', formatter: function(value, row, index){
+			        {field: 'serverRuntime.metrics.mem_free.value', title: 'FREE (KB)', width: 60, halign: 'center', align: 'right', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
 			        	} else {
-			        		return value + " KB";
+			        		return value;
 			        	}
 			        }}
 				]]
@@ -222,7 +222,7 @@
 			    remoteSort: false,
 			    fitColumns: true,
 			    columns:[[
-					{field: 'ip', title: 'IP', width: 120, align: 'center'},
+					{field: 'ip', title: 'IP', width: 150, align: 'center', fixed: true},
 					{field: 'properties.diskRate', title: '使用率', width: 100, align: 'center', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
@@ -230,18 +230,18 @@
 			        		return percentageView(value);
 			        	}
 			        }},
-					{field: 'serverRuntime.metrics.disk_total.value', title: '总大小', width: 120, align: 'center', formatter: function(value, row, index){
+					{field: 'serverRuntime.metrics.disk_total.value', title: '总大小(GB)', width: 120, halign: 'center', align: 'right', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
 			        	} else {
-			        		return value + " GB";
+			        		return value;
 			        	}
 			        }},
-			        {field: 'serverRuntime.metrics.disk_free.value', title: '空闲大小', width: 120, align: 'center', formatter: function(value, row, index){
+			        {field: 'serverRuntime.metrics.disk_free.value', title: '空闲大小(GB)', width: 120, halign: 'center', align: 'right', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
 			        	} else {
-			        		return value + " GB";
+			        		return value;
 			        	}
 			        }}
 				]]
@@ -253,31 +253,31 @@
 			    remoteSort: false,
 			    fitColumns: true,
 			    columns:[[
-					{field: 'ip', title: 'IP', width: 100, align: 'center'},
-					{field: 'serverRuntime.metrics.bytes_out.value', title: '出口速率', width: 60, align: 'center', formatter: function(value, row, index){
+					{field: 'ip', title: 'IP', width: 150, align: 'center', fixed: true},
+					{field: 'serverRuntime.metrics.bytes_out.value', title: '出口速率 (B/S)', width: 60, halign: 'center', align: 'right', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
 			        	} else {
-			        		return value + " B/S";
+			        		return value;
 			        	}
 			        }},
-			        {field: 'serverRuntime.metrics.bytes_in.value', title: '入口速率', width: 60, align: 'center', formatter: function(value, row, index){
+			        {field: 'serverRuntime.metrics.bytes_in.value', title: '入口速率 (B/S)', width: 60, halign: 'center', align: 'right', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
 			        	} else {
-			        		return value + " B/S";
+			        		return value;
 			        	}
 			        }}
 				]]
 			});
 			
 			$('#overview_server_load_top5_table').datagrid({    
-			    url:'<%=ctp %>/overview/getserversnetworktop.action',
+			    url:'<%=ctp %>/overview/getserversloadtop.action',
 			    fit: true,
 			    remoteSort: false,
 			    fitColumns: true,
 			    columns:[[
-					{field: 'ip', title: 'IP', width: 100, align: 'center'},
+					{field: 'ip', title: 'IP', width: 150, align: 'center', fixed: true},
 					{field: 'serverRuntime.metrics.load_one.value', title: '一分钟负载', width: 60, align: 'center', formatter: function(value, row, index){
 			        	if(row.monitorType == 1){
 			        		return "N/A";
