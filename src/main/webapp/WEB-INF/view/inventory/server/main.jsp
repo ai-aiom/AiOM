@@ -24,8 +24,8 @@
 			    remoteSort: false,
 			    fitColumns: true,
 			    columns:[[
-			        {field: 'ip', title: 'IP', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
-			        	return '<a href = <%=ctp%>/inventory/server/detail.action?serverId='+row.id+' style="text-align: left">'+value+'</a>';
+			        {field: 'ip', title: 'IP', width: 100, align: 'center', formatter: function(value, row, index){
+			        	return '<a href = <%=ctp%>/inventory/server/detail.action?serverId='+row.id+'&ip='+row.ip+' style="text-align: left">'+value+'</a>';
 			        }},
 			        {field: 'serverRuntime.status', title: '状态', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
 			        	if(value == 1){
@@ -102,30 +102,10 @@
 	                $(this).datagrid('unselectRow', rowIndex);
 	            },
 	            onDblClickRow: function(rowIndex, rowData){
-	            	window.location.href = '<%=ctp%>/inventory/server/detail.action?serverId=' + rowData.id;
+	            	window.location.href = '<%=ctp%>/inventory/server/detail.action?serverId=' + rowData.id + '&ip=' + rowData.ip;
 	            }
 			});
 			
-			function percentageView(value){
-				if (value == "N/A"){
-					return value;
-				}
-				var pef_num = parseInt(value);
-				if(!pef_num) {
-					pef_num = 0;
-				}
-				var v = pef_num + '%';
-				var insert_div = '';
-				if(pef_num < 80){
-					insert_div = "<div style='width: "+v+"'></div>";
-				}else if(pef_num >= 80){
-					insert_div = "<div style='width: "+v+"; background-color: red'></div>";
-				}else if(pef_num > 100){
-					insert_div = "<div style='width: 100%; background-color: red'></div>";
-				}
-				var pef_span = "<span>"+v+"</span>";
-				return '<div class="percentage" >' + insert_div + pef_span + '</div>';
-			}
 		});
 		
 	</script>

@@ -1,9 +1,9 @@
 /**
- * @File: ServerCpuTopViewAction.java 
+ * @File: ServerLoadTopViewAction.java 
  * @Package  com.asiainfo.aiom.view.overview.serverview
  * @Description: 
  * @author luyang
- * @date 2015年9月9日 下午2:00:52 
+ * @date 2015年9月10日 下午2:15:20 
  * @version V1.0
  * 
  */
@@ -12,8 +12,6 @@ package com.asiainfo.aiom.view.overview.serverview;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import org.apache.commons.lang.math.NumberUtils;
 
 import com.asiainfo.aiom.domain.Machine;
 import com.asiainfo.aiom.utils.ServerFilterAndSorter;
@@ -25,10 +23,10 @@ import com.asiainfo.support.struts2.ServletAwareActionSupport;
  * @author luyang
  *
  */
-public class ServerCpuTopViewAction extends ServletAwareActionSupport
+public class ServerLoadTopViewAction extends ServletAwareActionSupport
 {
-	private static final long serialVersionUID = 46245700387558956L;
-
+	private static final long serialVersionUID = -7730115074620725318L;
+	
 	private ServerApi serverApi;
 
 	private List<Server> servers;
@@ -59,22 +57,26 @@ public class ServerCpuTopViewAction extends ServletAwareActionSupport
 			public int compare(Server server1, Server server2)
 			{
 				if (server1.getServerRuntime().getMetrics() == null
-						|| !server1.getServerRuntime().getMetrics().containsKey("cpu_idle"))
+						|| !server1.getServerRuntime().getMetrics().containsKey("load_five")
+						|| !server1.getServerRuntime().getMetrics().containsKey("load_fifteen")
+						|| !server1.getServerRuntime().getMetrics().containsKey("load_one"))
 				{
 					return -1;
 				}
 				else if (server2.getServerRuntime().getMetrics() == null
-						|| !server2.getServerRuntime().getMetrics().containsKey("cpu_idle"))
+						|| !server2.getServerRuntime().getMetrics().containsKey("load_five")
+						|| !server2.getServerRuntime().getMetrics().containsKey("load_fifteen")
+						|| !server2.getServerRuntime().getMetrics().containsKey("load_one"))
 				{
 					return 1;
 				}
 				else
 				{
-					float cpuIdle1 = NumberUtils.toFloat(String.valueOf(server1.getServerRuntime().getMetrics()
-							.get("cpu_idle").getValue()));
-					float cpuIdle2 = NumberUtils.toFloat(String.valueOf(server2.getServerRuntime().getMetrics()
-							.get("cpu_idle").getValue()));
-					return cpuIdle1 > cpuIdle2 ? -1 : 1;
+					double loadFifteen1 = (double) server1.getServerRuntime().getMetrics().get("load_fifteen").getValue();
+
+					double loadFifteen2 = (double) server2.getServerRuntime().getMetrics().get("load_fifteen").getValue();
+
+					return loadFifteen1 > loadFifteen2 ? 1 : -1;
 				}
 			}
 		});
@@ -85,6 +87,7 @@ public class ServerCpuTopViewAction extends ServletAwareActionSupport
 		{
 			servers = servers.subList(0, 5);
 		}
+
 		return SUCCESS;
 	}
 }

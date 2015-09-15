@@ -393,7 +393,7 @@
 			title: '运行状态'
 		});
 		
-		var serverRuntimeStatus = <s:property value="server.serverRuntime.status"/>;
+		var serverRuntimeStatus = '<s:property value="server.serverRuntime.status"/>';
 		if (serverRuntimeStatus == 1){
 			$('#server_runtime_status').text("正常");
 		}else{
