@@ -109,13 +109,13 @@
 					<div><img src="<%=ctp %>/images/main/icon_alert.png"></div>
 					<div>告警</div>
 				</li>
-				<li type="2" link="<%=ctp %>/database/main.action">
+				<li type="2" link="<%=ctp %>/apps/adb/main.action">
 					<div><img src="<%=ctp %>/images/main/icon_database.png"></div>
 					<div>数据库</div>
 				</li>
-				<li type="1">
+				<li type="1" link="<%=ctp %>/apps/ocdp/main.action">
 					<div><img src="<%=ctp %>/images/main/icon_database.png"></div>
-					<div>应用</div>
+					<div>OCDP</div>
 				</li>
 			</ul>
 		</div>

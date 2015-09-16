@@ -5,10 +5,10 @@
 
 <struts>
 
-	<package name="database" namespace="/database" extends="default">
+	<package name="apps-ocdp" namespace="/apps/ocdp" extends="default">
 		
 		<action name="main">
-			<result>/WEB-INF/view/database/main.jsp</result>
+			<result>/WEB-INF/view/apps/ocdp/main.jsp</result>
 		</action>
 		
 	</package>
