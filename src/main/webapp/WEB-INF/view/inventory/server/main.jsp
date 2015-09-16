@@ -27,19 +27,11 @@
 			        {field: 'ip', title: 'IP', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
 			        	return '<a href = <%=ctp%>/inventory/server/detail.action?serverId='+row.id+' style="text-align: left">'+value+'</a>';
 			        }},
-			        {field: 'serverRuntime.status', title: '状态', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'serverRuntime.status', title: '监控状态', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
 			        	if(value == 1){
 			        		return '<div><img src="<%=ctp%>/images/device/status1.gif" style="vertical-align: middle; margin-right: 5px;">正常</div>';
 			        	} else {
 			        		var message = row.monitorType == '1' ? '监控不可达' : '无监控心跳';
-			        		return '<div><img src="<%=ctp%>/images/device/status0.gif" style="vertical-align: middle; margin-right: 5px;">' + message + '</div>';
-			        	}
-			        }},
-			        {field: 'powerStatus', title: '电源状态', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
-			        	if(value == 1){
-			        		return '<div><img src="<%=ctp%>/images/device/status1.gif" style="vertical-align: middle; margin-right: 5px;">开机</div>';
-			        	} else {
-			        		var message = SERVER_POWER_STATUS[value] ? SERVER_POWER_STATUS[value] : value;
 			        		return '<div><img src="<%=ctp%>/images/device/status0.gif" style="vertical-align: middle; margin-right: 5px;">' + message + '</div>';
 			        	}
 			        }},
@@ -50,6 +42,14 @@
 			        		return 'SSH';
 			        	} else if(value == 3) {
 			        		return 'AGENT';
+			        	}
+			        }},
+			        {field: 'powerStatus', title: '电源状态', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
+			        	if(value == 1){
+			        		return '<div><img src="<%=ctp%>/images/device/status1.gif" style="vertical-align: middle; margin-right: 5px;">开机</div>';
+			        	} else {
+			        		var message = SERVER_POWER_STATUS[value] ? SERVER_POWER_STATUS[value] : value;
+			        		return '<div><img src="<%=ctp%>/images/device/status0.gif" style="vertical-align: middle; margin-right: 5px;">' + message + '</div>';
 			        	}
 			        }},
 			        {field: 'hostname', title: '主机名', sortable: true, sorter: commonSorter, width: 100, align: 'center'},
