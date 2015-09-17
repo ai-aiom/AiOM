@@ -102,6 +102,18 @@
 				<param name="property">metricDataMap</param>
 			</result>
         </action>
+        
+        <action name="serverpoweron" class="com.asiainfo.aiom.view.inventory.server.ServerPowerAction" method="powerOn">
+        	<result type="json"></result>
+        </action>
+        
+        <action name="serverpoweroff" class="com.asiainfo.aiom.view.inventory.server.ServerPowerAction" method="powerOff">
+        	<result type="json"></result>
+        </action>
+        
+        <action name="serverpowerreboot" class="com.asiainfo.aiom.view.inventory.server.ServerPowerAction" method="powerReboot">
+        	<result type="json"></result>
+        </action>
 	</package>
 	
 </struts>
