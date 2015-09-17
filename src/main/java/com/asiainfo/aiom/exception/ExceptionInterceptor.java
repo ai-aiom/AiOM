@@ -16,7 +16,9 @@ import javax.ws.rs.ProcessingException;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.asiainfo.gim.client.exception.ResourceNotFoundException;
 import com.asiainfo.gim.client.exception.UnAuthorizedException;
+import com.asiainfo.gim.client.exception.ValidationException;
 import com.asiainfo.support.struts2.AbstractInterceptor;
 import com.opensymphony.xwork2.ActionInvocation;
 
@@ -62,9 +64,15 @@ public class ExceptionInterceptor extends AbstractInterceptor
 				ServletActionContext.getResponse().setStatus(401);
 				return doResult("no-login", null);
 			}
+			else if(e instanceof ValidationException)
+			{
+				ServletActionContext.getResponse().setStatus(409);
+				return doResult("validata-error", e.getMessage());
+			}
 			else
 			{
-				return null;
+				ServletActionContext.getResponse().setStatus(500);
+				return doResult("system-error", e.getMessage());
 			}
 		}
 		else if(e instanceof ValidateException)
@@ -74,7 +82,8 @@ public class ExceptionInterceptor extends AbstractInterceptor
 		}
 		else 
 		{
-			return null;
+			ServletActionContext.getResponse().setStatus(500);
+			return doResult("system-error", e.getMessage());
 		}
 	}
 	
