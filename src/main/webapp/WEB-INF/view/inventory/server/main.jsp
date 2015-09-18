@@ -24,10 +24,10 @@
 			    remoteSort: false,
 			    fitColumns: true,
 			    columns:[[
-			        {field: 'ip', title: 'IP', width: 100, align: 'center', formatter: function(value, row, index){
-			        	return '<a href = <%=ctp%>/inventory/server/detail.action?serverId='+row.id+'&ip='+row.ip+' style="text-align: left">'+value+'</a>';
+			        {field: 'ip', title: 'IP', sortable: true, sorter: commonSorter, width: 100, align: 'center', fixed: true, formatter: function(value, row, index){
+			        	return '<a href = <%=ctp%>/inventory/server/detail.action?serverId='+row.id+' style="text-align: left">'+value+'</a>';
 			        }},
-			        {field: 'serverRuntime.status', title: '状态', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'serverRuntime.status', title: '监控状态', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
 			        	if(value == 1){
 			        		return '<div><img src="<%=ctp%>/images/device/status1.gif" style="vertical-align: middle; margin-right: 5px;">正常</div>';
 			        	} else {
@@ -44,25 +44,101 @@
 			        		return 'AGENT';
 			        	}
 			        }},
+			        {field: 'powerStatus', title: '电源状态', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
+			        	return SERVER_POWER_STATUS[value] ? SERVER_POWER_STATUS[value] : value;
+			        }},
 			        {field: 'hostname', title: '主机名', sortable: true, sorter: commonSorter, width: 100, align: 'center'},
 			        {field: 'properties.moduleId', title: '所属模块', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
 			        	return MACHINE_SERVER_MOUDLE[value] ? MACHINE_SERVER_MOUDLE[value] : value;
 			        }},
-			        {field: 'properties.cpuRate', title: 'cpu使用率', width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'properties.cpuRate', title: 'cpu使用率', width: 120, align: 'center', fixed: true, formatter: function(value, row, index){
 						return percentageView(value);
 					}},
-			        {field: 'properties.memoryRate', title: '内存使用率', width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'properties.memoryRate', title: '内存使用率', width: 120, align: 'center', fixed: true, formatter: function(value, row, index){
 						return percentageView(value);
 					}},
-			        {field: 'properties.diskRate', title: '磁盘使用率', width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'properties.diskRate', title: '磁盘使用率', width: 120, align: 'center', fixed: true, formatter: function(value, row, index){
 						return percentageView(value);
 					}},
 			        {field: 'id', title: '操作', width: 100, align: 'center', formatter: function(value, row, index){
-			        	return '<div grid_operation serverId="' + value + '" style="text-align: left"></div>';
+			        	return '<div grid_operation serverId="' + value + '" powerStatus="' + row.powerStatus + '" style="text-align: left"></div>';
 			        }}
 			    ]],
 			    onLoadSuccess: function(data){
 			    	$('[grid_operation]').each(function(){
+			    		var powerStatus = $(this).attr('powerStatus');
+						if (powerStatus == 0) {
+							var $pawerOnButton = $('<span></span>').addClass('operation_icon_black');
+							$pawerOnButton.css('background-position', '0px -160px');
+							$pawerOnButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
+				    		$pawerOnButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
+							$pawerOnButton.appendTo($(this));
+				    		
+				    		$pawerOnButton.click(function(){
+					    		var serverIdforPowerOn = $(this).parent().attr('serverId');
+				    			$.messager.confirm('确认开机', '确认开启此服务器', function(r){
+				    				if (r){
+				    					$.messager.progress({text: '正在处理，请稍后...'});
+				    					$.ajax({
+				    						url: '<%=ctp %>/inventory/server/serverpoweron.action?id=' + serverIdforPowerOn,
+				    						dataType: 'json',
+				    						success: function(){
+				    							$.messager.progress('close');
+				    							$('#server_main_grid').datagrid('reload');
+				    						}
+				    					});
+				    				}
+				    			});
+				    		});
+						}
+						else if (powerStatus == 1) {
+							var $pawerOffButton = $('<span></span>').addClass('operation_icon_black');
+							$pawerOffButton.css('background-position', '-16px -160px');
+							$pawerOffButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
+				    		$pawerOffButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
+							$pawerOffButton.appendTo($(this));
+				    		
+				    		var $pawerResetButton = $('<span></span>').addClass('operation_icon_black');
+							$pawerResetButton.css('background-position', '0px -176px');
+				    		$pawerResetButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
+				    		$pawerResetButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
+							$pawerResetButton.appendTo($(this));
+				    		
+				    		$pawerOffButton.click(function(){
+					    		var serverIdforPowerOff = $(this).parent().attr('serverId');
+				    			$.messager.confirm('确认关机', '确认关闭此服务器', function(r){
+				    				if (r){
+				    					$.messager.progress({text: '正在处理，请稍后...'});
+				    					$.ajax({
+				    						url: '<%=ctp %>/inventory/server/serverpoweroff.action?id=' + serverIdforPowerOff,
+				    						dataType: 'json',
+				    						success: function(){
+				    							$.messager.progress('close');
+				    							$('#server_main_grid').datagrid('reload');
+				    						}
+				    					});
+				    				}
+				    			});
+				    		});
+				    		
+				    		$pawerResetButton.click(function(){
+					    		var serverIdforPowerReboot = $(this).parent().attr('serverId');
+				    			$.messager.confirm('确认重启', '确认重启此服务器', function(r){
+				    				if (r){
+				    					$.messager.progress({text: '正在处理，请稍后...'});
+				    					$.ajax({
+				    						url: '<%=ctp %>/inventory/server/serverpowerreboot.action?id=' + serverIdforPowerReboot,
+				    						dataType: 'json',
+				    						success: function(){
+				    							$.messager.progress('close');
+				    							$('#server_main_grid').datagrid('reload');
+				    						}
+				    					});
+				    				}
+				    			});
+				    		});
+						}
+			    		
 			    		var $editButton = $('<span></span>').addClass('operation_icon_black');
 			    		$editButton.css('background-position', '-64px -112px');
 			    		$editButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
@@ -121,7 +197,7 @@
 	                $(this).datagrid('unselectRow', rowIndex);
 	            },
 	            onDblClickRow: function(rowIndex, rowData){
-	            	window.location.href = '<%=ctp%>/inventory/server/detail.action?serverId=' + rowData.id + '&ip=' + rowData.ip;
+	            	window.location.href = '<%=ctp%>/inventory/server/detail.action?serverId=' + rowData.id;
 	            }
 			});
 			

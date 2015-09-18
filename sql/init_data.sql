@@ -21,3 +21,19 @@ insert into site_location(id, name, description, datacenter_id) value('1', 'é»˜è
 insert into aiom_machine_module(id, name, machine_type) value('1', 'NAMENODE', '1');
 
 insert into aiom_machine_module(id, name, machine_type) value('2', 'DATANODE', '1');
+
+insert into aiom_machine_module(id, name, machine_type) value('3', 'GTM', '2');
+
+insert into aiom_machine_module(id, name, machine_type) value('4', 'LVS', '2');
+
+insert into aiom_machine_module(id, name, machine_type) value('5', 'DATANODE', '2');
+
+insert into aiom_machine_module(id, name, machine_type) value('6', 'DATANODE-SLAVE', '2');
+
+insert into aiom_machine_module(id, name, machine_type) value('7', 'DIDB', '2');
+
+insert into aiom_machine_module(id, name, machine_type) value('8', 'KEEP-ALIVE', '2');
+
+insert into aiom_machine_module(id, name, machine_type) value('9', 'CONTROL-IN-DATA', '2');
+
+insert into aiom_machine_module(id, name, machine_type) value('10', 'GRM-PROXY', '2');
