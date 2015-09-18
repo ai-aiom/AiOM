@@ -59,12 +59,18 @@ public class ServerOverViewAction extends ServletAwareActionSupport
 		 *  serverStatus[1] 存状态不可达的服务器数量
 		 */
 		int[] serverStatus = new int[2];
+		int[] serverPowerStatus = new int[4];
 		int[] cpuRate = new int[5];
 		int[] memoryRate = new int[5];
 		int[] diskRate = new int[5];
 		
 		for (Server server : servers)
 		{
+			if (server.getPowerStatus() != null)
+			{
+				serverPowerStatus[server.getPowerStatus()]++;
+			}
+
 			if (server.getServerRuntime() != null && server.getServerRuntime().getStatus() == 1)
 			{
 				serverStatus[0]++;
@@ -110,6 +116,7 @@ public class ServerOverViewAction extends ServletAwareActionSupport
 		}
 
 		rates.put("serverStatus", serverStatus);
+		rates.put("serverPowerStatus", serverPowerStatus);
 		rates.put("cpuRate", cpuRate);
 		rates.put("memoryRate", memoryRate);
 		rates.put("diskRate", diskRate);
