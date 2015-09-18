@@ -29,9 +29,9 @@
 		<div class="sub_menu">
 			<div class="sub_menu_title">数据库</div>
 			<div class="sub_menu_group">
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/adbm/index/firstpage.jsp">总览</div>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/hostdbmng/getdblist.action">数据库</div>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/adbm/faultrecord/fault.jsp">告警</div>
+				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/adbm/index/firstpage.jsp?token=<s:property value="#session.token"/>">总览</div>
+				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/hostdbmng/getdblist.action?token=<s:property value="#session.token"/>">数据库</div>
+				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/adbm/faultrecord/fault.jsp?token=<s:property value="#session.token"/>">告警</div>
 			</div>
 		</div>
 	</div>
