@@ -14,11 +14,12 @@
 	<script type="text/javascript" src="<%=ctp %>/js/easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/common.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/echarts/dist/echarts-all.js"></script>
+	<script type="text/javascript" src="<%=ctp %>/js/echarts/dist/theme/blue.js"></script>
 	<script type="text/javascript">
 		
 		$(function(){
 
-	        var serverStatusChart = echarts.init(document.getElementById('overview_server_status_distribution_view'));
+	        var serverStatusChart = echarts.init(document.getElementById('overview_server_status_distribution_view'),blueTheme);
 	        
 	        var option = {
         	    tooltip : {
@@ -28,31 +29,62 @@
         	    legend: {
         	        orient : 'vertical',
         	        x : 'left',
-        	        data:['正常','监控不可达']
+        	        y : 'center',
+        	        data:['正常','监控不可达','关机','开机','未知','未配IPMI']
         	    },
         	    calculable : false,
         	    series : [
         	        {
         	            name:'监控状态',
         	            type:'pie',
-        	            radius : '75%',
-        	            center: ['50%', '60%'],
+        	            radius : ['0%','40%'],
+        	            center: ['60%', '55%'],
+        	            itemStyle : {
+        	                normal : {
+        	                    label : {
+        	                        position : 'outer'
+        	                    },
+        	                    labelLine : {
+        	                        show : true,
+        	                        length : 50
+        	                    }
+        	                }
+        	            },
         	            data:[
         	                {value:"", name:'正常'},
         	                {value:"", name:'监控不可达'}
+        	            ]
+        	        },
+        	        {
+        	            name:'电源状态',
+        	            type:'pie',
+        	            radius : ['50%', '75%'],
+        	            center: ['60%', '55%'],
+        	            data:[
+        	                {value:"", name:'关机'},
+        	                {value:"", name:'开机'},
+        	                {value:"", name:'未知'},
+        	                {value:"", name:'未配IPMI'}
         	            ]
         	        }
         	    ]
         	};
 			
 	        var serverStatus = [<s:property value="rates.serverStatus"/>];
-	        option.series[0].data[0].value = serverStatus[0];
-	        option.series[0].data[1].value = serverStatus[1];
+	        option.series[0].data[0].value = serverStatus[0] == 0 ? '-' : serverStatus[0];
+	        option.series[0].data[1].value = serverStatus[1] == 0 ? '-' : serverStatus[1];
+	        
+	        var serverPowerStatus = [<s:property value="rates.serverPowerStatus"/>];
+	        option.series[1].data[0].value = serverPowerStatus[0] == 0 ? '-' : serverPowerStatus[0];
+	        option.series[1].data[1].value = serverPowerStatus[1] == 0 ? '-' : serverPowerStatus[1];
+	        option.series[1].data[2].value = serverPowerStatus[2] == 0 ? '-' : serverPowerStatus[2];
+	        option.series[1].data[3].value = serverPowerStatus[3] == 0 ? '-' : serverPowerStatus[3];
+	        
 	        serverStatusChart.setOption(option);
 			
-	        var cpuRateChart = echarts.init(document.getElementById('overview_server_cpu_distribution_view'));
-	        var memoryRateChart = echarts.init(document.getElementById('overview_server_memory_distribution_view'));
-	        var diskRateChart = echarts.init(document.getElementById('overview_server_disk_distribution_view'));
+	        var cpuRateChart = echarts.init(document.getElementById('overview_server_cpu_distribution_view'),blueTheme);
+	        var memoryRateChart = echarts.init(document.getElementById('overview_server_memory_distribution_view'),blueTheme);
+	        var diskRateChart = echarts.init(document.getElementById('overview_server_disk_distribution_view'),blueTheme);
 	        
 	        var option2 = {
         	    tooltip : {
