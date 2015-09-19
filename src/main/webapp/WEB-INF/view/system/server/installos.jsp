@@ -19,7 +19,6 @@
 	<script type="text/javascript">
 		
 		$(function(){
-			
 			// 取消
 			$('#server_installos_cancel').click(function(){
 				window.location.href = '<%=ctp %>/inventory/server/main.action';
@@ -34,6 +33,7 @@
 						type: 'POST',
 						method: 'POST',
 						dataType: 'json',
+						traditional: true,
 						success: function(data){
 							$.messager.progress('close');
 							if(data.success){
@@ -52,20 +52,23 @@
 				url:'<%=ctp %>/system/image/listimage.action',
 				valueField:'imagename',
 				textField:'imagename',
-				required: true
+				required: true,
+				editable:false
 			});
 			
 			$('#id_template_combobox').combobox({
 				url:'<%=ctp %>/system/template/listtemplate.action',
 				valueField:'templateId',
-				textField:'name'
+				textField:'name',
+				editable:false
 			});
 			
 			$('#id_bootscripts_combobox').combobox({
 				url:'<%=ctp %>/system/postscripts/listpostscripts.action',
 				valueField:'id',
 				textField:'name',
-				multiple:true
+				multiple:true,
+				editable:false
 			});
 			
 		});
@@ -111,7 +114,7 @@
 					</tr>
 				</table>
 			</div>
-			<input type="hidden" name="serverId" value='<s:param value="serverId"/>'>
+			<input type="hidden" name="serverId" value="<s:property value='#parameters.serverId' />">
 		</form>	
 		<div style="margin-left: 50px;">
 			<a id="server_installos_submit" href="javascript: void(0)" class="easyui-linkbutton" style="width: 60px;">确定</a>  

@@ -39,9 +39,17 @@ public class ServerInstallOsAction extends ServletAwareActionSupport {
 			resultBean = new ResultBean(false, "主机名不能包含\".\"，请修改！");
 			return SUCCESS;
 		}
+		Server server = serverApi.findServerById(serverId);
+		Ipmi ipmi = server.getIpmi();
+		String mac = server.getMac();
+		String ip = server.getIp();
+		if(StringUtils.isEmpty(mac) || StringUtils.isEmpty(ip)){
+			resultBean = new ResultBean(false, "主机ip或mac不能为空，请补充！");
+			return SUCCESS;
+		}
 		List<Node> nodeList = nodeApi.listNodes("compute");
 		for (Node n : nodeList) {
-			if (StringUtils.equalsIgnoreCase(node.getMac(), n.getMac())) {
+			if (StringUtils.equalsIgnoreCase(mac, n.getMac())) {
 				nodeApi.remodeNode(n.getName());
 			}else if (StringUtils.equals(node.getName(), n.getName())) {
 				resultBean = new ResultBean(false, "主机名已存在，请更改！");
@@ -55,10 +63,6 @@ public class ServerInstallOsAction extends ServletAwareActionSupport {
 		node.setPrimarynic("mac");
 		node.setPower("ipmi");
 		node.setMgt("ipmi");
-		Server server = serverApi.findServerById(serverId);
-		Ipmi ipmi = server.getIpmi();
-		String mac = server.getMac();
-		String ip = server.getIp();
 		node.setBmc(ipmi.getHost());
 		node.setBmcusername(ipmi.getUsername());
 		node.setBmcpassword(ipmi.getPassword());

@@ -153,9 +153,9 @@
 			    		
 			    		var rowData;
 			    		var rowId = $(this).attr('serverId');
-			    		for(var i = 0; i < data.length; i++){
-			    			if(data[i].id == rowId){
-			    				rowData = data[i];
+			    		for(var i = 0; i < data.rows.length; i++){
+			    			if(data.rows[i].id == rowId){
+			    				rowData = data.rows[i];
 			    			}
 			    		}
 			    		if(rowData.ipmi != null){
