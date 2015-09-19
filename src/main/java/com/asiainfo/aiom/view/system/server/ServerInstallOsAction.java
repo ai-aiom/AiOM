@@ -58,6 +58,7 @@ public class ServerInstallOsAction extends ServletAwareActionSupport {
 		}
 		//补充node信息
 		node.setGroups("compute");
+		node.setIntf("eth0");
 		node.setNetboot("pxe");
 		node.setInstallnic("mac");
 		node.setPrimarynic("mac");
