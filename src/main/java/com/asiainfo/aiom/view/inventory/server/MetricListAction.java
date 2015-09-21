@@ -164,13 +164,15 @@ public class MetricListAction extends ServletAwareActionSupport
 		String metricName = "mem_used_per";
 		metricQueryParam.setMetricName("mem_total");
 		List<Metric> memTotalMetricList = metricApi.listMetric(metricQueryParam);
-		float memTotal = Float.parseFloat(String.valueOf(memTotalMetricList.get(0).getValue()));
-		MetricViewEntity memFreeMetricViewEntity = metricDataMap.get("mem_free");
 		List<Object> memUsedPerData = new ArrayList<Object>();
-		for (Object value : memFreeMetricViewEntity.getData())
-		{
-			float valueFloat = Float.parseFloat(String.valueOf(value));
-			memUsedPerData.add((int) ((memTotal - valueFloat) / memTotal * 100));
+		MetricViewEntity memFreeMetricViewEntity = metricDataMap.get("mem_free");
+		if(memTotalMetricList != null && memTotalMetricList.size() != 0){
+			float memTotal = Float.parseFloat(String.valueOf(memTotalMetricList.get(0).getValue()));
+			for (Object value : memFreeMetricViewEntity.getData())
+			{
+				float valueFloat = Float.parseFloat(String.valueOf(value));
+				memUsedPerData.add((int) ((memTotal - valueFloat) / memTotal * 100));
+			}
 		}
 		MetricViewEntity memUsedPerViewEntity = new MetricViewEntity();
 		memUsedPerViewEntity.setData(memUsedPerData);
