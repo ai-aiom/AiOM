@@ -13,7 +13,7 @@
 			title : '内存'
 		});
 		$('#disk_metirc_panel').panel({
-			title : '硬盘'
+			title : '磁盘'
 		});
 		$('#network_metirc_panel').panel({
 			title : '网络'
@@ -48,11 +48,20 @@
 			xAxis : [ {
 				type : 'category',
 				boundaryGap : false,
-				data : []
+				axisLabel : {
+					rotate : 45,
+					interval : 0
+				},
+				data : [],
 			} ],
 			yAxis : [ {
-				type : 'value'
+				type : 'value',
+				splitNumber : 2
 			} ],
+			grid : {
+				x2 : 20,
+				y2 : 120
+			},
 			series : []
 		};
 		
@@ -63,6 +72,7 @@
 		chartsDom['cpu_user'] = document.getElementById('cpu_user');
 		chartsDom['cpu_wio'] = document.getElementById('cpu_wio');
 		
+		chartsDom['mem_used_per'] = document.getElementById('mem_used_per');
 		chartsDom['mem_cached'] = document.getElementById('mem_cached');
 		chartsDom['mem_buffers'] = document.getElementById('mem_buffers');
 		chartsDom['mem_free'] = document.getElementById('mem_free');
@@ -77,6 +87,16 @@
 		chartsDom['pkts_in'] = document.getElementById('pkts_in');
 		chartsDom['pkts_out'] = document.getElementById('pkts_out');
 		
+		var xdataTimeFormat = function(value, format){
+			if(format == null){
+				format = "MM-dd hh:mm";
+			}
+			if (value == null) {
+				return null;
+			}
+			return new Date(value).Format(format);
+		}
+		
 		var loadData = function(startTime, endTime){
 			$.ajax({
 				url : '<%=ctp %>/inventory/server/listMetric.action',
@@ -88,19 +108,27 @@
 		        },
 		        dataType : 'json',
 		        success : function(metricDataMap) {
-		        	//这边要得到time
 		        	for(var metricName in metricDataMap){
 		        		var series = metricDataMap[metricName];
 		        		option.legend.data = [metricName];
+		        		//无数据的时候显示格式：指标名称+' 暂无数据'
 		        		option.noDataLoadingOption.text = metricName + '  暂无数据';
-		   	         	option.xAxis[0].data = metricDataMap[metricName].xdata;
+		        		var xdata = metricDataMap[metricName].xdata;
+		        		var xdataLength = xdata.length;
+		        		for(var time in xdata){
+		        			xdata[time] = xdataTimeFormat(xdata[time]);
+		        		}
+		        		//控制x轴显示8个节点
+		        		option.xAxis[0].axisLabel.interval = (xdataLength/8).toFixed(0);
+		   	         	option.xAxis[0].data = xdata;
 		   	         	option.yAxis[0].name = '('+ series.unit +')';
+		   	         	//设置为面积图
 		   	            series.itemStyle = {normal: {areaStyle: {type: 'default'}}};
 		   	            series.type = "line";
 		   	            series.stack = "总量";
 		   	         	option.series[0] = series;
 		   	         	if(chartsDom[metricName]) {
-		   	         	 	echarts.init(chartsDom[metricName]).setOption(option);
+		   	         	 	echarts.init(chartsDom[metricName], blueTheme).setOption(option);
 		   	         	}
 		        	}
 		        }
@@ -144,7 +172,7 @@
 <html>
   <body style="width: 10%;">
     <div id="main"style="min-width: 1100px;">
-    	<div style="height: 30px; margin-top: 5px; padding-left: 70px;" >
+    	<div style="height: 30px; margin-top: 5px; padding-left: 13%;" >
         	<div style="float: left; margin-left: 10px; margin-right: 10px">
            		<div class="quick_select" target="1" style="border-top-left-radius:0.5em;
                 	border-bottom-left-radius:0.5em;">1小时</div>
@@ -163,25 +191,26 @@
         	</div>
         	<button id="query_button" style="float: left; width: 60px; height: 25px;" >查询</button>
     	</div>
-    	<div id="cpu_metirc_panel" >
+    	<div id="cpu_metirc_panel" style="margin-bottom: 60px;" >
         	<div id="cpu_idle" class="metric_chart"></div>
 	    	<div id="cpu_system" class="metric_chart"></div>
 	    	<div style="clear: both;"></div>
 	    	<div id="cpu_user" class="metric_chart"></div>
 	    	<div id="cpu_wio" class="metric_chart"></div>
     	</div>
-		<div id="memory_metirc_panel" >
+		<div id="memory_metirc_panel" style="margin-bottom: 60px;" >
+		 	<div id="mem_used_per" class="metric_chart"></div>
 	    	<div id="mem_cached" class="metric_chart"></div>
 	    	<div id="mem_buffers" class="metric_chart"></div>
 	    	<div id="mem_free" class="metric_chart"></div>
 	    	<div id="mem_shared" class="metric_chart"></div>
 			<div id="swap_free" class="metric_chart"></div>
 		</div>
-		<div id="disk_metirc_panel" >
+		<div id="disk_metirc_panel" style="margin-bottom: 60px;" >
 	    	<div id="disk_free" class="metric_chart"></div>
 	    	<div id="part_max_used" class="metric_chart"></div>
 		</div>
-		<div id="network_metirc_panel" >
+		<div id="network_metirc_panel" style="margin-bottom: 60px;">
 	    	<div id="bytes_in" class="metric_chart"></div>
 	    	<div id="bytes_out" class="metric_chart"></div>
 	    	<div id="pkts_in" class="metric_chart"></div>
