@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-import org.apache.commons.lang3.time.FastDateFormat;
+import org.apache.commons.lang.StringUtils;
 
 import com.asiainfo.aiom.domain.view.MetricViewEntity;
 import com.asiainfo.gim.client.monitor.api.MetricApi;
@@ -21,11 +22,11 @@ public class MetricListAction extends ServletAwareActionSupport
 	private static final long serialVersionUID = 6051530832865896015L;
 
 	private MetricApi metricApi;
-	
+
 	private ServerApi serverApi;
 
 	private String serverId;
-	
+
 	private Server server;
 
 	private long startTime;
@@ -41,6 +42,8 @@ public class MetricListAction extends ServletAwareActionSupport
 			"bytes_in", "bytes_out", "pkts_in", "pkts_out",
 			// disk
 			"disk_free", "part_max_used" };
+
+	private String[] memMetricNameArray = { "mem_buffers", "mem_cached", "mem_free", "mem_shared", "swap_free" };
 
 	// 返回给前端的list
 	private Map<String, MetricViewEntity> metricDataMap;
@@ -89,7 +92,7 @@ public class MetricListAction extends ServletAwareActionSupport
 	{
 		this.metricDataMap = metricDataMap;
 	}
-	
+
 	public Server getServer()
 	{
 		return server;
@@ -99,7 +102,7 @@ public class MetricListAction extends ServletAwareActionSupport
 	{
 		this.server = server;
 	}
-	
+
 	public void setServerApi(ServerApi serverApi)
 	{
 		this.serverApi = serverApi;
@@ -131,6 +134,10 @@ public class MetricListAction extends ServletAwareActionSupport
 			List<Metric> metricList = metricApi.listMetric(metricQueryParam);
 			metricDataMap.put(metricName, parseMetric(metricList, metricQueryParam));
 		}
+		// 内存使用率百分比
+		createMemUsedPerDate(metricQueryParam);
+		// 将内存相关的指标转为MB单位数据显示
+		ConvertMemDataUnit();
 		return SUCCESS;
 	}
 
@@ -140,16 +147,59 @@ public class MetricListAction extends ServletAwareActionSupport
 		metricViewEntity.setName(metricQueryParam.getMetricName());
 		List<Object> data = new ArrayList<Object>();
 		List<Object> xdata = new ArrayList<Object>();
-		FastDateFormat formatter = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
 		for (Metric metric : metricList)
 		{
 			data.add(metric.getValue());
-			xdata.add(formatter.format(metric.getTime()));
+			xdata.add(metric.getTime());
 			metricViewEntity.setUnit(metric.getUnit());
 		}
 		metricViewEntity.setData(data);
 		metricViewEntity.setXdata(xdata);
 		return metricViewEntity;
+	}
+
+	private void createMemUsedPerDate(MetricQueryParam metricQueryParam)
+	{
+		// 定义新的指标名称 ：内存使用百分比
+		String metricName = "mem_used_per";
+		metricQueryParam.setMetricName("mem_total");
+		List<Metric> memTotalMetricList = metricApi.listMetric(metricQueryParam);
+		float memTotal = Float.parseFloat(String.valueOf(memTotalMetricList.get(0).getValue()));
+		MetricViewEntity memFreeMetricViewEntity = metricDataMap.get("mem_free");
+		List<Object> memUsedPerData = new ArrayList<Object>();
+		for (Object value : memFreeMetricViewEntity.getData())
+		{
+			float valueFloat = Float.parseFloat(String.valueOf(value));
+			memUsedPerData.add((int) ((memTotal - valueFloat) / memTotal * 100));
+		}
+		MetricViewEntity memUsedPerViewEntity = new MetricViewEntity();
+		memUsedPerViewEntity.setData(memUsedPerData);
+		memUsedPerViewEntity.setName(metricName);
+		memUsedPerViewEntity.setUnit("%");
+		memUsedPerViewEntity.setXdata(memFreeMetricViewEntity.getXdata());
+		metricDataMap.put(metricName, memUsedPerViewEntity);
+	}
+
+	private void ConvertMemDataUnit()
+	{
+		Set<String> metricNames = metricDataMap.keySet();
+		for (String metricName : metricNames)
+		{
+			for (String memMetricName : memMetricNameArray)
+			{
+				if (StringUtils.equalsIgnoreCase(metricName, memMetricName))
+				{
+					MetricViewEntity memMetricViewEntity = metricDataMap.get(memMetricName);
+					memMetricViewEntity.setUnit("MB");
+					List<Object> memDatasMB = new ArrayList<Object>();
+					for (Object memData : memMetricViewEntity.getData())
+					{
+						memDatasMB.add((int) (Float.parseFloat(String.valueOf(memData)) / 1024));
+					}
+					memMetricViewEntity.setData(memDatasMB);
+				}
+			}
+		}
 	}
 
 }
