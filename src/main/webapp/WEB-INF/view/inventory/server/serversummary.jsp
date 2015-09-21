@@ -793,18 +793,28 @@
 						<tr>
 							<td><span>负载</span></td>
 							<td>
+								<s:if test="#serverMonitorType == 3">
 								<s:property value="server.serverRuntime.metrics.load_one.value"/>&nbsp&nbsp&nbsp         
 								<s:property value="server.serverRuntime.metrics.load_five.value"/>&nbsp&nbsp&nbsp        
-							    <s:property value="server.serverRuntime.metrics.load_fifteen.value"/>       
+							    <s:property value="server.serverRuntime.metrics.load_fifteen.value"/>    
+							    </s:if> 
 							</td>
 						</tr>
 						<tr>
 							<td><span>交换分区</span></td>
-							<td><div id="swap_free"></div></td>
+							<td>
+								<s:if test="#serverMonitorType == 3">
+								<div id="swap_free"></div>
+								</s:if>
+							</td>
 						</tr>
 						<tr>
 							<td><span>进程</span></td>
-							<td><div id="server_proc"></div></td>
+							<td>
+								<s:if test="#serverMonitorType == 3">
+								<div id="server_proc"></div>
+								</s:if>
+							</td>
 						</tr>
 					</table>
 				</div>
