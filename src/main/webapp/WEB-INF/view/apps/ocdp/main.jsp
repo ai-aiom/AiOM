@@ -29,32 +29,19 @@
 		<div class="sub_menu">
 			<div class="sub_menu_title">OCDP</div>
 			<div class="sub_menu_group">
-				<span>数据管理</span>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/adbm/index/firstpage.jsp">数据定义</div>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/hostdbmng/getdblist.action">SQL工具</div>
-			</div>
-			<div class="sub_menu_group">
-				<span>计算作业</span>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/adbm/index/firstpage.jsp">作业定义</div>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/hostdbmng/getdblist.action">作业监控</div>
-			</div>
-			<div class="sub_menu_group">
-				<span>流平台管理</span>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/adbm/index/firstpage.jsp">系统参数设置</div>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/hostdbmng/getdblist.action">数据源管理</div>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/hostdbmng/getdblist.action">数据接口管理</div>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/hostdbmng/getdblist.action">数据标签管理</div>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/hostdbmng/getdblist.action">事件注册</div>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/hostdbmng/getdblist.action">专题管理</div>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/hostdbmng/getdblist.action">任务管理</div>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/hostdbmng/getdblist.action">流平台监控</div>
+				<span>集群管控</span>
+				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/platform/cluster/index.jsp">集群监控</div>
+				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/platform/host/index.jsp">主机配置</div>
+				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/platform/service/index.jsp#ocdc-Ganglia-OCH3_1">服务配置</div>
+				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/componentlog/index.jsp">日志查看</div>
+				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/platform/alarm/index.jsp">告警管理</div>
 			</div>
 			<div class="sub_menu_group">
 				<span>系统管理</span>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/adbm/index/firstpage.jsp">租户管理</div>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/hostdbmng/getdblist.action">用户管理</div>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/hostdbmng/getdblist.action">角色管理</div>
-				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/ADBMonitor/hostdbmng/getdblist.action">接入平台</div>
+				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/system/group/index.jsp">租户管理</div>
+				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/system/user/index.jsp">用户管理</div>
+				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/system/role/index.jsp">角色管理</div>
+				<div class="sub_menu_item" link="<s:property value="#session.machine.serviceEndpoint"/>/base/platform/index.jsp">接入平台</div>
 			</div>
 		</div>
 	</div>
