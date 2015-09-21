@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<package name="system-server" namespace="/system/server"
+		extends="system">
+
+		<action name="installospage">
+			<result>/WEB-INF/view/system/server/installos.jsp</result>
+		</action>
+
+		<action name="installos"
+			class="com.asiainfo.aiom.view.system.server.ServerInstallOsAction"
+			method="installOs">
+			<result type="json">
+				<param name="property">resultBean</param>
+			</result>
+		</action>
+
+	</package>
+
+</struts>

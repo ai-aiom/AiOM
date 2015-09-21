@@ -151,6 +151,25 @@
 			    		$deleteButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 			    		$deleteButton.appendTo($(this));
 			    		
+			    		var rowData;
+			    		var rowId = $(this).attr('serverId');
+			    		for(var i = 0; i < data.rows.length; i++){
+			    			if(data.rows[i].id == rowId){
+			    				rowData = data.rows[i];
+			    			}
+			    		}
+			    		if(rowData.ipmi != null){
+			    			var $installosButton = $('<span></span>').addClass('operation_icon_black');
+				    		$installosButton.css('background-position', '-192px -112px');
+				    		$installosButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
+				    		$installosButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
+				    		$installosButton.appendTo($(this));
+				    		$installosButton.click(function(){
+				    			var serverId = $(this).parent().attr('serverId');
+				    			window.location.href = '<%=ctp %>/system/server/installospage.action?serverId=' + serverId;
+				    		});
+			    		}
+			    		
 			    		$editButton.click(function(){
 			    			var serverIdforUpdate = $(this).parent().attr('serverId');
 			    			window.location.href = '<%=ctp %>/inventory/server/toserverupdate.action?id=' + serverIdforUpdate;
