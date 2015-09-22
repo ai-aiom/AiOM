@@ -13,6 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="<%=ctp %>/css/aiom/default/rack.css">
 	<script type="text/javascript" src="<%=ctp %>/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=ctp %>/js/easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/common.js"></script>
 	<script type="text/javascript">
 		$(function(){
