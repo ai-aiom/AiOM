@@ -28,4 +28,10 @@ public interface Constants
 		public static final int SSH = 2;
 		public static final int AGENT = 3;
 	}
+	
+	public static interface AlertStatus
+	{
+		public static final int NEW = 0;
+		public static final int CONFIRMED = 1; 
+	}
 }

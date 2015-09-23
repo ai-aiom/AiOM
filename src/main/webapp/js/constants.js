@@ -17,3 +17,7 @@ SERVER_POWER_STATUS = {
 	2:"未知",
 	3:"未配置IPMI"
 }
+
+ALERT_TARGET_TYPE = {
+	1:"服务器"
+}
