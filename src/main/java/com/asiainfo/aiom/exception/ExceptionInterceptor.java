@@ -64,7 +64,7 @@ public class ExceptionInterceptor extends AbstractInterceptor
 				ServletActionContext.getResponse().setStatus(401);
 				return doResult("no-login", null);
 			}
-			else if(e instanceof ValidationException)
+			else if(e.getCause() instanceof ValidationException)
 			{
 				ServletActionContext.getResponse().setStatus(409);
 				return doResult("validata-error", e.getMessage());

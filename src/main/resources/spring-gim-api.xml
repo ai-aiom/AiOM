@@ -38,12 +38,20 @@
 	<bean id="postScriptsApi" class="com.asiainfo.gim.client.deploy.api.PostScriptsApi">
 		<constructor-arg index="0" value="${service.deploy.endpoint}" />
 	</bean>
+	
+	<bean id="nodeApi" class="com.asiainfo.gim.client.deploy.api.NodeApi">
+		<constructor-arg index="0" value="${service.deploy.endpoint}" />
+	</bean>
 
 	<bean id="serverApi" class="com.asiainfo.gim.client.server_manage.api.ServerApi">
 		<constructor-arg index="0" value="${service.server.endpoint}" />
 	</bean>
 	
 	<bean id="metricApi" class="com.asiainfo.gim.client.monitor.api.MetricApi">
+		<constructor-arg index="0" value="${service.monitor.endpoint}" />
+	</bean>
+	
+	<bean id="alertApi" class="com.asiainfo.gim.client.monitor.api.AlertApi">
 		<constructor-arg index="0" value="${service.monitor.endpoint}" />
 	</bean>
 </beans>

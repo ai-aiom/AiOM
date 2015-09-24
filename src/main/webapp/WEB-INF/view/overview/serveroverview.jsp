@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="<%=ctp %>/css/aiom/default/aiom.css">
 	<script type="text/javascript" src="<%=ctp %>/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=ctp %>/js/easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/common.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/echarts/dist/echarts-all.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/echarts/dist/theme/blue.js"></script>
@@ -89,14 +90,17 @@
 	        var option2 = {
         	    tooltip : {
         	        trigger: 'item',
-        	        formatter: "{b}% : {c} (台)"
+        	        formatter: "{b} : {c} (台)"
         	    },
         	    calculable : false,
         	    xAxis : [
         	        {
         	            type : 'category',
         	            name : '%',
-        	            data : ['0-20','21-40','41-60','61-80','81-100']
+        	            data : ['0-20','21-40','41-60','61-80','81-100','未知'],
+        	            axisLabel : {
+        	            	interval : '0'
+        	            }
         	        }
         	    ],
         	    yAxis : [

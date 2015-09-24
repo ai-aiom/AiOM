@@ -9,7 +9,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.struts2.ServletActionContext;
 
 import com.asiainfo.gim.client.deploy.api.PostScriptsApi;
 import com.asiainfo.gim.client.deploy.domain.PostScripts;
