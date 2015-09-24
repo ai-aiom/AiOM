@@ -106,7 +106,7 @@
 					<div><img src="<%=ctp %>/images/main/icon_inventory.png"></div>
 					<div>资源清单</div>
 				</li>
-				<li type="0">
+				<li type="0" link="<%=ctp %>/alert/main.action">
 					<div><img src="<%=ctp %>/images/main/icon_alert.png"></div>
 					<div>告警</div>
 				</li>
