@@ -1,10 +1,5 @@
 <project name="aiom-deploy" default="build" basedir="..">
 	
-	<property name="USER" value="root"></property>
-	<property name="PASSWD" value="123456"></property>
-	<property name="HOST" value="172.16.102.122"></property>
-	<property name="TOMCAT_HOME" value="/usr/local/lib/tomcat"></property>
-	
 	<target name="deploy">
 		<sshexec host="${HOST}" username="${USER}"  password="${PASSWD}" failonerror="false" trust="true" command="
 			ps -ef | grep catalina | grep -v grep | awk '{print $2}' | xargs kill -9;
