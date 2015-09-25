@@ -5,6 +5,12 @@ $.extend($.fn.validatebox.defaults.rules, {
                 },
                 message: '身份证号码格式不正确'
             },
+            numberSize: {
+            	validator: function (value, param) {
+                    return value >= param[0] && value <= param[1];
+                },
+                message: '值必须在 {0} 和 {1} 之间'
+            },
             minLength: {
                 validator: function (value, param) {
                     return value.length >= param[0];

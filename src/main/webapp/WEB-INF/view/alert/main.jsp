@@ -36,7 +36,7 @@
 			<div class="sub_menu_group">
 				<div class="sub_menu_item" link="<%=ctp %>/alert/current/main.action">当前告警</div>
 				<div class="sub_menu_item" link="<%=ctp %>/alert/history/main.action">历史告警</div>
-				<div class="sub_menu_item">告警配置</div>
+				<div class="sub_menu_item" link="<%=ctp %>/alert/config/main.action">告警配置</div>
 			</div>
 		</div>
 	</div>
