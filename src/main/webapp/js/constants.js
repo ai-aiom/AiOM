@@ -21,3 +21,22 @@ SERVER_POWER_STATUS = {
 ALERT_TARGET_TYPE = {
 	1:"服务器"
 }
+
+ALERT_LEVEL = {
+	1:"警告",
+	2:"次要",
+	3:"重要",
+	4:"严重"
+}
+
+ALERT_METRIC = {
+	"cpu_usage":"CPU使用率",
+	"mem_usage":"内存使用率",
+	"disk_usage":"磁盘使用率"
+}
+
+ALERT_THRESHOLDSYMBOL = {
+	"1":">",
+	"2":"=",
+	"3":"<"
+}

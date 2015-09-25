@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<package name="alert-config" namespace="/alert/config" extends="default">
+		
+		<action name="main">
+			<result>/WEB-INF/view/alert/config.jsp</result>
+		</action>
+		
+		<action name="list" class="com.asiainfo.aiom.view.alert.config.AlertConfigListAction">
+			<result type="json">
+				<param name="property">alertConfigs</param>
+			</result>
+		</action>
+		
+		<action name="toconfigadd">
+			<result>/WEB-INF/view/alert/configadd.jsp</result>
+		</action>
+		
+		<action name="addconfig" class="com.asiainfo.aiom.view.alert.config.AlertConfigAddAction">
+			<result type="json">
+				<param name="property">alertConfig</param>
+			</result>
+		</action>
+		
+		<action name="toconfigupdate" class="com.asiainfo.aiom.view.alert.config.AlertConfigUpdateAction" method="initUpdate">
+			<result>/WEB-INF/view/alert/configupdate.jsp</result>
+		</action>
+		
+		<action name="updateconfig" class="com.asiainfo.aiom.view.alert.config.AlertConfigUpdateAction">
+			<result type="json">
+				<param name="property">alertConfig</param>
+			</result>
+		</action>
+		
+		<action name="deleteconfig" class="com.asiainfo.aiom.view.alert.config.AlertConfigDeleteAction">
+			<result type="json"></result>
+		</action>
+	</package>
+		
+</struts>
