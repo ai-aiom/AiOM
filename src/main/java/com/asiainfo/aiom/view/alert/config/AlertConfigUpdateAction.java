@@ -23,7 +23,7 @@ public class AlertConfigUpdateAction extends ServletAwareActionSupport
 
 	private AlertConfigApi alertConfigApi;
 
-	private Integer id;
+	private String id;
 
 	private AlertConfig alertConfig;
 
@@ -37,14 +37,24 @@ public class AlertConfigUpdateAction extends ServletAwareActionSupport
 		this.alertConfig = alertConfig;
 	}
 
-	public Integer getId()
+	public String getId()
 	{
 		return id;
 	}
 
-	public void setId(Integer id)
+	public void setId(String id)
 	{
 		this.id = id;
+	}
+
+	public static long getSerialversionuid()
+	{
+		return serialVersionUID;
+	}
+
+	public AlertConfigApi getAlertConfigApi()
+	{
+		return alertConfigApi;
 	}
 
 	public void setAlertConfigApi(AlertConfigApi alertConfigApi)
