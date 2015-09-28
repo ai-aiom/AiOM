@@ -15,4 +15,5 @@
 		
 	<include file="com/asiainfo/aiom/view/alert/current/struts.xml"></include>
 	<include file="com/asiainfo/aiom/view/alert/history/struts.xml"></include>
+	<include file="com/asiainfo/aiom/view/alert/config/struts.xml"></include>
 </struts>

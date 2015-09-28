@@ -11,6 +11,7 @@
 	<target name="copyfile">
 		<copydir dest="temp/aiom/conf" src="conf"></copydir>
 		<copydir dest="temp/aiom/init.d" src="init.d"></copydir>
+		<copydir dest="temp/aiom/sql" src="sql"></copydir>
 		<copy tofile="temp/aiom/aiom.war" file="target/aiom.war"></copy>
 	</target>
 	

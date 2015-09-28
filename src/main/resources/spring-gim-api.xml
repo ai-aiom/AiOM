@@ -54,4 +54,8 @@
 	<bean id="alertApi" class="com.asiainfo.gim.client.monitor.api.AlertApi">
 		<constructor-arg index="0" value="${service.monitor.endpoint}" />
 	</bean>
+	
+	<bean id="alertConfigApi" class="com.asiainfo.gim.client.monitor.api.AlertConfigApi">
+		<constructor-arg index="0" value="${service.monitor.endpoint}" />
+	</bean>
 </beans>
