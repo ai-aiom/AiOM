@@ -26,16 +26,45 @@
 			        {field: 'time', title: '告警时间', width: 150, fixed: true, align: 'center', formatter: function(value, row, index){
 			        	return dateFormat(value);
 			        }},
-			        {field: 'level', title: '级别', width: 100, fixed: true, align: 'center'},
+			        {field: 'level', title: '级别', width: 100, fixed: true, align: 'center', formatter: function(value, row, index){
+						return ALERT_LEVEL[value] ? ALERT_LEVEL[value] : value;
+					}},
 			        {field: 'targetType',title:'目标类型', width: 120, fixed: true, align: 'center', formatter: function(value, row, index){
 			        	return ALERT_TARGET_TYPE[value] ? ALERT_TARGET_TYPE[value] : value;
 			        }},
 			        {field: 'properties.targetDisplay',title:'目标', width: 200, fixed: true, align: 'center'},
 			        {field: 'description', title: '描述', width: 200, align: 'center'},
 			        {field: 'id', title: '操作', width: 150, fixed: true, fixed: true, align: 'center', formatter: function(value, row, index){
-			        	
+			        	return '<div grid_operation alertId="' + value + '" style="text-align: left"></div>';
 			        }}
-			    ]]
+			    ]],
+			    onLoadSuccess: function(data){
+			    	$('[grid_operation]').each(function(){
+			    		var $confirmButton = $('<span></span>').addClass('operation_icon_black');
+			    		$confirmButton.css('background-position', '-64px -144px');
+			    		$confirmButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
+			    		$confirmButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
+			    		$confirmButton.appendTo($(this));
+			    		
+			    		$confirmButton.click(function(){
+			    			var alertIdforConfirm = $(this).parent().attr('alertId');
+			    			console.log(alertIdforConfirm);
+			    			$.messager.confirm('确认', '确认此告警', function(r){
+			    				if (r){
+			    					$.messager.progress({text: '正在处理，请稍后...'});
+			    					$.ajax({
+			    						url: '<%=ctp %>/alert/current/confirm.action?id=' + alertIdforConfirm,
+			    						dataType: 'json',
+			    						success: function(){
+			    							$.messager.progress('close');
+			    							$('#alert_current_main_grid').datagrid('reload');
+			    						}
+			    					});
+			    				}
+			    			});
+			    		});
+			    	});
+			    }
 			});
 		});
 		

@@ -16,6 +16,10 @@
 				<param name="property">alerts</param>
 			</result>
 		</action>
+		
+		<action name="confirm" class="com.asiainfo.aiom.view.alert.current.AlertConfirmAction">
+			<result type="json"></result>
+		</action>
 	</package>
 		
 </struts>
