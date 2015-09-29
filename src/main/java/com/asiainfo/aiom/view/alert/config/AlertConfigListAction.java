@@ -9,7 +9,9 @@
  */
 package com.asiainfo.aiom.view.alert.config;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -52,14 +54,24 @@ public class AlertConfigListAction extends ServletAwareActionSupport
 	public String execute()
 	{
 		alertConfigs = alertConfigApi.getAlertConfigs();
-		for (AlertConfig alertConfig : alertConfigs)
+		
+		if (alertConfigs.size() > 0)
 		{
-			if (alertConfig.getTargetType() == ResourceType.SERVER && !StringUtils.isEmpty(alertConfig.getTargetId()))
+			Map<String, String> targetDisplayMap = new HashMap<String, String>();
+			for(Server server: serverApi.listServers())
 			{
-				Server server = serverApi.findServerById(alertConfig.getTargetId());
-				if (server != null)
+				targetDisplayMap.put(server.getId(), server.getIp());
+			}
+			
+			for (AlertConfig alertConfig : alertConfigs)
+			{
+				if (alertConfig.getTargetType() == ResourceType.SERVER && !StringUtils.isEmpty(alertConfig.getTargetId()))
 				{
-					alertConfig.getProperties().put("targetName", server.getIp());
+					if (alertConfig.getProperties() == null)
+					{
+						alertConfig.setProperties(new HashMap<String, String>());
+					}
+					alertConfig.getProperties().put("targetDisplay", targetDisplayMap.get(alertConfig.getTargetId()));
 				}
 			}
 		}
