@@ -169,8 +169,6 @@
 	});
 
 </script>
-<html>
-  <body style="width: 10%;">
     <div id="main"style="min-width: 1100px;">
     	<div style="height: 30px; margin-top: 5px; padding-left: 13%;" >
         	<div style="float: left; margin-left: 10px; margin-right: 10px">
@@ -217,7 +215,5 @@
 	    	<div id="pkts_out" class="metric_chart"></div>
 		</div>
 	</div>
-  </body>
-</html>
 
 
