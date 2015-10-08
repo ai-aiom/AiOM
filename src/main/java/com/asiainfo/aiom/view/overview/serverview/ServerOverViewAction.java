@@ -60,9 +60,14 @@ public class ServerOverViewAction extends ServletAwareActionSupport
 		 */
 		int[] serverStatus = new int[2];
 		int[] serverPowerStatus = new int[4];
-		int[] cpuRate = new int[5];
-		int[] memoryRate = new int[5];
-		int[] diskRate = new int[5];
+		
+		/**
+		 * 数组6个数值分别代表使用率为
+		 * 0-20/21-40/41-60/61-80/81-100/无数据
+		 */
+		int[] cpuRate = new int[6];
+		int[] memoryRate = new int[6];
+		int[] diskRate = new int[6];
 		
 		for (Server server : servers)
 		{
@@ -83,35 +88,56 @@ public class ServerOverViewAction extends ServletAwareActionSupport
 			if (server.getMonitorType() == Constants.MonitorType.ICMP || server.getServerRuntime() == null
 					|| server.getServerRuntime().getMetrics() == null)
 			{
-				cpuRate[0]++;
-				memoryRate[0]++;
-				diskRate[0]++;
+				cpuRate[5]++;
+				memoryRate[5]++;
+				diskRate[5]++;
 			}
 			else
 			{
 				Map<String, Metric> metrics = server.getServerRuntime().getMetrics();
 
 				// cpu使用率
-				int cpuIdle = ((Double) metrics.get("cpu_idle").getValue()).intValue();
-				int cpuRateOne = 100 - cpuIdle;
-				
-				getNumOfRate(cpuRateOne, cpuRate);
+				if (metrics.containsKey("cpu_idle"))
+				{
+					int cpuIdle = ((Double) metrics.get("cpu_idle").getValue()).intValue();
+					int cpuRateOne = 100 - cpuIdle;
+					
+					getNumOfRate(cpuRateOne, cpuRate);
+				}
+				else
+				{
+					cpuRate[5]++;
+				}
 				
 				// 内存使用率
-				double memTotal = (double) metrics.get("mem_total").getValue();
-				double memFree = (double) metrics.get("mem_free").getValue();
-				double memUsed = memTotal - memFree;
-				int memoryRateOne = (int) (memUsed / memTotal * 100);
-
-				getNumOfRate(memoryRateOne, memoryRate);
+				if (metrics.containsKey("mem_total") && metrics.containsKey("mem_free"))
+				{
+					double memTotal = (double) metrics.get("mem_total").getValue();
+					double memFree = (double) metrics.get("mem_free").getValue();
+					double memUsed = memTotal - memFree;
+					int memoryRateOne = (int) (memUsed / memTotal * 100);
+					
+					getNumOfRate(memoryRateOne, memoryRate);
+				}
+				else
+				{
+					memoryRate[5]++;
+				}
 				
 				// 磁盘使用率
-				double diskTotal = (double) metrics.get("disk_total").getValue();
-				double diskFree = (double) metrics.get("disk_free").getValue();
-				double diskUsed = diskTotal - diskFree;
-				int diskRateOne = (int) (diskUsed / diskTotal * 100);
-				
-				getNumOfRate(diskRateOne, diskRate);
+				if (metrics.containsKey("disk_total") && metrics.containsKey("disk_free"))
+				{
+					double diskTotal = (double) metrics.get("disk_total").getValue();
+					double diskFree = (double) metrics.get("disk_free").getValue();
+					double diskUsed = diskTotal - diskFree;
+					int diskRateOne = (int) (diskUsed / diskTotal * 100);
+					
+					getNumOfRate(diskRateOne, diskRate);
+				}
+				else
+				{
+					diskRate[5]++;
+				}
 			}
 		}
 

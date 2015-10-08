@@ -114,6 +114,16 @@
         <action name="serverpowerreboot" class="com.asiainfo.aiom.view.inventory.server.ServerPowerAction" method="powerReboot">
         	<result type="json"></result>
         </action>
+        
+        <action name="returnAlertPage">
+          	<result>/WEB-INF/view/inventory/server/serveralert.jsp</result>
+        </action>
+        
+        <action name="listalerts" class="com.asiainfo.aiom.view.inventory.server.AlertListAction">
+           	<result type="json">
+				<param name="property">alerts</param>
+			</result>
+        </action>
 	</package>
 	
 </struts>

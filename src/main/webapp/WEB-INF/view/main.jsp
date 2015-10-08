@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="<%=ctp %>/css/aiom/default/aiom.css">
 	<script type="text/javascript" src="<%=ctp %>/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=ctp %>/js/easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/common.js"></script>
 	<script type="text/javascript">
 		function getCtp()
@@ -105,7 +106,7 @@
 					<div><img src="<%=ctp %>/images/main/icon_inventory.png"></div>
 					<div>资源清单</div>
 				</li>
-				<li type="0">
+				<li type="0" link="<%=ctp %>/alert/main.action">
 					<div><img src="<%=ctp %>/images/main/icon_alert.png"></div>
 					<div>告警</div>
 				</li>

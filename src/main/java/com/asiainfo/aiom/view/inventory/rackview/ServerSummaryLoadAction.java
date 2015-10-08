@@ -55,23 +55,44 @@ public class ServerSummaryLoadAction extends ServletAwareActionSupport
 		else
 		{
 			// cpu使用率
-			int cpuIdle = ((Double) metrics.get("cpu_idle").getValue()).intValue();
-			int cpuRate = 100 - cpuIdle;
-			server.getProperties().put("cpuRate", String.valueOf(cpuRate));
-
+			if (metrics.containsKey("cpu_idle"))
+			{
+				int cpuIdle = ((Double) metrics.get("cpu_idle").getValue()).intValue();
+				int cpuRate = 100 - cpuIdle;
+				server.getProperties().put("cpuRate", String.valueOf(cpuRate));
+			}
+			else
+			{
+				server.getProperties().put("cpuRate", "N/A");
+			}
+			
 			// 内存使用率
-			double memTotal = (double) metrics.get("mem_total").getValue();
-			double memFree = (double) metrics.get("mem_free").getValue();
-			double memUsed = memTotal - memFree;
-			int memoryRate = (int) (memUsed / memTotal * 100);
-			server.getProperties().put("memoryRate", String.valueOf(memoryRate));
-
-			// 磁盘
-			double diskTotle = (double) metrics.get("disk_total").getValue();
-			double diskFree = (double) metrics.get("disk_free").getValue();
-			double diskUsed = diskTotle - diskFree;
-			int diskRate = (int) (diskUsed / diskTotle * 100);
-			server.getProperties().put("diskRate", String.valueOf(diskRate));
+			if (metrics.containsKey("mem_total") && metrics.containsKey("mem_free"))
+			{
+				double memTotal = (double) metrics.get("mem_total").getValue();
+				double memFree = (double) metrics.get("mem_free").getValue();
+				double memUsed = memTotal - memFree;
+				int memoryRate = (int) (memUsed / memTotal * 100);
+				server.getProperties().put("memoryRate", String.valueOf(memoryRate));
+			}
+			else
+			{
+				server.getProperties().put("memoryRate", "N/A");
+			}
+			
+			// 磁盘使用率
+			if (metrics.containsKey("disk_total") && metrics.containsKey("disk_free"))
+			{
+				double diskTotle = (double) metrics.get("disk_total").getValue();
+				double diskFree = (double) metrics.get("disk_free").getValue();
+				double diskUsed = diskTotle - diskFree;
+				int diskRate = (int) (diskUsed / diskTotle * 100);
+				server.getProperties().put("diskRate", String.valueOf(diskRate));
+			}
+			else
+			{
+				server.getProperties().put("diskRate", "N/A");
+			}
 		}
 		
 		return SUCCESS;

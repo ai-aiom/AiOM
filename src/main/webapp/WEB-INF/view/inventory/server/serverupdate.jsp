@@ -24,6 +24,7 @@
 				"server.id": '<s:property value="server.id"/>',
 				"server.ip": '<s:property value="server.ip"/>',
 				"server.mac": '<s:property value="server.mac"/>',
+				"server.monitorType": '<s:property value="server.monitorType"/>',
 				"server.netmask": '<s:property value="server.netmask"/>',
 				"server.properties.moduleId": '<s:property value="server.properties.moduleId"/>',
 				"server.properties.machineId": '<s:property value="server.properties.machineId"/>'
@@ -90,6 +91,7 @@
 					</tr>
 				</table>
 				<input type="hidden" name="server.id">
+				<input type="hidden" name="server.monitorType">
 				<input type="hidden" name="server.properties.machineId">
 			</div>
 		</form>	

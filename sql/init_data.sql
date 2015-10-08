@@ -1,3 +1,4 @@
+use gim;
 insert into auth_user(name, description, properties, account, password, state, email, time) value('admin', '超级管理员', null, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1 ,'' ,'1970-1-1 11:11:11');
 
 insert into auth_role(name, description) value('超级管理员' ,'超级管理员角色');
@@ -18,6 +19,7 @@ insert into site_datacenter(id, name, description) value('1', '默认', '默认�
 
 insert into site_location(id, name, description, datacenter_id) value('1', '默认', '默认的机房', '1');
 
+use aiom
 insert into aiom_machine_module(id, name, machine_type) value('1', 'NAMENODE', '1');
 
 insert into aiom_machine_module(id, name, machine_type) value('2', 'DATANODE', '1');
@@ -37,3 +39,5 @@ insert into aiom_machine_module(id, name, machine_type) value('8', 'KEEP-ALIVE',
 insert into aiom_machine_module(id, name, machine_type) value('9', 'CONTROL-IN-DATA', '2');
 
 insert into aiom_machine_module(id, name, machine_type) value('10', 'GRM-PROXY', '2');
+
+insert into aiom_machine values(1, '默认一体机', '默认一体机', 1, '');

@@ -19,6 +19,7 @@
 	<script type="text/javascript" src="<%=ctp %>/js/common.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/constants.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/echarts/dist/echarts-all.js"></script>
+	<script type="text/javascript" src="<%=ctp %>/js/echarts/dist/theme/blue.js"></script>
 	<script type="text/javascript">
 		
 		$(function(){
@@ -26,6 +27,7 @@
 			var serverId = '<s:property value="#parameters.serverId" />';
 			$('#server_detail_summary').load('<%=ctp %>/inventory/server/summary.action?serverId=' + serverId);
 			$('#server_detail_metric').load('<%=ctp %>/inventory/server/returnMetricPage.action?serverId=' + serverId);
+			$('#server_detail_alert').load('<%=ctp %>/inventory/server/returnAlertPage.action?serverId=' + serverId);
 			
 		});
 		
@@ -38,8 +40,7 @@
 		    </div>   
 		    <div id="server_detail_metric" title="性能" data-options="closable: false">   
 		    </div>   
-		    <div title="告警" data-options="closable: false"> 
-		        tab3    
+		    <div id="server_detail_alert" title="告警" data-options="closable: false"> 
 		    </div>   
 		</div>  
 	</div>

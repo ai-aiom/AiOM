@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="<%=ctp %>/css/aiom/default/aiom.css">
 	<script type="text/javascript" src="<%=ctp %>/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="<%=ctp %>/js/easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="<%=ctp %>/js/common.js"></script>
 	<script type="text/javascript">
 		
@@ -28,7 +29,7 @@
 		<div class="sub_menu">
 			<div class="sub_menu_title">系统</div>
 			<div class="sub_menu_group">
-				<div class="sub_menu_item">基本设置</div>
+				<!-- <div class="sub_menu_item">基本设置</div> -->
 				<div class="sub_menu_item" link="<%=ctp %>/system/user/main.action">用户管理</div>
 				<div class="sub_menu_item" link="<%=ctp %>/system/machine/main.action">一体机管理</div>
 			</div>
@@ -42,7 +43,7 @@
 				<div class="sub_menu_item" link="<%=ctp %>/system/image/main.action">系统镜像管理</div>
 				<div class="sub_menu_item" link="<%=ctp %>/system/template/main.action">系统模板配置</div>
 				<div class="sub_menu_item" link="<%=ctp %>/system/postscripts/main.action">脚本配置管理</div>
-				<div class="sub_menu_item">邮箱配置</div>
+				<!-- <div class="sub_menu_item">邮箱配置</div> -->
 			</div>
 		</div>
 	</div>

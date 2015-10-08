@@ -1,0 +1,40 @@
+#!/bin/bash
+# chkconfig: - 96 75
+# description: gim auth service
+
+start() {
+/usr/local/lib/tomcat/bin/catalina.sh start
+}
+
+stop() {
+ps -ef | grep catalina | grep -v grep | awk '{print $2}' | xargs kill -9
+}
+
+status() {
+PID=`(ps -ef | grep catalina | grep -v grep | awk '{print $2}')`
+if [ "$PID" == "" ]; then
+	echo "AiOM tomcat is not running"
+else
+	echo "AiOM tomcat is running, PID is" "$PID"
+fi
+}
+
+# See how we were called.
+case "$1" in
+  start)
+start
+;;
+  status)
+status
+;;
+  stop)
+stop
+;;
+  restart)
+stop
+start
+;;
+  *)
+echo $"Usage: $0 {start|stop|status|restart}"
+exit 2
+esac
