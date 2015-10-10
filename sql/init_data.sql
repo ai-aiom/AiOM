@@ -1,5 +1,5 @@
 use gim;
-insert into auth_user(name, description, properties, account, password, state, email, time) value('administrator', '超级管理员', null, 'administrator', '37f5abb7790c09fd14bca3daa9b8d13e', 1 ,'' ,'1970-1-1 11:11:11');
+insert into auth_user(name, description, properties, account, password, state, email, time) value('administrator', '超级管理员', null, 'administrator', '200ceb26807d6bf99fd6f4f0d1ca54d4', 1 ,'' ,'1970-1-1 11:11:11');
 
 insert into auth_user(name, description, properties, account, password, state, email, time) value('admin', '管理员', null, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1 ,'' ,'1970-1-1 11:11:11');
 
