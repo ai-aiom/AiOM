@@ -15,6 +15,8 @@ insert into auth_user_role_relation(user_id, role_id) value(2, 2);
 
 insert into auth_user_group_relation(user_id, group_id) value(1, 1);
 
+insert into auth_user_group_relation(user_id, group_id) value(2, 1);
+
 insert into site_datacenter(id, name, description) value('1', '默认', '默认的数据中心');
 
 insert into site_location(id, name, description, datacenter_id) value('1', '默认', '默认的机房', '1');
