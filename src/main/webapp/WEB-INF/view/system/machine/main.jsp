@@ -67,9 +67,13 @@
 			    					$.ajax({
 			    						url: '<%=ctp %>/system/machine/deletemachine.action?id=' + machineIdforDelete,
 			    						dataType: 'json',
-			    						success: function(){
+			    						success: function(data){
 			    							$.messager.progress('close');
-			    							$('#machine_main_grid').datagrid('reload');
+			    							if(data.success){
+				    							$('#machine_main_grid').datagrid('reload');
+			    							}else{
+			    								$.messager.alert('错误', data.message, 'error');
+			    							}
 			    						}
 			    					});
 			    				}

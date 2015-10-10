@@ -9,7 +9,14 @@
  */
 package com.asiainfo.aiom.view.system.machine;
 
+import java.util.List;
+
+import com.asiainfo.aiom.domain.Machine;
 import com.asiainfo.aiom.service.MachineManagementService;
+import com.asiainfo.aiom.utils.ServerFilterAndSorter;
+import com.asiainfo.gim.client.server_manage.api.ServerApi;
+import com.asiainfo.gim.client.server_manage.domain.Server;
+import com.asiainfo.support.struts2.ResultBean;
 import com.asiainfo.support.struts2.ServletAwareActionSupport;
 
 /**
@@ -22,11 +29,20 @@ public class MachineDeleteAction extends ServletAwareActionSupport
 
 	private MachineManagementService machineManagementService;
 
+	private ResultBean resultBean;
+	
 	private Integer id;
+	
+	private ServerApi serverApi;
 	
 	public void setMachineManagementService(MachineManagementService machineManagementService)
 	{
 		this.machineManagementService = machineManagementService;
+	}
+
+	public void setServerApi(ServerApi serverApi)
+	{
+		this.serverApi = serverApi;
 	}
 
 	public Integer getId()
@@ -39,9 +55,30 @@ public class MachineDeleteAction extends ServletAwareActionSupport
 		this.id = id;
 	}
 
+	public ResultBean getResultBean()
+	{
+		return resultBean;
+	}
+
+	public void setResultBean(ResultBean resultBean)
+	{
+		this.resultBean = resultBean;
+	}
+
 	public String execute()
 	{
-		machineManagementService.deleteMachine(id);
+		List<Server> servers = serverApi.listServers();
+		Machine machine = machineManagementService.findMachineById(id);
+		servers = ServerFilterAndSorter.filterByMachine(servers, machine);
+		if (servers != null && servers.size() > 0)
+		{
+			resultBean = new ResultBean(false, "此一体机下存在服务器，无法删除！");
+		}
+		else
+		{
+			machineManagementService.deleteMachine(id);
+			resultBean = new ResultBean(true, null);
+		}
 		return SUCCESS;
 	}
 }
