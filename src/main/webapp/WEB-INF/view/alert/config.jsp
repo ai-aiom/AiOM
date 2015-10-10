@@ -26,9 +26,9 @@
 					{field: 'targetType',title:'目标类型', width: 80, align: 'center', formatter: function(value, row, index){
 						return ALERT_TARGET_TYPE[value] ? ALERT_TARGET_TYPE[value] : value;
 					}},
-					{field: 'targetId',title:'告警目标', width: 150, align: 'center', formatter: function(value, row, index){
-						if(row.targetType == 1){
-							return row.properties.targetName;
+					{field: 'properties.targetDisplay',title:'告警目标', width: 150, align: 'center', formatter: function(value, row, index){
+						if(value == null || value == ""){
+							return "全部";
 						}else{
 							return value;
 						}

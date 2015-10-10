@@ -66,7 +66,7 @@ $(function(){
 	$(document).ajaxError(function(event, xhr){
 		$.messager.progress('close');
 		if(xhr.status == 401) {
-			window.top.location.href = getCtp() + '/main.action';
+			window.top.location.href = getContextPath() + '/login.action';
 		}
 		else if(xhr.status == 409) {
 			$.messager.alert('错误', xhr.responseText, 'error');

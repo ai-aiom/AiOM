@@ -48,7 +48,6 @@
 			    		
 			    		$confirmButton.click(function(){
 			    			var alertIdforConfirm = $(this).parent().attr('alertId');
-			    			console.log(alertIdforConfirm);
 			    			$.messager.confirm('确认', '确认此告警', function(r){
 			    				if (r){
 			    					$.messager.progress({text: '正在处理，请稍后...'});

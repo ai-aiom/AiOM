@@ -1,11 +1,10 @@
 package com.asiainfo.aiom.view.inventory.server;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-
-import com.asiainfo.aiom.Constants.ResourceType;
 import com.asiainfo.gim.client.monitor.api.AlertApi;
 import com.asiainfo.gim.client.monitor.domain.Alert;
 import com.asiainfo.gim.client.monitor.domain.query.AlertQueryParam;
@@ -16,7 +15,6 @@ import com.asiainfo.support.page.PagingQueryActionBase;
 
 public class AlertListAction extends PagingQueryActionBase
 {
-
 	private static final long serialVersionUID = 5972488077839017907L;
 
 	private AlertApi alertApi;
@@ -25,23 +23,11 @@ public class AlertListAction extends PagingQueryActionBase
 
 	private List<Alert> alerts;
 
-	private String serverId;
-
 	private AlertQueryParam alertQueryParam;
 
 	public List<Alert> getAlerts()
 	{
 		return alerts;
-	}
-
-	public String getServerId()
-	{
-		return serverId;
-	}
-
-	public void setServerId(String serverId)
-	{
-		this.serverId = serverId;
 	}
 
 	public void setAlertApi(AlertApi alertApi)
@@ -66,11 +52,6 @@ public class AlertListAction extends PagingQueryActionBase
 
 	public String execute()
 	{
-		if (alertQueryParam == null)
-		{
-			alertQueryParam = new AlertQueryParam();
-		}
-		alertQueryParam.setTargetId(serverId);
 		super.setQueryCondition(alertQueryParam);
 		alerts = alertApi.listAlerts(alertQueryParam);
 		if (alertQueryParam.getLimit() == Integer.MAX_VALUE)
@@ -84,15 +65,22 @@ public class AlertListAction extends PagingQueryActionBase
 			List<Alert> alertForCount = alertApi.listAlerts(alertQueryParam);
 			alerts = new PagingList<Alert>(alertForCount.size(), alerts);
 		}
-		for (Alert alert : alerts)
+		
+		if (alerts.size() > 0)
 		{
-			if (alert.getTargetType() == ResourceType.SERVER && !StringUtils.isEmpty(alert.getTargetId()))
+			Map<String, String> targetDisplayMap = new HashMap<String, String>();
+			for(Server server: serverApi.listServers())
 			{
-				Server server = serverApi.findServerById(alert.getTargetId());
-				if (server != null)
+				targetDisplayMap.put(server.getId(), server.getIp());
+			}
+			
+			for (Alert alert : alerts)
+			{
+				if (alert.getProperties() == null)
 				{
-					alert.getProperties().put("targetName", server.getIp());
+					alert.setProperties(new HashMap<String, String>());
 				}
+				alert.getProperties().put("targetDisplay", targetDisplayMap.get(alert.getTargetId()));
 			}
 		}
 		return SUCCESS;
