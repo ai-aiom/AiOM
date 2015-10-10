@@ -55,9 +55,13 @@
 			    					$.ajax({
 			    						url: '<%=ctp %>/system/cabinet/deletecabinet.action?id=' + cabinetIdforDelete,
 			    						dataType: 'json',
-			    						success: function(){
+			    						success: function(data){
 			    							$.messager.progress('close');
-			    							$('#cabinet_main_grid').datagrid('reload');
+			    							if(data.success){
+				    							$('#cabinet_main_grid').datagrid('reload');
+			    							}else{
+			    								$.messager.alert('错误', data.message, 'error');
+			    							}
 			    						}
 			    					});
 			    				}

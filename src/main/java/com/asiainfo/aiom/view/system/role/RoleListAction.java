@@ -9,6 +9,7 @@
  */
 package com.asiainfo.aiom.view.system.role;
 
+import java.util.Iterator;
 import java.util.List;
 
 import com.asiainfo.gim.client.auth.api.RoleApi;
@@ -39,6 +40,14 @@ public class RoleListAction extends ServletAwareActionSupport
 	public String execute()
 	{
 		roles = roleApi.listRoles();
+		for (Iterator<Role> iterator = roles.iterator(); iterator.hasNext();)
+		{
+			Role role = (Role) iterator.next();
+			if (role.getId() == 1)
+			{
+				iterator.remove();
+			}
+		}
 		return SUCCESS;
 	}
 }
