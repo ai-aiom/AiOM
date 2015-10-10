@@ -62,9 +62,13 @@
 					    					$.ajax({
 					    						url: '<%=ctp %>/system/location/deletelocation.action?id=' + locationIdforDelete,
 					    						dataType: 'json',
-					    						success: function(){
+					    						success: function(data){
 					    							$.messager.progress('close');
-					    							$('#location_main_grid').datagrid('reload');
+					    							if(data.success){
+						    							$('#location_main_grid').datagrid('reload');
+					    							}else{
+					    								$.messager.alert('错误', data.message, 'error');
+					    							}
 					    						}
 					    					});
 					    				}
