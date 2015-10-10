@@ -35,7 +35,7 @@
 			    ]],
 			    onLoadSuccess: function(data){
 			    	$('[grid_operation]').each(function(){
-			    		if ($(this).attr('userid') != 1){
+			    		if ($(this).attr('userid') != 1 && $(this).attr('userid') != 2){
 				    		var $editButton = $('<span></span>').addClass('operation_icon_black');
 				    		$editButton.css('background-position', '-64px -112px');
 				    		$editButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
