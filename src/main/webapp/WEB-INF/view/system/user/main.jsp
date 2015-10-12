@@ -49,7 +49,7 @@
 				    		$deleteButton.appendTo($(this));
 				    		
 				    		var $editPasswordButton = $('<span></span>').addClass('operation_icon_black');
-				    		$editPasswordButton.css('background-position', '-176px -112px');
+				    		$editPasswordButton.css('background-position', '-112px -128px');
 				    		$editPasswordButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 				    		$editPasswordButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 				    		$editPasswordButton.appendTo($(this));

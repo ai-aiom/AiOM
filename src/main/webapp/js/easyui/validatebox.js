@@ -163,4 +163,11 @@ $.extend($.fn.validatebox.defaults.rules, {
                 },
                 message: '两次输入的密码不一致'
             },
+            checkIp : {// 验证IP地址  
+                validator : function(value) {  
+                    var reg = /^((1?\d?\d|(2([0-4]\d|5[0-5])))\.){3}(1?\d?\d|(2([0-4]\d|5[0-5])))$/ ;  
+                    return reg.test(value);  
+                },  
+                message : 'IP地址格式不正确'  
+            }
         });
