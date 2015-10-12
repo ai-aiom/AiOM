@@ -35,7 +35,7 @@
 			    ]],
 			    onLoadSuccess: function(data){
 			    	$('[grid_operation]').each(function(i){
-			    		var $deleteButton = $('<span></span>').addClass('operation_icon_black');
+			    		var $deleteButton = $('<span title="删除"></span>').addClass('operation_icon_black');
 			    		$deleteButton.css('background-position', '-176px -96px');
 			    		$deleteButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 			    		$deleteButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});

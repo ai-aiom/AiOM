@@ -69,7 +69,7 @@
 			    	$('[grid_operation]').each(function(){
 			    		var powerStatus = $(this).attr('powerStatus');
 						if (powerStatus == 0) {
-							var $pawerOnButton = $('<span></span>').addClass('operation_icon_black');
+							var $pawerOnButton = $('<span title="开机"></span>').addClass('operation_icon_black');
 							$pawerOnButton.css('background-position', '0px -240px');
 							$pawerOnButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 				    		$pawerOnButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
@@ -93,13 +93,13 @@
 				    		});
 						}
 						else if (powerStatus == 1) {
-							var $pawerOffButton = $('<span></span>').addClass('operation_icon_black');
+							var $pawerOffButton = $('<span title="关机"></span>').addClass('operation_icon_black');
 							$pawerOffButton.css('background-position', '-16px -240px');
 							$pawerOffButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 				    		$pawerOffButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 							$pawerOffButton.appendTo($(this));
 				    		
-				    		var $pawerResetButton = $('<span></span>').addClass('operation_icon_black');
+				    		var $pawerResetButton = $('<span title="重启"></span>').addClass('operation_icon_black');
 							$pawerResetButton.css('background-position', '-32px -240px');
 				    		$pawerResetButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 				    		$pawerResetButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
@@ -148,7 +148,7 @@
 			    			}
 			    		}
 			    		if(rowData.ipmi != null){
-			    			var $installosButton = $('<span></span>').addClass('operation_icon_black');
+			    			var $installosButton = $('<span title="安装系统"></span>').addClass('operation_icon_black');
 				    		$installosButton.css('background-position', '-64px -240px');
 				    		$installosButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 				    		$installosButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
@@ -159,13 +159,13 @@
 				    		});
 			    		}
 			    		
-			    		var $editButton = $('<span></span>').addClass('operation_icon_black');
+			    		var $editButton = $('<span title="编辑"></span>').addClass('operation_icon_black');
 			    		$editButton.css('background-position', '-64px -112px');
 			    		$editButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 			    		$editButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 			    		$editButton.appendTo($(this));
 			    		
-			    		var $deleteButton = $('<span></span>').addClass('operation_icon_black');
+			    		var $deleteButton = $('<span title="删除"></span>').addClass('operation_icon_black');
 			    		$deleteButton.css('background-position', '-176px -96px');
 			    		$deleteButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 			    		$deleteButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
