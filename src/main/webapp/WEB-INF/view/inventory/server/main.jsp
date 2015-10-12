@@ -70,7 +70,7 @@
 			    		var powerStatus = $(this).attr('powerStatus');
 						if (powerStatus == 0) {
 							var $pawerOnButton = $('<span></span>').addClass('operation_icon_black');
-							$pawerOnButton.css('background-position', '0px -160px');
+							$pawerOnButton.css('background-position', '0px -240px');
 							$pawerOnButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 				    		$pawerOnButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 							$pawerOnButton.appendTo($(this));
@@ -94,13 +94,13 @@
 						}
 						else if (powerStatus == 1) {
 							var $pawerOffButton = $('<span></span>').addClass('operation_icon_black');
-							$pawerOffButton.css('background-position', '-16px -160px');
+							$pawerOffButton.css('background-position', '-16px -240px');
 							$pawerOffButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 				    		$pawerOffButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 							$pawerOffButton.appendTo($(this));
 				    		
 				    		var $pawerResetButton = $('<span></span>').addClass('operation_icon_black');
-							$pawerResetButton.css('background-position', '0px -176px');
+							$pawerResetButton.css('background-position', '-32px -240px');
 				    		$pawerResetButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 				    		$pawerResetButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 							$pawerResetButton.appendTo($(this));
@@ -140,6 +140,25 @@
 				    		});
 						}
 			    		
+			    		var rowData;
+			    		var rowId = $(this).attr('serverId');
+			    		for(var i = 0; i < data.rows.length; i++){
+			    			if(data.rows[i].id == rowId){
+			    				rowData = data.rows[i];
+			    			}
+			    		}
+			    		if(rowData.ipmi != null){
+			    			var $installosButton = $('<span></span>').addClass('operation_icon_black');
+				    		$installosButton.css('background-position', '-64px -240px');
+				    		$installosButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
+				    		$installosButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
+				    		$installosButton.appendTo($(this));
+				    		$installosButton.click(function(){
+				    			var serverId = $(this).parent().attr('serverId');
+				    			window.location.href = '<%=ctp %>/system/server/installospage.action?serverId=' + serverId;
+				    		});
+			    		}
+			    		
 			    		var $editButton = $('<span></span>').addClass('operation_icon_black');
 			    		$editButton.css('background-position', '-64px -112px');
 			    		$editButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
@@ -151,25 +170,6 @@
 			    		$deleteButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 			    		$deleteButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 			    		$deleteButton.appendTo($(this));
-			    		
-			    		var rowData;
-			    		var rowId = $(this).attr('serverId');
-			    		for(var i = 0; i < data.rows.length; i++){
-			    			if(data.rows[i].id == rowId){
-			    				rowData = data.rows[i];
-			    			}
-			    		}
-			    		if(rowData.ipmi != null){
-			    			var $installosButton = $('<span></span>').addClass('operation_icon_black');
-				    		$installosButton.css('background-position', '-192px -112px');
-				    		$installosButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
-				    		$installosButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
-				    		$installosButton.appendTo($(this));
-				    		$installosButton.click(function(){
-				    			var serverId = $(this).parent().attr('serverId');
-				    			window.location.href = '<%=ctp %>/system/server/installospage.action?serverId=' + serverId;
-				    		});
-			    		}
 			    		
 			    		$editButton.click(function(){
 			    			var serverIdforUpdate = $(this).parent().attr('serverId');
