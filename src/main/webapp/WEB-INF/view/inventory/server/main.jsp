@@ -28,7 +28,7 @@
 			        {field: 'ip', title: 'IP', sortable: true, sorter: commonSorter, width: 100, align: 'center', fixed: true, formatter: function(value, row, index){
 			        	return '<a href = <%=ctp%>/inventory/server/detail.action?serverId='+row.id+' style="text-align: left">'+value+'</a>';
 			        }},
-			        {field: 'serverRuntime.status', title: '监控状态', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'serverRuntime.status', title: '监控状态', width: 100, align: 'center', formatter: function(value, row, index){
 			        	if(value == 1){
 			        		return '<div><img src="<%=ctp%>/images/device/status1.gif" style="vertical-align: middle; margin-right: 5px;">正常</div>';
 			        	} else {
@@ -49,7 +49,7 @@
 			        	return SERVER_POWER_STATUS[value] ? SERVER_POWER_STATUS[value] : value;
 			        }},
 			        {field: 'hostname', title: '主机名', sortable: true, sorter: commonSorter, width: 100, align: 'center'},
-			        {field: 'properties.moduleId', title: '所属模块', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'properties.moduleId', title: '所属模块', width: 100, align: 'center', formatter: function(value, row, index){
 			        	return MACHINE_SERVER_MOUDLE[value] ? MACHINE_SERVER_MOUDLE[value] : value;
 			        }},
 			        {field: 'properties.cpuRate', title: 'cpu使用率', width: 120, align: 'center', fixed: true, formatter: function(value, row, index){
