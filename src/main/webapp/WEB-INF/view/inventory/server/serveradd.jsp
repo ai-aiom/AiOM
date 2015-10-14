@@ -117,7 +117,7 @@
 					<table>
 						<tr>
 							<td width="150">IP</td>
-							<td><input class="easyui-textbox" data-options="required:true,validType:['blank','maxLength[128]']" name="server.ip" style="width: 300px; height: 25px;"></td>
+							<td><input class="easyui-textbox" data-options="required:true,validType:['blank','checkIp']" name="server.ip" style="width: 300px; height: 25px;"></td>
 						</tr>
 						<tr>
 							<td>所属模块</td>

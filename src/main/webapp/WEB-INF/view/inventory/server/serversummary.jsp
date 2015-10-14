@@ -528,7 +528,7 @@
 							<table class="info_grid">
 								<tr>
 									<td><span>IP</span></td>
-									<td><input class="easyui-textbox" data-options="required:true,validType:['blank','maxLength[128]']" name="server.ip" value="<s:property value="server.ip"/>" style="width: 150px"></td>
+									<td><input class="easyui-textbox" data-options="required:true,validType:['blank','checkIp']" name="server.ip" value="<s:property value="server.ip"/>" style="width: 150px"></td>
 								</tr>
 								<tr>
 									<td><span>别名</span></td>

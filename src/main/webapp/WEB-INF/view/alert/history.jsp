@@ -72,12 +72,12 @@
 		<div class="content_title">
 			<div>历史告警</div>
 		</div>
-		<div style="font-weight: bold;font-size: 12px;">
+		<div >
 			<table>
 				<tr>
 					<td style="text-align: center;">
 						&nbsp;&nbsp;
-						告警目标类型 
+						告警目标类型：
 						<input id="alert_history_query_target_type" class="easyui-combobox" style="width:80px;" data-options="editable:false,
 							valueField: 'label',
 							textField: 'value',
@@ -87,14 +87,14 @@
 							}]" 
 						/>
 						&nbsp;&nbsp;
-						开始时间
+						开始时间：
 						<input id="alert_history_query_start_time" class="easyui-datetimebox" data-options="editable:false" style="width:150px;" />
 						&nbsp;&nbsp;
-						结束时间
+						结束时间：
 						<input id="alert_history_query_end_time" class="easyui-datetimebox" data-options="editable:false" style="width:150px;" />
 						&nbsp;&nbsp;
-						<a id="alert_history_query_submit" href="#" class="easyui-linkbutton" style="width: 80px;">搜索</a>
-						<a id="alert_history_query_cancel" href="#" class="easyui-linkbutton" style="width: 80px;">重置</a>
+						<a id="alert_history_query_submit" href="#" class="easyui-linkbutton" style="width: 60px;height: 25px;">搜索</a>
+						<a id="alert_history_query_cancel" href="#" class="easyui-linkbutton" style="width: 60px;height: 25px;">重置</a>
 					</td>
 				</tr>
 			</table>

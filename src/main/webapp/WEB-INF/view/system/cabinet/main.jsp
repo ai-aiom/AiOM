@@ -30,13 +30,13 @@
 			    ]],
 			    onLoadSuccess: function(data){
 			    	$('[grid_operation]').each(function(){
-			    		var $editButton = $('<span></span>').addClass('operation_icon_black');
+			    		var $editButton = $('<span title="编辑"></span>').addClass('operation_icon_black');
 			    		$editButton.css('background-position', '-64px -112px');
 			    		$editButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 			    		$editButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 			    		$editButton.appendTo($(this));
 			    		
-			    		var $deleteButton = $('<span></span>').addClass('operation_icon_black');
+			    		var $deleteButton = $('<span title="删除"></span>').addClass('operation_icon_black');
 			    		$deleteButton.css('background-position', '-176px -96px');
 			    		$deleteButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 			    		$deleteButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
@@ -55,9 +55,13 @@
 			    					$.ajax({
 			    						url: '<%=ctp %>/system/cabinet/deletecabinet.action?id=' + cabinetIdforDelete,
 			    						dataType: 'json',
-			    						success: function(){
+			    						success: function(data){
 			    							$.messager.progress('close');
-			    							$('#cabinet_main_grid').datagrid('reload');
+			    							if(data.success){
+				    							$('#cabinet_main_grid').datagrid('reload');
+			    							}else{
+			    								$.messager.alert('错误', data.message, 'error');
+			    							}
 			    						}
 			    					});
 			    				}

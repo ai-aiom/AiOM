@@ -36,7 +36,9 @@
 		</action>
 		
 		<action name="deletecabinet" class="com.asiainfo.aiom.view.system.cabinet.CabinetDeleteAction">
-			<result type="json"></result>
+			<result type="json">
+				<param name="property">resultBean</param>
+			</result>
 		</action>
 		
 	</package>

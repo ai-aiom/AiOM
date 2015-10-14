@@ -28,7 +28,7 @@
 			        {field: 'ip', title: 'IP', sortable: true, sorter: commonSorter, width: 100, align: 'center', fixed: true, formatter: function(value, row, index){
 			        	return '<a href = <%=ctp%>/inventory/server/detail.action?serverId='+row.id+' style="text-align: left">'+value+'</a>';
 			        }},
-			        {field: 'serverRuntime.status', title: '监控状态', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'serverRuntime.status', title: '监控状态', width: 100, align: 'center', formatter: function(value, row, index){
 			        	if(value == 1){
 			        		return '<div><img src="<%=ctp%>/images/device/status1.gif" style="vertical-align: middle; margin-right: 5px;">正常</div>';
 			        	} else {
@@ -49,7 +49,7 @@
 			        	return SERVER_POWER_STATUS[value] ? SERVER_POWER_STATUS[value] : value;
 			        }},
 			        {field: 'hostname', title: '主机名', sortable: true, sorter: commonSorter, width: 100, align: 'center'},
-			        {field: 'properties.moduleId', title: '所属模块', sortable: true, sorter: commonSorter, width: 100, align: 'center', formatter: function(value, row, index){
+			        {field: 'properties.moduleId', title: '所属模块', width: 100, align: 'center', formatter: function(value, row, index){
 			        	return MACHINE_SERVER_MOUDLE[value] ? MACHINE_SERVER_MOUDLE[value] : value;
 			        }},
 			        {field: 'properties.cpuRate', title: 'cpu使用率', width: 120, align: 'center', fixed: true, formatter: function(value, row, index){
@@ -69,8 +69,8 @@
 			    	$('[grid_operation]').each(function(){
 			    		var powerStatus = $(this).attr('powerStatus');
 						if (powerStatus == 0) {
-							var $pawerOnButton = $('<span></span>').addClass('operation_icon_black');
-							$pawerOnButton.css('background-position', '0px -160px');
+							var $pawerOnButton = $('<span title="开机"></span>').addClass('operation_icon_black');
+							$pawerOnButton.css('background-position', '0px -240px');
 							$pawerOnButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 				    		$pawerOnButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 							$pawerOnButton.appendTo($(this));
@@ -93,14 +93,14 @@
 				    		});
 						}
 						else if (powerStatus == 1) {
-							var $pawerOffButton = $('<span></span>').addClass('operation_icon_black');
-							$pawerOffButton.css('background-position', '-16px -160px');
+							var $pawerOffButton = $('<span title="关机"></span>').addClass('operation_icon_black');
+							$pawerOffButton.css('background-position', '-16px -240px');
 							$pawerOffButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 				    		$pawerOffButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 							$pawerOffButton.appendTo($(this));
 				    		
-				    		var $pawerResetButton = $('<span></span>').addClass('operation_icon_black');
-							$pawerResetButton.css('background-position', '0px -176px');
+				    		var $pawerResetButton = $('<span title="重启"></span>').addClass('operation_icon_black');
+							$pawerResetButton.css('background-position', '-32px -240px');
 				    		$pawerResetButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 				    		$pawerResetButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 							$pawerResetButton.appendTo($(this));
@@ -140,18 +140,6 @@
 				    		});
 						}
 			    		
-			    		var $editButton = $('<span></span>').addClass('operation_icon_black');
-			    		$editButton.css('background-position', '-64px -112px');
-			    		$editButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
-			    		$editButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
-			    		$editButton.appendTo($(this));
-			    		
-			    		var $deleteButton = $('<span></span>').addClass('operation_icon_black');
-			    		$deleteButton.css('background-position', '-176px -96px');
-			    		$deleteButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
-			    		$deleteButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
-			    		$deleteButton.appendTo($(this));
-			    		
 			    		var rowData;
 			    		var rowId = $(this).attr('serverId');
 			    		for(var i = 0; i < data.rows.length; i++){
@@ -160,8 +148,8 @@
 			    			}
 			    		}
 			    		if(rowData.ipmi != null){
-			    			var $installosButton = $('<span></span>').addClass('operation_icon_black');
-				    		$installosButton.css('background-position', '-192px -112px');
+			    			var $installosButton = $('<span title="安装系统"></span>').addClass('operation_icon_black');
+				    		$installosButton.css('background-position', '-64px -240px');
 				    		$installosButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 				    		$installosButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 				    		$installosButton.appendTo($(this));
@@ -170,6 +158,18 @@
 				    			window.location.href = '<%=ctp %>/system/server/installospage.action?serverId=' + serverId;
 				    		});
 			    		}
+			    		
+			    		var $editButton = $('<span title="编辑"></span>').addClass('operation_icon_black');
+			    		$editButton.css('background-position', '-64px -112px');
+			    		$editButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
+			    		$editButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
+			    		$editButton.appendTo($(this));
+			    		
+			    		var $deleteButton = $('<span title="删除"></span>').addClass('operation_icon_black');
+			    		$deleteButton.css('background-position', '-176px -96px');
+			    		$deleteButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
+			    		$deleteButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
+			    		$deleteButton.appendTo($(this));
 			    		
 			    		$editButton.click(function(){
 			    			var serverIdforUpdate = $(this).parent().attr('serverId');

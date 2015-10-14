@@ -31,7 +31,9 @@
 			<div class="sub_menu_group">
 				<!-- <div class="sub_menu_item">基本设置</div> -->
 				<div class="sub_menu_item" link="<%=ctp %>/system/user/main.action">用户管理</div>
-				<div class="sub_menu_item" link="<%=ctp %>/system/machine/main.action">一体机管理</div>
+				<s:if test="#session.user.role.id == 1">
+					<div class="sub_menu_item" link="<%=ctp %>/system/machine/main.action">一体机管理</div>
+				</s:if>
 			</div>
 			<div class="sub_menu_group">
 				<span>位置</span>

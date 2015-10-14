@@ -8,6 +8,7 @@
  */
 package com.asiainfo.aiom.view.system.user;
 
+import java.util.Iterator;
 import java.util.List;
 
 import com.asiainfo.gim.client.auth.api.UserApi;
@@ -38,6 +39,14 @@ public class UserListAction extends ServletAwareActionSupport
 	public String execute()
 	{
 		users = userApi.listUsers();
+		for (Iterator<User> iterator = users.iterator(); iterator.hasNext();)
+		{
+			User user = (User) iterator.next();
+			if (user.getId() == 1)
+			{
+				iterator.remove();
+			}
+		}
 		return SUCCESS;
 	}
 }

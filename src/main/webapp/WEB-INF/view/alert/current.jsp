@@ -40,8 +40,8 @@
 			    ]],
 			    onLoadSuccess: function(data){
 			    	$('[grid_operation]').each(function(){
-			    		var $confirmButton = $('<span></span>').addClass('operation_icon_black');
-			    		$confirmButton.css('background-position', '-64px -144px');
+			    		var $confirmButton = $('<span title="确认告警"></span>').addClass('operation_icon_black');
+			    		$confirmButton.css('background-position', '-48px -240px');
 			    		$confirmButton.mouseover(function(){$(this).addClass('operation_icon_blue')});
 			    		$confirmButton.mouseout(function(){$(this).removeClass('operation_icon_blue')});
 			    		$confirmButton.appendTo($(this));
