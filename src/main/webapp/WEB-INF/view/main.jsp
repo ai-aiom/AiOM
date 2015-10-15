@@ -58,7 +58,7 @@
 			});
 			
 			$('#main_user_menu_exit').click(function(){
-				$.messager.confirm('确认退出', '确认退出当前账号吗', function(r){
+				$.messager.confirm('确认退出', '确认退出当前账号？', function(r){
 					if (r){
 						window.location.href = '<%=ctp %>/logout.action';
 					}
