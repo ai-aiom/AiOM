@@ -1,10 +1,7 @@
 package com.asiainfo.aiom.view.inventory.server;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -33,6 +30,10 @@ public class MetricListAction extends ServletAwareActionSupport
 
 	private long endTime;
 
+	private String metricName;
+	
+	private MetricViewEntity metricViewEntity;
+
 	private String[] metricNameArray = {
 			// cpu
 			"cpu_idle", "cpu_system", "cpu_user", "cpu_wio",
@@ -45,8 +46,6 @@ public class MetricListAction extends ServletAwareActionSupport
 
 	private String[] memMetricNameArray = { "mem_buffers", "mem_cached", "mem_free", "mem_shared", "swap_free" };
 
-	// 返回给前端的list
-	private Map<String, MetricViewEntity> metricDataMap;
 
 	public String getServerId()
 	{
@@ -83,16 +82,6 @@ public class MetricListAction extends ServletAwareActionSupport
 		this.metricApi = metricApi;
 	}
 
-	public Map<String, MetricViewEntity> getMetricDataMap()
-	{
-		return metricDataMap;
-	}
-
-	public void setMetricDataMap(Map<String, MetricViewEntity> metricDataMap)
-	{
-		this.metricDataMap = metricDataMap;
-	}
-
 	public Server getServer()
 	{
 		return server;
@@ -108,9 +97,24 @@ public class MetricListAction extends ServletAwareActionSupport
 		this.serverApi = serverApi;
 	}
 
-	public String returnMetricPage()
+	public String getMetricName()
 	{
-		return SUCCESS;
+		return metricName;
+	}
+
+	public void setMetricName(String metricName)
+	{
+		this.metricName = metricName;
+	}
+
+	public MetricViewEntity getMetricViewEntity()
+	{
+		return metricViewEntity;
+	}
+
+	public void setMetricViewEntity(MetricViewEntity metricViewEntity)
+	{
+		this.metricViewEntity = metricViewEntity;
 	}
 
 	public String execute()
@@ -118,7 +122,6 @@ public class MetricListAction extends ServletAwareActionSupport
 		MetricQueryParam metricQueryParam = new MetricQueryParam();
 		server = serverApi.findServerById(serverId);
 		metricQueryParam.setIp(server.getIp());
-		metricDataMap = new HashMap<String, MetricViewEntity>();
 		if (startTime == 0 || endTime == 0)
 		{
 			return SUCCESS;
@@ -128,16 +131,27 @@ public class MetricListAction extends ServletAwareActionSupport
 			metricQueryParam.setStartTime(startTime);
 			metricQueryParam.setEndTime(endTime);
 		}
-		for (String metricName : metricNameArray)
+
+		// 普通指标
+		if (isBaseMetric())
 		{
 			metricQueryParam.setMetricName(metricName);
 			List<Metric> metricList = metricApi.listMetric(metricQueryParam);
-			metricDataMap.put(metricName, parseMetric(metricList, metricQueryParam));
+			metricViewEntity = parseMetric(metricList, metricQueryParam);
 		}
+
+		// 如果是内存指标，需修改其单位,转为MB单位数据显示
+		if (isMemMetric())
+		{
+			convertMemDataUnit();
+		}
+
 		// 内存使用率百分比
-		createMemUsedPerDate(metricQueryParam);
-		// 将内存相关的指标转为MB单位数据显示
-		ConvertMemDataUnit();
+		if (StringUtils.endsWithIgnoreCase(metricName, "mem_used_per"))
+		{
+			metricViewEntity = createMemUsedPerDate(metricQueryParam);
+		}
+
 		return SUCCESS;
 	}
 
@@ -158,16 +172,54 @@ public class MetricListAction extends ServletAwareActionSupport
 		return metricViewEntity;
 	}
 
-	private void createMemUsedPerDate(MetricQueryParam metricQueryParam)
+
+	private boolean isBaseMetric()
 	{
-		// 定义新的指标名称 ：内存使用百分比
-		String metricName = "mem_used_per";
+		for (String baseMetricName : metricNameArray)
+		{
+			if (StringUtils.equalsIgnoreCase(baseMetricName, metricName))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isMemMetric()
+	{
+		for (String memMetricName : memMetricNameArray)
+		{
+			if (StringUtils.equalsIgnoreCase(memMetricName, metricName))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void convertMemDataUnit()
+	{
+		metricViewEntity.setUnit("MB");
+		List<Object> memDatasMB = new ArrayList<Object>();
+		for (Object memData : metricViewEntity.getData())
+		{
+			memDatasMB.add((int) (Float.parseFloat(String.valueOf(memData)) / 1024));
+		}
+		metricViewEntity.setData(memDatasMB);
+	}
+
+	private MetricViewEntity createMemUsedPerDate(MetricQueryParam metricQueryParam)
+	{
 		metricQueryParam.setMetricName("mem_total");
 		List<Metric> memTotalMetricList = metricApi.listMetric(metricQueryParam);
+		metricQueryParam.setMetricName("mem_free");
+		List<Metric> memFreeMetricList = metricApi.listMetric(metricQueryParam);
+		MetricViewEntity memFreeMetricViewEntity = parseMetric(memFreeMetricList, metricQueryParam);
 		List<Object> memUsedPerData = new ArrayList<Object>();
-		MetricViewEntity memFreeMetricViewEntity = metricDataMap.get("mem_free");
-		if(memTotalMetricList != null && memTotalMetricList.size() != 0){
-			float memTotal = Float.parseFloat(String.valueOf(memTotalMetricList.get(0).getValue()));
+		if (memTotalMetricList != null && memTotalMetricList.size() != 0)
+		{
+			float memTotal = Float.parseFloat(String.valueOf(memTotalMetricList.get(memTotalMetricList.size() - 1)
+					.getValue()));
 			for (Object value : memFreeMetricViewEntity.getData())
 			{
 				float valueFloat = Float.parseFloat(String.valueOf(value));
@@ -176,32 +228,9 @@ public class MetricListAction extends ServletAwareActionSupport
 		}
 		MetricViewEntity memUsedPerViewEntity = new MetricViewEntity();
 		memUsedPerViewEntity.setData(memUsedPerData);
-		memUsedPerViewEntity.setName(metricName);
+		memUsedPerViewEntity.setName("mem_used_per");
 		memUsedPerViewEntity.setUnit("%");
 		memUsedPerViewEntity.setXdata(memFreeMetricViewEntity.getXdata());
-		metricDataMap.put(metricName, memUsedPerViewEntity);
+		return memUsedPerViewEntity;
 	}
-
-	private void ConvertMemDataUnit()
-	{
-		Set<String> metricNames = metricDataMap.keySet();
-		for (String metricName : metricNames)
-		{
-			for (String memMetricName : memMetricNameArray)
-			{
-				if (StringUtils.equalsIgnoreCase(metricName, memMetricName))
-				{
-					MetricViewEntity memMetricViewEntity = metricDataMap.get(memMetricName);
-					memMetricViewEntity.setUnit("MB");
-					List<Object> memDatasMB = new ArrayList<Object>();
-					for (Object memData : memMetricViewEntity.getData())
-					{
-						memDatasMB.add((int) (Float.parseFloat(String.valueOf(memData)) / 1024));
-					}
-					memMetricViewEntity.setData(memDatasMB);
-				}
-			}
-		}
-	}
-
 }

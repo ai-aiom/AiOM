@@ -98,22 +98,23 @@
 		}
 		
 		var loadData = function(startTime, endTime){
-			$.ajax({
-				url : '<%=ctp %>/inventory/server/listMetric.action',
-		        type : 'POST',
-		        data: {
-		        	serverId : '<s:property value="#parameters.serverId"/>',
-		        	startTime : startTime,
-		        	endTime : endTime
-		        },
-		        dataType : 'json',
-		        success : function(metricDataMap) {
-		        	for(var metricName in metricDataMap){
-		        		var series = metricDataMap[metricName];
-		        		option.legend.data = [metricName];
+			for(var metricName in chartsDom){
+				$.ajax({
+					url : '<%=ctp %>/inventory/server/listMetric.action',
+			        type : 'POST',
+			        data: {
+			        	serverId : '<s:property value="#parameters.serverId"/>',
+			        	startTime : startTime,
+			        	endTime : endTime,
+			        	metricName : metricName
+			        },
+			        dataType : 'json',
+			        success : function(metricViewEntity) {
+			        	var series = metricViewEntity;
+		        		option.legend.data = [series.name];
 		        		//无数据的时候显示格式：指标名称+' 暂无数据'
-		        		option.noDataLoadingOption.text = metricName + '  暂无数据';
-		        		var xdata = metricDataMap[metricName].xdata;
+		        		option.noDataLoadingOption.text = series.name + '  暂无数据';
+		        		var xdata = series.xdata;
 		        		var xdataLength = xdata.length;
 		        		for(var time in xdata){
 		        			xdata[time] = xdataTimeFormat(xdata[time]);
@@ -127,12 +128,12 @@
 		   	            series.type = "line";
 		   	            series.stack = "总量";
 		   	         	option.series[0] = series;
-		   	         	if(chartsDom[metricName]) {
-		   	         	 	echarts.init(chartsDom[metricName], blueTheme).setOption(option);
+		   	         	if(chartsDom[series.name]) {
+		   	         	 	echarts.init(chartsDom[series.name], blueTheme).setOption(option);
 		   	         	}
-		        	}
-		        }
-		   });
+			        }
+				});
+			}
 		}
 		
 		//默认初始是一个小时之前的数据
