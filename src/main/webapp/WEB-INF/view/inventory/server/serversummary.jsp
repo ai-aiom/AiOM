@@ -680,7 +680,7 @@
 						<table id="server_summary_ipmi_show_table" class="info_grid">
 							<tr>
 								<td width=100><span>主机</span></td>
-								<td><s:property value="server.ipmi.host"/></td>
+								<td><a href="http://<s:property value="server.ipmi.host"/>" target="_blank"><s:property value="server.ipmi.host"/></a></td>
 							</tr>
 							<tr>
 								<td><span>账号</span></td>
