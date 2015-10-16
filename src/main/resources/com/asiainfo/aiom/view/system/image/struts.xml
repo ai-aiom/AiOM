@@ -14,12 +14,6 @@
 		<action name="addimage">
 			<result>/WEB-INF/view/system/image/imageadd.jsp</result>
 		</action>
-	
-		<action name="listdistro" class="com.asiainfo.aiom.view.system.image.ImageManagerAction" method="listDistro">
-			<result type="json">
-				<param name="property">distroList</param>
-			</result>
-		</action>
 		
 		<action name="listimage" class="com.asiainfo.aiom.view.system.image.ImageManagerAction" method="listImage">
 			<result type="json">
@@ -39,9 +33,15 @@
 			</result>
 		</action>
 		
-		<action name="deletedistro" class="com.asiainfo.aiom.view.system.image.ImageManagerAction" method="deleteDistro">
+		<action name="deleteimage" class="com.asiainfo.aiom.view.system.image.ImageManagerAction" method="deleteImage">
 			<result type="json">
 				<param name="property">resultBean</param>
+			</result>
+		</action>
+		
+		<action name="listimagedefaultconf" class="com.asiainfo.aiom.view.system.image.ImageManagerAction" method="listImageDefaultConf">
+			<result type="json">
+				<param name="property">imageDefaultConfList</param>
 			</result>
 		</action>
 		
