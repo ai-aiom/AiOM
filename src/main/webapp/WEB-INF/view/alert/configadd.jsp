@@ -91,7 +91,7 @@
 							textField: 'value',
 							data: [{
 								label: '1',
-								value: '性能告警',
+								value: '性能告警'
 							}]" name="alertConfig.type" style="width: 300px; height: 25px;">
 						</td>
 					</tr>
