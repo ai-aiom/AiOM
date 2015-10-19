@@ -6,9 +6,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.asiainfo.gim.client.deploy.api.ImageApi;
 import com.asiainfo.gim.client.deploy.api.NodeApi;
-import com.asiainfo.gim.client.deploy.domain.Image;
 import com.asiainfo.gim.client.deploy.domain.Node;
 import com.asiainfo.gim.client.server_manage.api.ServerApi;
 import com.asiainfo.gim.client.server_manage.domain.Ipmi;
@@ -22,15 +20,11 @@ public class ServerInstallOsAction extends ServletAwareActionSupport {
 
 	private NodeApi nodeApi;
 
-	private ImageApi imageApi;
-	
 	private ServerApi serverApi;
 
 	private String serverId;
 	
 	private Node node;
-
-	private String templateId;
 
 	private ResultBean resultBean;
 
@@ -70,10 +64,6 @@ public class ServerInstallOsAction extends ServletAwareActionSupport {
 		node.setMac(mac);
 		node.setIp(ip);
 		nodeApi.addNode(node);
-		Image image = new Image();
-		image.setImagename(node.getOsimage());
-		image.setTemplateId(templateId);
-		imageApi.updateImageTemplate(image);
 		nodeApi.installos(node);
 		resultBean = new ResultBean(true, "success");
 		return SUCCESS;
@@ -82,11 +72,6 @@ public class ServerInstallOsAction extends ServletAwareActionSupport {
 	@Resource
 	public void setNodeApi(NodeApi nodeApi) {
 		this.nodeApi = nodeApi;
-	}
-
-	@Resource
-	public void setImageApi(ImageApi imageApi) {
-		this.imageApi = imageApi;
 	}
 
 	@Resource
@@ -108,14 +93,6 @@ public class ServerInstallOsAction extends ServletAwareActionSupport {
 
 	public void setNode(Node node) {
 		this.node = node;
-	}
-
-	public String getTemplateId() {
-		return templateId;
-	}
-
-	public void setTemplateId(String templateId) {
-		this.templateId = templateId;
 	}
 
 	public ResultBean getResultBean() {
