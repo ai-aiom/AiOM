@@ -93,12 +93,6 @@
 						<td><input class="easyui-textbox" data-options="required: true" name="template.tempInfo.name" style="width: 300px; height: 25px;"></td>
 					</tr>
 					<tr>
-						<td width="150">模板类型</td>
-						<td><select class="easyui-combobox" data-options="required:true,editable:false" name="template.tempInfo.type" style="width: 300px; height: 25px;">
-							<option value='kickstart'>kickstart</option>
-						</select></td>
-					</tr>
-					<tr>
 						<td width="150">模板描述</td>
 						<td><input class="easyui-textbox" data-options="" name="template.tempInfo.desc" style="width: 300px; height: 25px;"></td>
 					</tr>
