@@ -64,31 +64,44 @@
 	<div data-options="region:'center', border: false" style="padding: 10px">
 		<form id="image_create_form">
 			<div class="form_fieldset">
+				<span>镜像信息</span>
+				<table>
+					<tr>
+						<td width="150">名称</td>
+						<td><input class="easyui-textbox" data-options="required:true" name="image.name" style="width: 300px; height: 25px;"></td>
+					</tr>
+					<tr>
+						<td width="150">描述</td>
+						<td><input class="easyui-textbox" data-options="required:false" name="image.desc" style="width: 300px; height: 25px;"></td>
+					</tr>
+					<tr>
+						<td width="150">系统类型</td>
+						<td><select class="easyui-combobox" data-options="required:true,editable:false" name="image.osType" style="width: 300px; height: 25px;">
+							<option value='centos'>CentOS</option>
+							<option value='rhel'>RHEL</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td width="150">系统版本</td>
+						<td><select class="easyui-combobox" data-options="required:true,editable:false" name="image.osVersion" style="width: 300px; height: 25px;">
+							<option value='6.5'>6.5</option>
+							<option value='6.6'>6.6</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td width="150">系统架构</td>
+						<td><select class="easyui-combobox" data-options="required:false,editable:false" name="image.osArch" style="width: 300px; height: 25px;">
+							<option value='x86_64'>x86_64</option>
+						</select></td>
+					</tr>
+				</table>
+			</div>
+			<div class="form_fieldset">
 				<span>文件信息</span>
 				<table>
 					<tr>
 						<td width="150">选择镜像文件</td>
 						<td><input id="select_iso_file" name="image.isoFile" style="width: 300px; height: 25px;"></td>
-					</tr>
-				</table>
-			</div>
-			<div class="form_fieldset">
-				<span>镜像信息</span>
-				<table>
-					<tr>
-						<td width="150">镜像版本</td>
-						<td><input class="easyui-textbox" data-options="required:false,prompt:'有效值为centos*、rhel*、sles*等，*表示镜像版本'" name="image.osvers" style="width: 300px; height: 25px;"></td>
-					</tr>
-					<tr>
-						<td width="150">镜像架构</td>
-						<td><select class="easyui-combobox" data-options="required:false,editable:false" name="image.osarch" style="width: 300px; height: 25px;">
-							<option value=''>自动识别</option>
-							<option value='x86_64'>x86_64</option>
-							<option value='x86'>x86</option>
-							<option value='ia64'>ia64</option>
-							<option value='ppc64'>ppc64</option>
-							<option value='s390x'>s390x</option>
-						</select></td>
 					</tr>
 				</table>
 			</div>

@@ -50,8 +50,19 @@
 			
 			$('#id_image_combobox').combobox({
 				url:'<%=ctp %>/system/image/listimage.action',
-				valueField:'imagename',
-				textField:'imagename',
+				valueField:'id',
+				textField:'name',
+				required: true,
+				editable:false,
+				onSelect:function(rec){
+					var url = '<%=ctp %>/system/image/listimagedefaultconf.action?imageId=' + rec.id;
+					$('#id_imagetype_combobox').combobox('reload', url);
+				}
+			});
+			
+			$('#id_imagetype_combobox').combobox({
+				valueField:'imageName',
+				textField:'displayName',
 				required: true,
 				editable:false
 			});
@@ -97,7 +108,11 @@
 				<table>
 					<tr>
 						<td width="150">选择镜像</td>
-						<td><input id="id_image_combobox" name="node.osimage" style="width: 300px; height: 25px;"></td>
+						<td><input id="id_image_combobox" style="width: 300px; height: 25px;"></td>
+					</tr>
+					<tr>
+						<td width="150">安装类型</td>
+						<td><input id="id_imagetype_combobox" name="node.osimage" style="width: 300px; height: 25px;"></td>
 					</tr>
 					<tr>
 						<td width="150">选择模板</td>
