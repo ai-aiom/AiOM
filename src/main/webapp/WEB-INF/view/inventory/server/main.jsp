@@ -32,8 +32,7 @@
 			        	if(value == 1){
 			        		return '<div><img src="<%=ctp%>/images/device/status1.gif" style="vertical-align: middle; margin-right: 5px;">正常</div>';
 			        	} else {
-			        		var message = row.monitorType == '1' ? '监控不可达' : '无监控心跳';
-			        		return '<div><img src="<%=ctp%>/images/device/status0.gif" style="vertical-align: middle; margin-right: 5px;">' + message + '</div>';
+			        		return '<div><img src="<%=ctp%>/images/device/status0.gif" style="vertical-align: middle; margin-right: 5px;">离线</div>';
 			        	}
 			        }},
 			        {field: 'monitorType', title: '监控类型', sortable: true, sorter: commonSorter, width: 80, align: 'center', formatter: function(value, row, index){

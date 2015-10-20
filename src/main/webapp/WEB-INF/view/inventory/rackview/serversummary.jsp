@@ -17,7 +17,7 @@
 			$summaryTable.find('.rackview_server_summary_status').find('img').attr('src', '<%=ctp %>/images/device/status1.gif');
 		}
 		else {
-			$summaryTable.find('.rackview_server_summary_status').find('span').text(monitorType == '1' ? '监控不可达' : '无监控心跳');
+			$summaryTable.find('.rackview_server_summary_status').find('span').text('离线');
 			$summaryTable.find('.rackview_server_summary_status').find('img').attr('src', '<%=ctp %>/images/device/status0.gif');
 		}
 		
