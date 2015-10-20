@@ -61,7 +61,7 @@
 			});
 			
 			$('#id_imagetype_combobox').combobox({
-				valueField:'imageName',
+				valueField:'imagename',
 				textField:'displayName',
 				required: true,
 				editable:false
@@ -112,11 +112,11 @@
 					</tr>
 					<tr>
 						<td width="150">安装类型</td>
-						<td><input id="id_imagetype_combobox" name="node.osimage" style="width: 300px; height: 25px;"></td>
+						<td><input id="id_imagetype_combobox" name="node.osImageType" style="width: 300px; height: 25px;"></td>
 					</tr>
 					<tr>
 						<td width="150">选择模板</td>
-						<td><input id="id_template_combobox" name="templateId" style="width: 300px; height: 25px;"></td>
+						<td><input id="id_template_combobox" name="node.templateId" style="width: 300px; height: 25px;"></td>
 					</tr>
 				</table>
 			</div>

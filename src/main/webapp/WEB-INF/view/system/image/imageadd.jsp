@@ -36,9 +36,13 @@
 						dataType: 'json',
 						success: function(data){
 							$.messager.progress('close');
-							$.messager.alert('成功','添加镜像成功！','info',function(){
-								window.location.href = '<%=ctp %>/system/image/main.action';
-							});
+							if(data.success){
+								$.messager.alert('成功','添加镜像成功！','info',function(){
+									window.location.href = '<%=ctp %>/system/image/main.action';
+								});
+							}else {
+								$.messager.alert('错误',data.message,'error');
+							}
 						}
 					});
 				}
