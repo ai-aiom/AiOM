@@ -70,7 +70,7 @@
 		<table>
 			<tr>
 				<s:iterator value="cabinets" var="rack">
-					<td style="padding: 0px 10px 0px 10px; text-align: center">
+					<td style="padding: 0px 10px 90px 10px; text-align: center;" valign="bottom">
 						<table class="racktable" rackId="<s:property value='#rack.id'/>" rackSize="<s:property value='#rack.size'/>">
 							<tr>
 								<td class="leftside"></td>
