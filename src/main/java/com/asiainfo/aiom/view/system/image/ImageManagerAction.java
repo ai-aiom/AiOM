@@ -14,7 +14,8 @@ import com.asiainfo.gim.client.deploy.domain.IsoFile;
 import com.asiainfo.support.struts2.ResultBean;
 import com.asiainfo.support.struts2.ServletAwareActionSupport;
 
-public class ImageManagerAction extends ServletAwareActionSupport {
+public class ImageManagerAction extends ServletAwareActionSupport
+{
 
 	private static final long serialVersionUID = -1334069275104700434L;
 
@@ -32,16 +33,27 @@ public class ImageManagerAction extends ServletAwareActionSupport {
 
 	private ResultBean resultBean;
 
-	public String listImage() {
+	public String listImage()
+	{
 		imageList = imageApi.listImages();
 		return SUCCESS;
 	}
 
-	public String createImage() {
+	public String createImage()
+	{
 		List<Image> imageList = imageApi.listImages();
-		for (Image img : imageList) {
-			if (StringUtils.equals(img.getName(), image.getName())) {
+		for (Image img : imageList)
+		{
+			if (StringUtils.equals(img.getName(), image.getName()))
+			{
 				resultBean = new ResultBean(false, "镜像名称重复，请修改！");
+				return SUCCESS;
+			}
+			if (StringUtils.equals(img.getOsType(), image.getOsType())
+					&& StringUtils.equals(img.getOsVersion(), image.getOsVersion())
+					&& StringUtils.equals(img.getOsArch(), image.getOsArch()))
+			{
+				resultBean = new ResultBean(false, "镜像重复，请修改！");
 				return SUCCESS;
 			}
 		}
@@ -50,98 +62,124 @@ public class ImageManagerAction extends ServletAwareActionSupport {
 		return SUCCESS;
 	}
 
-	public String deleteImage() {
+	public String deleteImage()
+	{
 		imageApi.deleteImage(imageId);
 		resultBean = new ResultBean(true, "success");
 		return SUCCESS;
 	}
 
-	public String listImageDefaultConf() {
+	public String listImageDefaultConf()
+	{
 		Image image = imageApi.getImage(imageId);
-		String distroName = image.getOsType() + image.getOsVersion() + "-"
-				+ image.getOsArch();
+		String distroName = image.getOsType() + image.getOsVersion() + "-" + image.getOsArch();
 		imageDefaultConfList = imageApi.listImageDefaultConf();
 		Iterator<ImageDefaultConf> it = imageDefaultConfList.iterator();
-		while (it.hasNext()) {
+		while (it.hasNext())
+		{
 			ImageDefaultConf imgConf = it.next();
 			if (StringUtils.equals(distroName, imgConf.getOsDistroName())
-					&& StringUtils.equals("install", imgConf.getProvMethod())) {
-				if (StringUtils.equals("kvm", imgConf.getProfile())) {
+					&& StringUtils.equals("install", imgConf.getProvMethod()))
+			{
+				if (StringUtils.equals("kvm", imgConf.getProfile()))
+				{
 					imgConf.setDisplayName("kvm安装");
-				} else if (StringUtils.equals("all", imgConf.getProfile())) {
+				}
+				else if (StringUtils.equals("all", imgConf.getProfile()))
+				{
 					imgConf.setDisplayName("完全安装");
-				} else if (StringUtils.equals("compute", imgConf.getProfile())) {
+				}
+				else if (StringUtils.equals("compute", imgConf.getProfile()))
+				{
 					imgConf.setDisplayName("基本服务器安装");
-				} else {
+				}
+				else
+				{
 					it.remove();
 				}
-			} else {
+			}
+			else
+			{
 				it.remove();
 			}
 		}
 		return SUCCESS;
 	}
 
-	public String listIsoFile() {
+	public String listIsoFile()
+	{
 		isoList = imageApi.listIsoFile(null);
 		return SUCCESS;
 	}
 
 	@Resource
-	public void setImageApi(ImageApi imageApi) {
+	public void setImageApi(ImageApi imageApi)
+	{
 		this.imageApi = imageApi;
 	}
 
-	public List<Image> getImageList() {
+	public List<Image> getImageList()
+	{
 		return imageList;
 	}
 
-	public void setImageList(List<Image> imageList) {
+	public void setImageList(List<Image> imageList)
+	{
 		this.imageList = imageList;
 	}
 
-	public Image getImage() {
+	public Image getImage()
+	{
 		return image;
 	}
 
-	public void setImage(Image image) {
+	public void setImage(Image image)
+	{
 		this.image = image;
 	}
 
-	public List<IsoFile> getIsoList() {
+	public List<IsoFile> getIsoList()
+	{
 		return isoList;
 	}
 
-	public void setIsoList(List<IsoFile> isoList) {
+	public void setIsoList(List<IsoFile> isoList)
+	{
 		this.isoList = isoList;
 	}
 
-	public ImageApi getImageApi() {
+	public ImageApi getImageApi()
+	{
 		return imageApi;
 	}
 
-	public ResultBean getResultBean() {
+	public ResultBean getResultBean()
+	{
 		return resultBean;
 	}
 
-	public void setResultBean(ResultBean resultBean) {
+	public void setResultBean(ResultBean resultBean)
+	{
 		this.resultBean = resultBean;
 	}
 
-	public Integer getImageId() {
+	public Integer getImageId()
+	{
 		return imageId;
 	}
 
-	public void setImageId(Integer imageId) {
+	public void setImageId(Integer imageId)
+	{
 		this.imageId = imageId;
 	}
 
-	public List<ImageDefaultConf> getImageDefaultConfList() {
+	public List<ImageDefaultConf> getImageDefaultConfList()
+	{
 		return imageDefaultConfList;
 	}
 
-	public void setImageDefaultConfList(
-			List<ImageDefaultConf> imageDefaultConfList) {
+	public void setImageDefaultConfList(List<ImageDefaultConf> imageDefaultConfList)
+	{
 		this.imageDefaultConfList = imageDefaultConfList;
 	}
 
