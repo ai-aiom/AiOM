@@ -30,6 +30,16 @@
 		$('input').click(function(){$('.error').empty()});
 		
 		$('#btn_submit').click(function(){
+			doLogin();
+		});
+		
+		$(window).keydown(function(event){
+			if(event.keyCode == 13){
+				doLogin();
+			}
+		});
+		
+		var doLogin = function(){
 			$('.input_username').val($.trim($('.input_username').val()));
 			$('.input_password').val($.trim($('.input_password').val()))
 			
@@ -50,7 +60,7 @@
 					}
 				});
 			}
-		});
+		}
 	});
 </script>
 </head>

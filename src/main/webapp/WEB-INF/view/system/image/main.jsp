@@ -18,19 +18,17 @@
 		
 		$(function(){
 			$('#image_main_grid').datagrid({    
-			    url:'<%=ctp %>/system/image/listdistro.action',
+			    url:'<%=ctp %>/system/image/listimage.action',
 			    fit: true,
 			    fitColumns: true,
 			    columns:[[
-			        {field: 'osdistroname',title:'发行名称', width: 200, align: 'center'},
-			        {field: 'basename', title: '基本名称', width: 200, align: 'center'},
-			        {field: 'majorversion', title: '主版本', width: 100, align: 'center'},
-			        {field: 'minorversion', title: '子版本', width: 100, align: 'center'},
-			        {field: 'arch', title: '架构', width: 100, align: 'center'},
-			        {field: 'type', title: '类型', width: 100, align: 'center'},
-			        {field: 'dirpaths', title: '安装目录', width: 300, align: 'center'},
+			        {field: 'name',title:'名称', width: 200, align: 'center'},
+			        {field: 'desc', title: '描述', width: 300, align: 'center'},
+			        {field: 'osType', title: '系统类型', width: 100, align: 'center'},
+			        {field: 'osVersion', title: '系统版本', width: 100, align: 'center'},
+			        {field: 'osArch', title: '系统架构', width: 100, align: 'center'},
 			        {field: 'id', title: '操作', width: 200, align: 'center', formatter: function(value, row, index){
-			        	return '<div grid_operation distroname="' + value + '" style="text-align: left"></div>';
+			        	return '<div grid_operation imageid="' + value + '" style="text-align: left"></div>';
 			        }}
 			    ]],
 			    onLoadSuccess: function(data){
@@ -42,12 +40,12 @@
 			    		$deleteButton.appendTo($(this));
 			    		
 			    		$deleteButton.click(function(){
-			    			var distroName = $(this).parent().attr('distroname');
+			    			var imageId = $(this).parent().attr('imageid');
 			    			$.messager.confirm('确认删除', '确认要删除此镜像', function(r){
 			    				if (r){
 			    					$.messager.progress({text: '正在处理，请稍后...'});
 			    					$.ajax({
-			    						url: '<%=ctp %>/system/image/deletedistro.action?distroName=' + distroName,
+			    						url: '<%=ctp %>/system/image/deleteimage.action?imageId=' + imageId,
 			    						dataType: 'json',
 			    						success: function(){
 			    							$.messager.progress('close');

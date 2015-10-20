@@ -49,6 +49,9 @@
 				valueField:'id',
 			    textField:'ip'
 			});
+			
+			//告警类型默认选择 "性能告警"
+			$("#alert_type_add").combobox('setValue', 1);
 		});
 		
 	</script>
@@ -83,7 +86,7 @@
 					<tr>
 						<td>告警类型</td>
 						<td>
-							<input class="easyui-combobox" data-options="required:true,editable:false,
+							<input id="alert_type_add" class="easyui-combobox" data-options="required:true,editable:false,
 							valueField: 'label',
 							textField: 'value',
 							data: [{
@@ -95,7 +98,7 @@
 					<tr>
 						<td>告警级别</td>
 						<td>
-							<input class="easyui-combobox" data-options="editable:false,
+							<input class="easyui-combobox" data-options="required:true,editable:false,
 							valueField: 'label',
 							textField: 'value',
 							data: [{
