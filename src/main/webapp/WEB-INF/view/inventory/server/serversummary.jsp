@@ -397,7 +397,7 @@
 		if (serverRuntimeStatus == 1){
 			$('#server_runtime_status').text("正常");
 		}else{
-			$('#server_runtime_status').text("不可达");
+			$('#server_runtime_status').text("离线");
 		}
 		
 		var monitorType = <s:property value="server.monitorType"/>;
