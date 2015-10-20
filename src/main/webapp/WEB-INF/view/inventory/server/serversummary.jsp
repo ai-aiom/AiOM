@@ -601,7 +601,19 @@
 								</tr>
 								<tr>
 									<td><span>大小</span></td>
-									<td><input class="easyui-textbox" data-options="validType:['maxLength[40]']" name="site.size" value="<s:property value="server.site.size"/>" style="width: 150px"></td>
+									<td><input class="easyui-combobox" data-options="editable:false,
+									valueField: 'label',
+									textField: 'value',
+									data: [{
+										label: '1',
+										value: '1'
+									},{
+										label: '2',
+										value: '2'
+									},{
+										label: '4',
+										value: '4'
+									}]" name="site.size" value="<s:property value="server.site.size"/>" style="width: 150px"></td>
 								</tr>
 								<tr>
 									<td><span>槽位</span></td>
